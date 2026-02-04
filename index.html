@@ -13,7 +13,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <img src="assets/images/logo.png" alt="شعار يوم التأسيس" class="logo-img">
+                <img src="https://www.foundingday.sa/-/media/FoundingDay/images/Header/Header-logo.svg" alt="شعار يوم التأسيس" class="logo-img">
                 <span class="logo-text">رحلة التأسيس</span>
             </div>
             
@@ -30,12 +30,9 @@
                 </div>
                 <a href="competition/" class="nav-link"><i class="fas fa-trophy"></i> المسابقة</a>
                 <a href="games/" class="nav-link"><i class="fas fa-gamepad"></i> الألعاب</a>
-                <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i> عنا</a>
                 
-                <div class="auth-buttons">
-                    <button class="btn-login" onclick="openLoginModal()">تسجيل الدخول</button>
-                    <button class="btn-register" onclick="openRegisterModal()">تسجيل جديد</button>
-                </div>
+                <!-- تم حذف قسم "عنا" -->
+                <!-- تم حذف أزرار تسجيل الدخول والتسجيل -->
             </div>
             
             <button class="menu-toggle" onclick="toggleMenu()">
@@ -52,7 +49,7 @@
                 <p class="hero-subtitle">انضمي إلى الرحلة التفاعلية الأكبر للاحتفاء بيوم التأسيس السعودي ٢٠٢٦</p>
                 <div class="hero-buttons">
                     <a href="#exhibits" class="btn-primary">ابدأ الرحلة <i class="fas fa-arrow-left"></i></a>
-                    <a href="competition/" class="btn-secondary">سجل في المسابقة <i class="fas fa-trophy"></i></a>
+                    <!-- تم حذف زر "سجل في المسابقة" -->
                 </div>
                 <div class="countdown-container">
                     <h3>العد التنازلي ليوم التأسيس</h3>
@@ -79,33 +76,7 @@
         </div>
     </section>
 
-    <!-- قسم إحصائيات سريعة -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <i class="fas fa-users"></i>
-                    <h3><span class="counter" data-target="1250">0</span>+</h3>
-                    <p>طالبة مشاركة</p>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-trophy"></i>
-                    <h3><span class="counter" data-target="50">0</span>+</h3>
-                    <p>جائزة قيمة</p>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-puzzle-piece"></i>
-                    <h3><span class="counter" data-target="8">0</span></h3>
-                    <p>ألعاب تفاعلية</p>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-calendar-alt"></i>
-                    <h3><span class="counter" data-target="7">0</span></h3>
-                    <p>أيام من الفعاليات</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- تم حذف قسم إحصائيات سريعة بالكامل -->
 
     <!-- قسم المعارض التفاعلية -->
     <section id="exhibits" class="exhibits-section">
@@ -171,47 +142,10 @@
                         </div>
                     </div>
                     
-                    <a href="competition/" class="btn-primary">سجل في المسابقة الآن</a>
+                    <!-- تم حذف زر "سجل في المسابقة الآن" -->
                 </div>
                 
-                <div class="highlight-stats">
-                    <div class="live-stats">
-                        <h4>إحصائيات حية</h4>
-                        <div class="stat">
-                            <span class="stat-label">المشاركات اليوم:</span>
-                            <span class="stat-value" id="todayParticipants">٣٤٧</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-label">الأفضل اليوم:</span>
-                            <span class="stat-value" id="topScore">٩٨٥</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-label">الوقت المتبقي:</span>
-                            <span class="stat-value" id="quizTime">٢٣:١٥:٠٨</span>
-                        </div>
-                    </div>
-                    
-                    <div class="leaderboard-preview">
-                        <h4>أفضل ٣ مشاركات</h4>
-                        <ol>
-                            <li>
-                                <span class="rank">١</span>
-                                <span class="name">نورة أحمد</span>
-                                <span class="score">٩٨٥ نقطة</span>
-                            </li>
-                            <li>
-                                <span class="rank">٢</span>
-                                <span class="name">سارة الخالدي</span>
-                                <span class="score">٩٧٢ نقطة</span>
-                            </li>
-                            <li>
-                                <span class="rank">٣</span>
-                                <span class="name">فاطمة العتيبي</span>
-                                <span class="score">٩٦٥ نقطة</span>
-                            </li>
-                        </ol>
-                    </div>
-                </div>
+                <!-- تم حذف قسم highlight-stats بالكامل -->
             </div>
         </div>
     </section>
@@ -290,57 +224,20 @@
         </div>
     </section>
 
-    <!-- قسم الفعاليات القادمة -->
-    <section class="events-section">
-        <div class="container">
-            <h2 class="section-title">الفعاليات القادمة</h2>
-            <div class="events-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-date">
-                        <span class="day">٢٢</span>
-                        <span class="month">فبراير</span>
-                    </div>
-                    <div class="timeline-content">
-                        <h3>حفل افتتاح المسابقة</h3>
-                        <p>حفل افتراضي لبدء مسابقة "باحثات التأسيس" بحضور ضيوف شرف.</p>
-                        <span class="event-time"><i class="far fa-clock"></i> ٦:٠٠ مساءً</span>
-                        <button class="btn-small" onclick="registerEvent(1)">سجل حضورك</button>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-date">
-                        <span class="day">٢٤</span>
-                        <span class="month">فبراير</span>
-                    </div>
-                    <div class="timeline-content">
-                        <h3>ورشة التراث السعودي</h3>
-                        <p>ورشة تفاعلية عن الحرف اليدوية التقليدية السعودية.</p>
-                        <span class="event-time"><i class="far fa-clock"></i> ٤:٠٠ عصراً</span>
-                        <button class="btn-small" onclick="registerEvent(2)">سجل حضورك</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- تم حذف قسم الفعاليات القادمة بالكامل -->
 
     <!-- الفوتر -->
-    <footer id="about">
+    <footer>
         <div class="footer-container">
             <div class="footer-section">
                 <div class="footer-logo">
-                    <img src="assets/images/logo.png" alt="شعار يوم التأسيس">
+                    <img src="https://www.foundingday.sa/-/media/FoundingDay/images/Header/Header-logo.svg" alt="شعار يوم التأسيس">
                     <h3>رحلة التأسيس</h3>
                 </div>
                 <p class="footer-description">
-                    مشروع تعليمي تفاعلي بمناسبة يوم التأسيس السعودي ٢٠٢٦، تم تطويره بالتعاون مع طالبات قسم الحاسب الآلي.
+                    مشروع تعليمي تفاعلي بمناسبة يوم التأسيس السعودي ٢٠٢٦، تم تطويره بواسطة المدربة شروق الحربي.
                 </p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-tiktok"></i></a>
-                </div>
+                <!-- تم حذف وسائل التواصل الاجتماعي -->
             </div>
             
             <div class="footer-section">
@@ -350,7 +247,6 @@
                     <li><a href="#exhibits">المعرض الافتراضي</a></li>
                     <li><a href="competition/">المسابقة</a></li>
                     <li><a href="games/">الألعاب</a></li>
-                    <li><a href="#about">عن المشروع</a></li>
                 </ul>
             </div>
             
@@ -364,21 +260,8 @@
                 </ul>
             </div>
             
-            <div class="footer-section">
-                <h4>اتصل بنا</h4>
-                <div class="contact-info">
-                    <p><i class="fas fa-envelope"></i> foundingday@uni.edu.sa</p>
-                    <p><i class="fas fa-phone"></i> +٩٦٦ ١١ ٢٣٤ ٥٦٧٨</p>
-                    <p><i class="fas fa-map-marker-alt"></i> قسم الحاسب الآلي، الجامعة</p>
-                </div>
-                <div class="newsletter">
-                    <h5>اشترك في النشرة</h5>
-                    <form id="newsletterForm">
-                        <input type="email" placeholder="بريدك الإلكتروني" required>
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
-            </div>
+            <!-- تم حذف قسم "اتصل بنا" بالكامل -->
+            <!-- تم حذف قسم "اشترك في النشرة" بالكامل -->
         </div>
         
         <div class="footer-bottom">
@@ -387,56 +270,8 @@
         </div>
     </footer>
 
-    <!-- نافذة تسجيل الدخول -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeLoginModal()">&times;</span>
-            <h2>تسجيل الدخول</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">البريد الإلكتروني</label>
-                    <input type="email" id="loginEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">كلمة المرور</label>
-                    <input type="password" id="loginPassword" required>
-                </div>
-                <button type="submit" class="btn-primary">تسجيل الدخول</button>
-            </form>
-            <p class="form-footer">ليس لديك حساب؟ <a href="#" onclick="switchToRegister()">سجل الآن</a></p>
-        </div>
-    </div>
-    
-    <!-- نافذة التسجيل -->
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeRegisterModal()">&times;</span>
-            <h2>تسجيل جديد</h2>
-            <form id="registerForm">
-                <div class="form-group">
-                    <label for="fullName">الاسم الكامل</label>
-                    <input type="text" id="fullName" required>
-                </div>
-                <div class="form-group">
-                    <label for="studentId">الرقم الجامعي</label>
-                    <input type="text" id="studentId" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">البريد الإلكتروني</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">كلمة المرور</label>
-                    <input type="password" id="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">تأكيد كلمة المرور</label>
-                    <input type="password" id="confirmPassword" required>
-                </div>
-                <button type="submit" class="btn-primary">إنشاء حساب</button>
-            </form>
-        </div>
-    </div>
+    <!-- تم حذف نافذة تسجيل الدخول -->
+    <!-- تم حذف نافذة التسجيل -->
 
     <script src="script.js"></script>
 </body>
