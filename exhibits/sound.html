@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صوت الوطن | رحلة التأسيس</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="exhibits.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="../assets/images/logo.png" alt="شعار يوم التأسيس" class="logo-img">
+                <span class="logo-text">رحلة التأسيس</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="memory.html" class="nav-link"><i class="fas fa-landmark"></i> ذاكرة الملحمة</a>
+                <a href="heritage.html" class="nav-link"><i class="fas fa-archway"></i> إرث الأجداد</a>
+                <a href="sound.html" class="nav-link active"><i class="fas fa-music"></i> صوت الوطن</a>
+                <a href="vision.html" class="nav-link"><i class="fas fa-chart-line"></i> الرؤية المتجددة</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="exhibit-header">
+        <div class="header-content">
+            <h1 class="exhibit-title">صوت الوطن</h1>
+            <p class="exhibit-subtitle">استمع إلى القصائد والأهازيج الشعبية التي حفظتها الذاكرة الجمعية عبر الأجيال</p>
+            <div class="exhibit-meta">
+                <span><i class="fas fa-headphones"></i> ٢٠+ مقطع صوتي</span>
+                <span><i class="fas fa-star"></i> ٨٠ نقطة يمكن ربحها</span>
+                <span><i class="fas fa-users"></i> ٣٨٠+ طالبة استمعت</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- مشغل الصوت الرئيسي -->
+    <section class="audio-player-section">
+        <div class="container">
+            <div class="main-audio-player">
+                <div class="player-controls">
+                    <button class="play-btn" id="mainPlayBtn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <div class="player-info">
+                        <h3 id="currentTrack">أغنية يا حادي</h3>
+                        <p id="currentArtist">فنان شعبي</p>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="time-display">
+                            <span id="currentTime">٠٠:٠٠</span>
+                            <span id="totalTime">٠٣:٤٥</span>
+                        </div>
+                    </div>
+                    <div class="volume-control">
+                        <i class="fas fa-volume-up"></i>
+                        <input type="range" id="volumeSlider" min="0" max="100" value="70">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- مكتبة الأغاني -->
+    <section class="music-library">
+        <div class="container">
+            <h2 class="section-title">مكتبة الأغاني والأهازيج</h2>
+            
+            <div class="music-categories">
+                <button class="category-btn active" data-category="all">الكل</button>
+                <button class="category-btn" data-category="poetry">المواويل</button>
+                <button class="category-btn" data-category="folk">الأغاني الشعبية</button>
+                <button class="category-btn" data-category="war">أهازيج الحرب</button>
+                <button class="category-btn" data-category="celebration">أغاني المناسبات</button>
+            </div>
+            
+            <div class="music-grid">
+                <div class="track-card" data-category="poetry">
+                    <div class="track-cover">
+                        <img src="../assets/images/music1.jpg" alt="موال">
+                        <button class="play-track-btn" data-track="1">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="track-info">
+                        <h4>موال يا حادي</h4>
+                        <p>موال بدوي تقليدي يغنى في سهرات البرية</p>
+                        <div class="track-meta">
+                            <span><i class="far fa-clock"></i> ٠٣:٢٠</span>
+                            <span><i class="fas fa-map-marker-alt"></i> نجد</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="track-card" data-category="folk">
+                    <div class="track-cover">
+                        <img src="../assets/images/music2.jpg" alt="أغنية شعبية">
+                        <button class="play-track-btn" data-track="2">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="track-info">
+                        <h4>دح يا بلادي</h4>
+                        <p>أغنية شعبية للفرح والمناسبات</p>
+                        <div class="track-meta">
+                            <span><i class="far fa-clock"></i> ٠٤:١٠</span>
+                            <span><i class="fas fa-map-marker-alt"></i> الحجاز</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- المزيد من الأغاني -->
+            </div>
+        </div>
+    </section>
+
+    <!-- القصائد الوطنية -->
+    <section class="poetry-section">
+        <div class="container">
+            <h2 class="section-title">القصائد الوطنية</h2>
+            
+            <div class="poetry-slider">
+                <div class="poem-card">
+                    <div class="poem-header">
+                        <h3>قصيدة "وطني"</h3>
+                        <span class="poet">للشاعر: أحمد الغيث</span>
+                    </div>
+                    <div class="poem-content">
+                        <p>
+                            وطني يا درة الأوطان والعلياء<br>
+                            يا منارة في ظلمات الليالياء<br>
+                            أرض الجدود وأرض البأس والعطاء<br>
+                            تحكي قصصاً من نور ومن إباء
+                        </p>
+                    </div>
+                    <button class="btn-small" onclick="playPoem(1)">
+                        <i class="fas fa-play-circle"></i> استمع للقصيدة
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- اختبار الأذن الموسيقية -->
+    <section class="music-quiz">
+        <div class="container">
+            <div class="quiz-card">
+                <h2>اختبر أذنك الموسيقية</h2>
+                <p>استمع إلى المقتطفات الصوتية وتعرف على نوعها</p>
+                
+                <div id="audioQuiz">
+                    <div class="quiz-item">
+                        <audio controls src="../assets/audio/sample1.mp3"></audio>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="q1" value="war"> أهازيج الحرب</label>
+                            <label><input type="radio" name="q1" value="folk"> أغنية شعبية</label>
+                            <label><input type="radio" name="q1" value="poetry"> موال</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-primary" onclick="submitAudioQuiz()">تحقق من الإجابات</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- تسجيل الصوت -->
+    <section class="record-section">
+        <div class="container">
+            <h2 class="section-title">سجل صوتك</h2>
+            <p>سجل أغنية أو قصيدة وطنية وأضفها للمكتبة</p>
+            
+            <div class="recorder">
+                <div class="recorder-controls">
+                    <button class="btn-primary" id="recordBtn">
+                        <i class="fas fa-microphone"></i> ابدأ التسجيل
+                    </button>
+                    <button class="btn-secondary" id="stopBtn" disabled>
+                        <i class="fas fa-stop"></i> أوقف
+                    </button>
+                    <button class="btn-secondary" id="playRecordedBtn" disabled>
+                        <i class="fas fa-play"></i> استمع
+                    </button>
+                </div>
+                
+                <div class="recorder-visualizer" id="visualizer">
+                    <!-- مرئيات الصوت -->
+                </div>
+                
+                <div class="recording-status" id="recordingStatus">
+                    جاهز للتسجيل
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <!-- نفس الفوتر السابق -->
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // كود خاص بركن صوت الوطن
+        class AudioPlayer {
+            constructor() {
+                this.audio = new Audio();
+                this.isPlaying = false;
+                this.currentTrack = 1;
+                this.tracks = [
+                    {
+                        id: 1,
+                        title: "موال يا حادي",
+                        artist: "فنان شعبي",
+                        src: "../assets/audio/track1.mp3",
+                        duration: "03:20"
+                    },
+                    {
+                        id: 2,
+                        title: "دح يا بلادي",
+                        artist: "فرقة شعبية",
+                        src: "../assets/audio/track2.mp3",
+                        duration: "04:10"
+                    }
+                ];
+                
+                this.init();
+            }
+            
+            init() {
+                this.setupEventListeners();
+                this.loadTrack(1);
+            }
+            
+            setupEventListeners() {
+                // زر التشغيل/الإيقاف
+                document.getElementById('mainPlayBtn').addEventListener('click', () => {
+                    this.togglePlay();
+                });
+                
+                // تحميل الأغاني عند النقر
+                document.querySelectorAll('.play-track-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const trackId = parseInt(e.target.closest('button').dataset.track);
+                        this.loadTrack(trackId);
+                        this.play();
+                    });
+                });
+                
+                // التحكم في مستوى الصوت
+                document.getElementById('volumeSlider').addEventListener('input', (e) => {
+                    this.audio.volume = e.target.value / 100;
+                });
+                
+                // تحديث شريط التقدم
+                this.audio.addEventListener('timeupdate', () => {
+                    this.updateProgress();
+                });
+                
+                // عند انتهاء التشغيل
+                this.audio.addEventListener('ended', () => {
+                    this.playNext();
+                });
+            }
+            
+            loadTrack(trackId) {
+                const track = this.tracks.find(t => t.id === trackId);
+                if (track) {
+                    this.currentTrack = trackId;
+                    this.audio.src = track.src;
+                    
+                    // تحديث واجهة المستخدم
+                    document.getElementById('currentTrack').textContent = track.title;
+                    document.getElementById('currentArtist').textContent = track.artist;
+                    document.getElementById('totalTime').textContent = track.duration;
+                    
+                    // تحديث أزرار التشغيل
+                    const playBtns = document.querySelectorAll('.play-track-btn');
+                    playBtns.forEach(btn => {
+                        if (parseInt(btn.dataset.track) === trackId) {
+                            btn.innerHTML = '<i class="fas fa-pause"></i>';
+                        } else {
+                            btn.innerHTML = '<i class="fas fa-play"></i>';
+                        }
+                    });
+                }
+            }
+            
+            togglePlay() {
+                if (this.isPlaying) {
+                    this.pause();
+                } else {
+                    this.play();
+                }
+            }
+            
+            play() {
+                this.audio.play().then(() => {
+                    this.isPlaying = true;
+                    document.getElementById('mainPlayBtn').innerHTML = '<i class="fas fa-pause"></i>';
+                }).catch(error => {
+                    console.error('Error playing audio:', error);
+                });
+            }
+            
+            pause() {
+                this.audio.pause();
+                this.isPlaying = false;
+                document.getElementById('mainPlayBtn').innerHTML = '<i class="fas fa-play"></i>';
+            }
+            
+            updateProgress() {
+                const currentTime = this.audio.currentTime;
+                const duration = this.audio.duration;
+                
+                if (duration) {
+                    const progress = (currentTime / duration) * 100;
+                    document.getElementById('progressFill').style.width = `${progress}%`;
+                    
+                    // تحديث الوقت الحالي
+                    const minutes = Math.floor(currentTime / 60);
+                    const seconds = Math.floor(currentTime % 60);
+                    document.getElementById('currentTime').textContent = 
+                        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }
+            
+            playNext() {
+                const nextTrack = this.currentTrack + 1;
+                if (nextTrack <= this.tracks.length) {
+                    this.loadTrack(nextTrack);
+                    this.play();
+                }
+            }
+        }
+        
+        // تسجيل الصوت
+        class AudioRecorder {
+            constructor() {
+                this.mediaRecorder = null;
+                this.audioChunks = [];
+                this.isRecording = false;
+                this.recordedAudio = null;
+                
+                this.init();
+            }
+            
+            async init() {
+                await this.setupRecorder();
+                this.setupEventListeners();
+            }
+            
+            async setupRecorder() {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    this.mediaRecorder = new MediaRecorder(stream);
+                    
+                    this.mediaRecorder.ondataavailable = (event) => {
+                        this.audioChunks.push(event.data);
+                    };
+                    
+                    this.mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(this.audioChunks, { type: 'audio/mp3' });
+                        this.recordedAudio = URL.createObjectURL(audioBlob);
+                        this.audioChunks = [];
+                        
+                        // تمكين زر الاستماع
+                        document.getElementById('playRecordedBtn').disabled = false;
+                        document.getElementById('recordingStatus').textContent = 'تم التسجيل بنجاح';
+                    };
+                    
+                } catch (error) {
+                    console.error('Error accessing microphone:', error);
+                    document.getElementById('recordingStatus').textContent = 'خطأ في الوصول للميكروفون';
+                }
+            }
+            
+            setupEventListeners() {
+                document.getElementById('recordBtn').addEventListener('click', () => {
+                    this.startRecording();
+                });
+                
+                document.getElementById('stopBtn').addEventListener('click', () => {
+                    this.stopRecording();
+                });
+                
+                document.getElementById('playRecordedBtn').addEventListener('click', () => {
+                    this.playRecording();
+                });
+            }
+            
+            startRecording() {
+                if (this.mediaRecorder && this.mediaRecorder.state === 'inactive') {
+                    this.audioChunks = [];
+                    this.mediaRecorder.start();
+                    this.isRecording = true;
+                    
+                    document.getElementById('recordBtn').disabled = true;
+                    document.getElementById('stopBtn').disabled = false;
+                    document.getElementById('recordingStatus').textContent = 'جاري التسجيل...';
+                    
+                    // بدء مرئيات الصوت
+                    this.startVisualizer();
+                }
+            }
+            
+            stopRecording() {
+                if (this.mediaRecorder && this.mediaRecorder.state === 'recording') {
+                    this.mediaRecorder.stop();
+                    this.isRecording = false;
+                    
+                    document.getElementById('recordBtn').disabled = false;
+                    document.getElementById('stopBtn').disabled = true;
+                    
+                    // إيقاف مرئيات الصوت
+                    this.stopVisualizer();
+                }
+            }
+            
+            playRecording() {
+                if (this.recordedAudio) {
+                    const audio = new Audio(this.recordedAudio);
+                    audio.play();
+                }
+            }
+            
+            startVisualizer() {
+                // تنفيذ مرئيات الصوت (مبسط)
+                const visualizer = document.getElementById('visualizer');
+                visualizer.innerHTML = '';
+                
+                for (let i = 0; i < 20; i++) {
+                    const bar = document.createElement('div');
+                    bar.className = 'visualizer-bar';
+                    visualizer.appendChild(bar);
+                    
+                    // حركة عشوائية للمؤثر البصري
+                    setInterval(() => {
+                        const height = Math.floor(Math.random() * 50) + 10;
+                        bar.style.height = `${height}px`;
+                    }, 100);
+                }
+            }
+            
+            stopVisualizer() {
+                const visualizer = document.getElementById('visualizer');
+                visualizer.innerHTML = '<p>انتهى التسجيل</p>';
+            }
+        }
+        
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            // تشغيل مشغل الصوت
+            const player = new AudioPlayer();
+            
+            // تهيئة مسجل الصوت
+            const recorder = new AudioRecorder();
+            
+            // تصفية الأغاني حسب التصنيف
+            initCategoryFilter();
+            
+            // اختبار الأذن الموسيقية
+            initAudioQuiz();
+        });
+        
+        function initCategoryFilter() {
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const trackCards = document.querySelectorAll('.track-card');
+            
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    const category = btn.dataset.category;
+                    
+                    trackCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+        
+        function playPoem(poemId) {
+            // تشغيل تسجيل للقصيدة
+            alert(`تشغيل القصيدة رقم ${poemId}`);
+        }
+        
+        function initAudioQuiz() {
+            // تحميل أسئلة الاختبار الصوتي
+            const quizContainer = document.getElementById('audioQuiz');
+            // يمكن تحميل الأسئلة من ملف JSON
+        }
+        
+        function submitAudioQuiz() {
+            // تصحيح اختبار الأذن الموسيقية
+            const answers = [];
+            const questions = document.querySelectorAll('.quiz-item');
+            
+            questions.forEach((question, index) => {
+                const selected = question.querySelector('input[type="radio"]:checked');
+                if (selected) {
+                    answers.push(selected.value);
+                }
+            });
+            
+            // حساب النتيجة
+            const score = answers.filter(answer => answer === 'folk').length * 10;
+            alert(`درجتك: ${score} من 30`);
+        }
+    </script>
+</body>
+</html>

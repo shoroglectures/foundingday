@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البازل الزمني | رحلة التأسيس</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="games.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="../assets/images/logo.png" alt="شعار يوم التأسيس" class="logo-img">
+                <span class="logo-text">رحلة التأسيس</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="../exhibits/" class="nav-link"><i class="fas fa-landmark"></i> المعارض</a>
+                <a href="../competition/" class="nav-link"><i class="fas fa-trophy"></i> المسابقة</a>
+                <a href="puzzle.html" class="nav-link active"><i class="fas fa-puzzle-piece"></i> البازل الزمني</a>
+                <a href="drawing.html" class="nav-link"><i class="fas fa-palette"></i> أرسم تاريخك</a>
+                <a href="photo-booth.html" class="nav-link"><i class="fas fa-camera"></i> أنا وطني</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- رأس صفحة اللعبة -->
+    <header class="game-header">
+        <div class="header-content">
+            <h1 class="game-title">البازل الزمني</h1>
+            <p class="game-subtitle">رتب قطع البازل لاكتشاف صور تاريخية مهمة في تاريخ المملكة</p>
+            
+            <div class="game-info">
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h4>المستوى الحالي</h4>
+                        <p id="currentLevel">المستوى ١</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <i class="fas fa-star"></i>
+                    <div>
+                        <h4>النقاط</h4>
+                        <p id="gamePoints">٠</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <i class="fas fa-trophy"></i>
+                    <div>
+                        <h4>أفضل نتيجة</h4>
+                        <p id="highScore">٠</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- منطقة اللعبة الرئيسية -->
+    <main class="game-main">
+        <div class="container">
+            <div class="game-layout">
+                <!-- لوحة التحكم -->
+                <aside class="game-controls">
+                    <div class="controls-section">
+                        <h3>الصعوبة</h3>
+                        <div class="difficulty-selector">
+                            <button class="diff-btn active" data-difficulty="easy">سهل (٣×٣)</button>
+                            <button class="diff-btn" data-difficulty="medium">متوسط (٤×٤)</button>
+                            <button class="diff-btn" data-difficulty="hard">صعب (٥×٥)</button>
+                        </div>
+                    </div>
+                    
+                    <div class="controls-section">
+                        <h3>الموضوع</h3>
+                        <div class="theme-selector">
+                            <button class="theme-btn active" data-theme="historical">
+                                <i class="fas fa-landmark"></i>
+                                <span>تاريخي</span>
+                            </button>
+                            
+                            <button class="theme-btn" data-theme="cultural">
+                                <i class="fas fa-archway"></i>
+                                <span>تراثي</span>
+                            </button>
+                            
+                            <button class="theme-btn" data-theme="modern">
+                                <i class="fas fa-city"></i>
+                                <span>حديث</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="controls-section">
+                        <h3>المؤقت</h3>
+                        <div class="timer-display">
+                            <i class="fas fa-hourglass-half"></i>
+                            <span id="gameTimer">٠٢:٠٠</span>
+                        </div>
+                        
+                        <div class="timer-controls">
+                            <button class="btn-small" onclick="pauseTimer()">
+                                <i class="fas fa-pause"></i> إيقاف
+                            </button>
+                            
+                            <button class="btn-small" onclick="resetTimer()">
+                                <i class="fas fa-redo"></i> إعادة
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="controls-section">
+                        <h3>التلميحات</h3>
+                        <div class="hint-counter">
+                            <span>المتبقي: <span id="hintsLeft">٣</span></span>
+                            <button class="btn-small" onclick="useHint()" id="hintBtn">
+                                <i class="fas fa-lightbulb"></i> استخدم تلميح
+                            </button>
+                        </div>
+                        
+                        <div class="hint-types">
+                            <button class="hint-type" data-hint="preview" onclick="showPreview()">
+                                <i class="fas fa-eye"></i> معاينة
+                            </button>
+                            
+                            <button class="hint-type" data-hint="swap" onclick="suggestSwap()">
+                                <i class="fas fa-exchange-alt"></i> تبديل
+                            </button>
+                            
+                            <button class="hint-type" data-hint="solve" onclick="solvePiece()">
+                                <i class="fas fa-magic"></i> حل قطعة
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="game-stats">
+                        <h3>الإحصائيات</h3>
+                        <div class="stats-grid">
+                            <div class="stat">
+                                <span class="stat-label">القطع المرتبة:</span>
+                                <span class="stat-value" id="placedPieces">٠</span>
+                            </div>
+                            
+                            <div class="stat">
+                                <span class="stat-label>المحاولات:</span>
+                                <span class="stat-value" id="movesCount">٠</span>
+                            </div>
+                            
+                            <div class="stat">
+                                <span class="stat-label">الدقة:</span>
+                                <span class="stat-value" id="accuracyRate">٠٪</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                
+                <!-- منطقة اللعبة -->
+                <div class="game-area">
+                    <div class="game-header">
+                        <div class="level-info">
+                            <h2 id="puzzleTitle">قصر المصمك</h2>
+                            <p id="puzzleDescription">قلعة تاريخية في الرياض، شهدت استعادتها عام ١٩٠٢</p>
+                        </div>
+                        
+                        <div class="game-actions">
+                            <button class="btn-primary" onclick="startNewGame()">
+                                <i class="fas fa-play"></i> بدء جديد
+                            </button>
+                            
+                            <button class="btn-secondary" onclick="toggleSound()" id="soundBtn">
+                                <i class="fas fa-volume-up"></i> الصوت
+                            </button>
+                            
+                            <button class="btn-secondary" onclick="showInstructions()">
+                                <i class="fas fa-question-circle"></i> المساعدة
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- منطقة البازل -->
+                    <div class="puzzle-container">
+                        <div class="puzzle-board" id="puzzleBoard">
+                            <!-- سيتم إنشاء البازل ديناميكياً -->
+                        </div>
+                        
+                        <div class="puzzle-pieces" id="puzzlePieces">
+                            <!-- قطع البازل ستظهر هنا -->
+                        </div>
+                    </div>
+                    
+                    <!-- معلومات القطعة -->
+                    <div class="piece-info" id="pieceInfo">
+                        <h3>معلومات عن الصورة</h3>
+                        <div id="pieceDescription">
+                            اختر قطعة لعرض معلومات عنها
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- نافذة التعليمات -->
+    <div id="instructionsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeInstructions()">&times;</span>
+            
+            <div class="instructions-content">
+                <h2>كيفية لعب البازل الزمني</h2>
+                
+                <div class="instruction-step">
+                    <div class="step-number">١</div>
+                    <div class="step-content">
+                        <h3>اختيار الصعوبة والموضوع</h3>
+                        <p>اختر مستوى الصعوبة (سهل، متوسط، صعب) والموضوع الذي تفضلينه (تاريخي، تراثي، حديث).</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-step">
+                    <div class="step-number">٢</div>
+                    <div class="step-content">
+                        <h3>ترتيب القطع</h3>
+                        <p>اسحبي القطع من المنطقة السفلية إلى مواقعها الصحيحة على اللوحة. كل قطعة في مكانها الصحيح تضيف نقاطاً.</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-step">
+                    <div class="step-number">٣</div>
+                    <div class="step-content">
+                        <h3>استخدام التلميحات</h3>
+                        <p>استخدمي التلميحات المتاحة للمساعدة في حل البازل. لديك ٣ تلميحات لكل مستوى.</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-step">
+                    <div class="step-number">٤</div>
+                    <div class="step-content">
+                        <h3>اكتمال الصورة</h3>
+                        <p>عند اكتمال الصورة، ستظهر معلومات تاريخية عن الصورة وتكسبين نقاطاً إضافية بناءً على السرعة والدقة.</p>
+                    </div>
+                </div>
+                
+                <div class="game-tips">
+                    <h3>نصائح للفوز</h3>
+                    <ul>
+                        <li>ابدئي بالأطراف والزوايا</li>
+                        <li>ركزي على الألوان والتشابهات</li>
+                        <li>استخدمي التلميحات بحكمة</li>
+                        <li>راقبي الوقت جيداً</li>
+                    </ul>
+                </div>
+                
+                <button class="btn-primary" onclick="closeInstructions()">
+                    فهمت، فلأبدأ اللعب!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة النتائج -->
+    <div id="resultsModal" class="modal">
+        <div class="modal-content">
+            <div class="results-content">
+                <div class="results-header">
+                    <i class="fas fa-trophy"></i>
+                    <h2>🎉 أحسنت! 🎉</h2>
+                    <p>لقد أتممت البازل بنجاح</p>
+                </div>
+                
+                <div class="results-stats">
+                    <div class="result-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>الوقت</h4>
+                            <p class="stat-value" id="resultTime">٠٠:٠٠</p>
+                        </div>
+                    </div>
+                    
+                    <div class="result-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>القطع</h4>
+                            <p class="stat-value" id="resultPieces">٠</p>
+                        </div>
+                    </div>
+                    
+                    <div class="result-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>النقاط</h4>
+                            <p class="stat-value" id="resultPoints">٠</p>
+                        </div>
+                    </div>
+                    
+                    <div class="result-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>الكفاءة</h4>
+                            <p class="stat-value" id="resultEfficiency">٠٪</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="results-breakdown">
+                    <h3>تفصيل النقاط</h3>
+                    <div class="breakdown-list">
+                        <div class="breakdown-item">
+                            <span>إكمال البازل:</span>
+                            <span class="points">+٥٠٠ نقطة</span>
+                        </div>
+                        
+                        <div class="breakdown-item">
+                            <span>مكافأة السرعة:</span>
+                            <span class="points" id="speedBonus">+٠ نقطة</span>
+                        </div>
+                        
+                        <div class="breakdown-item">
+                            <span>مكافأة الدقة:</span>
+                            <span class="points" id="accuracyBonus">+٠ نقطة</span>
+                        </div>
+                        
+                        <div class="breakdown-item total">
+                            <span>المجموع:</span>
+                            <span class="points" id="totalPoints">٠ نقطة</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="puzzle-info">
+                    <h3>عن الصورة</h3>
+                    <div id="completedImageInfo">
+                        <!-- معلومات الصورة المكتملة -->
+                    </div>
+                </div>
+                
+                <div class="results-actions">
+                    <button class="btn-primary" onclick="nextPuzzle()">
+                        <i class="fas fa-forward"></i> البازل التالي
+                    </button>
+                    
+                    <button class="btn-secondary" onclick="sharePuzzleResult()">
+                        <i class="fas fa-share"></i> شارك النتيجة
+                    </button>
+                    
+                    <button class="btn-secondary" onclick="retryPuzzle()">
+                        <i class="fas fa-redo"></i> حاول مرة أخرى
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="footer-container">
+            <!-- نفس الفوتر السابق -->
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script src="games.js"></script>
+    <script>
+        // كود خاص بلعبة البازل الزمني
+        class PuzzleGame {
+            constructor() {
+                this.gridSize = 3;
+                this.difficulty = 'easy';
+                this.theme = 'historical';
+                this.pieces = [];
+                this.board = [];
+                this.currentLevel = 1;
+                this.points = 0;
+                this.highScore = 0;
+                this.timer = 120;
+                this.timerInterval = null;
+                this.hintsLeft = 3;
+                this.movesCount = 0;
+                this.placedPieces = 0;
+                this.gameStarted = false;
+                this.soundEnabled = true;
+                
+                this.init();
+            }
+            
+            init() {
+                this.loadGameState();
+                this.setupEventListeners();
+                this.loadPuzzleData();
+                this.createNewPuzzle();
+                this.updateUI();
+                
+                // تحميل أفضل نتيجة
+                const savedHighScore = localStorage.getItem('puzzleHighScore');
+                if (savedHighScore) {
+                    this.highScore = parseInt(savedHighScore);
+                    document.getElementById('highScore').textContent = this.highScore;
+                }
+            }
+            
+            loadPuzzleData() {
+                this.puzzles = {
+                    historical: [
+                        {
+                            id: 1,
+                            title: "قصر المصمك",
+                            description: "قلعة تاريخية في الرياض، شهدت معركة استعادة الرياض عام ١٩٠٢م على يد الملك عبدالعزيز آل سعود.",
+                            image: "assets/images/masmak.jpg",
+                            year: "١٩٠٢م",
+                            pieces: 9,
+                            points: 500,
+                            fact: "باب القصر لا يزال يحمل آثار الرمح الذي قُتل عليه ابن رشيد."
+                        },
+                        {
+                            id: 2,
+                            title: "الدرعية التاريخية",
+                            description: "عاصمة الدولة السعودية الأولى وأول عاصمة للدولة السعودية.",
+                            image: "assets/images/diriyah.jpg",
+                            year: "١٧٢٧م",
+                            pieces: 16,
+                            points: 750,
+                            fact: "أدرجت الدرعية في قائمة اليونسكو للتراث العالمي عام ٢٠١٠م."
+                        }
+                    ],
+                    cultural: [
+                        // بازل تراثية
+                    ],
+                    modern: [
+                        // بازل حديثة
+                    ]
+                };
+            }
+            
+            createNewPuzzle() {
+                // تحديد البازل بناءً على الموضوع والمستوى
+                const themePuzzles = this.puzzles[this.theme];
+                const puzzle = themePuzzles[this.currentLevel - 1] || themePuzzles[0];
+                
+                // تعيين حجم الشبكة بناءً على الصعوبة
+                this.gridSize = this.difficulty === 'easy' ? 3 : 
+                               this.difficulty === 'medium' ? 4 : 5;
+                
+                // تهيئة اللوحة
+                this.board = Array(this.gridSize * this.gridSize).fill(null);
+                this.pieces = [];
+                
+                // إنشاء قطع البازل
+                this.createPuzzlePieces(puzzle);
+                
+                // خلط القطع
+                this.shufflePieces();
+                
+                // تحديث واجهة المستخدم
+                this.updatePuzzleUI(puzzle);
+            }
+            
+            createPuzzlePieces(puzzle) {
+                // في الواقع، هنا يجب تقسيم الصورة إلى قطع
+                // لكننا سنحاكي ذلك لعدم وجود محرر صور في المتصفح
+                
+                for (let i = 0; i < this.gridSize * this.gridSize; i++) {
+                    this.pieces.push({
+                        id: i,
+                        correctPosition: i,
+                        currentPosition: null,
+                        row: Math.floor(i / this.gridSize),
+                        col: i % this.gridSize,
+                        image: `${puzzle.image}_${i}.jpg`,
+                        isPlaced: false
+                    });
+                }
+            }
+            
+            shufflePieces() {
+                // خلط القطع عشوائياً
+                for (let i = this.pieces.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [this.pieces[i], this.pieces[j]] = [this.pieces[j], this.pieces[i]];
+                }
+            }
+            
+            updatePuzzleUI(puzzle) {
+                document.getElementById('puzzleTitle').textContent = puzzle.title;
+                document.getElementById('puzzleDescription').textContent = puzzle.description;
+                document.getElementById('currentLevel').textContent = `المستوى ${this.currentLevel}`;
+                
+                // تحديث منطقة البازل
+                this.renderPuzzleBoard();
+                this.renderPuzzlePieces();
+            }
+            
+            renderPuzzleBoard() {
+                const boardDiv = document.getElementById('puzzleBoard');
+                boardDiv.innerHTML = '';
+                boardDiv.style.gridTemplateColumns = `repeat(${this.gridSize}, 1fr)`;
+                
+                for (let i = 0; i < this.gridSize * this.gridSize; i++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'puzzle-cell';
+                    cell.dataset.index = i;
+                    
+                    // إذا كانت هناك قطعة في هذا الموضع
+                    const piece = this.board[i];
+                    if (piece !== null) {
+                        const pieceDiv = this.createPieceElement(piece);
+                        cell.appendChild(pieceDiv);
+                    }
+                    
+                    cell.addEventListener('dragover', (e) => e.preventDefault());
+                    cell.addEventListener('drop', (e) => this.dropPiece(e, i));
+                    
+                    boardDiv.appendChild(cell);
+                }
+            }
+            
+            renderPuzzlePieces() {
+                const piecesDiv = document.getElementById('puzzlePieces');
+                piecesDiv.innerHTML = '';
+                
+                // عرض القطع غير المربوطة
+                const unplacedPieces = this.pieces.filter(p => !p.isPlaced);
+                
+                unplacedPieces.forEach(piece => {
+                    const pieceDiv = this.createPieceElement(piece);
+                    pieceDiv.draggable = true;
+                    pieceDiv.addEventListener('dragstart', (e) => this.dragPiece(e, piece.id));
+                    
+                    piecesDiv.appendChild(pieceDiv);
+                });
+            }
+            
+            createPieceElement(piece) {
+                const pieceDiv = document.createElement('div');
+                pieceDiv.className = 'puzzle-piece';
+                pieceDiv.dataset.id = piece.id;
+                pieceDiv.dataset.correct = piece.correctPosition;
+                
+                // في المشروع الحقيقي، هنا يجب عرض جزء من الصورة
+                // لكننا سنعرض رقم مؤقت
+                pieceDiv.innerHTML = `
+                    <div class="piece-number">${piece.id + 1}</div>
+                    <div class="piece-overlay">
+                        <i class="fas fa-arrows-alt"></i>
+                    </div>
+                `;
+                
+                pieceDiv.addEventListener('click', () => this.showPieceInfo(piece.id));
+                
+                return pieceDiv;
+            }
+            
+            dragPiece(event, pieceId) {
+                event.dataTransfer.setData('pieceId', pieceId.toString());
+                
+                if (this.soundEnabled) {
+                    this.playSound('drag');
+                }
+            }
+            
+            dropPiece(event, cellIndex) {
+                event.preventDefault();
+                
+                const pieceId = parseInt(event.dataTransfer.getData('pieceId'));
+                this.placePiece(pieceId, cellIndex);
+            }
+            
+            placePiece(pieceId, cellIndex) {
+                if (this.board[cellIndex] !== null) {
+                    // الخلية مشغولة
+                    this.showFeedback('الخلية مشغولة!', 'warning');
+                    return;
+                }
+                
+                const piece = this.pieces.find(p => p.id === pieceId);
+                if (!piece) return;
+                
+                // وضع القطعة على اللوحة
+                this.board[cellIndex] = piece;
+                piece.isPlaced = true;
+                piece.currentPosition = cellIndex;
+                
+                this.placedPieces++;
+                this.movesCount++;
+                
+                // التحقق إذا كانت في المكان الصحيح
+                const isCorrect = cellIndex === piece.correctPosition;
+                
+                if (isCorrect) {
+                    this.points += 10;
+                    this.showFeedback('قطعة في مكانها الصحيح! 👍', 'success');
+                    
+                    if (this.soundEnabled) {
+                        this.playSound('correct');
+                    }
+                } else {
+                    this.showFeedback('القطعة ليست في مكانها الصحيح', 'warning');
+                }
+                
+                // تحديث الواجهة
+                this.updateUI();
+                this.renderPuzzleBoard();
+                this.renderPuzzlePieces();
+                
+                // التحقق من اكتمال البازل
+                this.checkPuzzleComplete();
+                
+                // حفظ تقدم اللعبة
+                this.saveGameState();
+            }
+            
+            checkPuzzleComplete() {
+                // التحقق إذا تم وضع جميع القطع
+                const allPiecesPlaced = this.pieces.every(piece => piece.isPlaced);
+                
+                if (!allPiecesPlaced) return;
+                
+                // التحقق إذا كانت جميع القطع في أماكنها الصحيحة
+                const allCorrect = this.pieces.every(piece => 
+                    piece.currentPosition === piece.correctPosition
+                );
+                
+                if (allCorrect) {
+                    this.completePuzzle();
+                }
+            }
+            
+            completePuzzle() {
+                clearInterval(this.timerInterval);
+                
+                // حساب النقاط الإضافية
+                const timeBonus = Math.max(0, 500 - this.timer);
+                const accuracyBonus = Math.floor((this.placedPieces / this.movesCount) * 100);
+                const levelBonus = this.currentLevel * 100;
+                
+                const totalPoints = this.points + timeBonus + accuracyBonus + levelBonus;
+                
+                // تحديث أعلى نتيجة
+                if (totalPoints > this.highScore) {
+                    this.highScore = totalPoints;
+                    localStorage.setItem('puzzleHighScore', this.highScore);
+                }
+                
+                // عرض النتائج
+                this.showResults(totalPoints, timeBonus, accuracyBonus);
+                
+                // تحديث نقاط المستخدم العامة
+                this.updateUserPoints(totalPoints);
+            }
+            
+            showResults(totalPoints, timeBonus, accuracyBonus) {
+                document.getElementById('resultTime').textContent = 
+                    this.formatTime(120 - this.timer);
+                document.getElementById('resultPieces').textContent = 
+                    `${this.placedPieces}/${this.gridSize * this.gridSize}`;
+                document.getElementById('resultPoints').textContent = totalPoints;
+                document.getElementById('resultEfficiency').textContent = 
+                    `${Math.floor((this.placedPieces / this.movesCount) * 100)}%`;
+                
+                document.getElementById('speedBonus').textContent = `+${timeBonus} نقطة`;
+                document.getElementById('accuracyBonus').textContent = `+${accuracyBonus} نقطة`;
+                document.getElementById('totalPoints').textContent = `${totalPoints} نقطة`;
+                
+                // عرض معلومات الصورة
+                const puzzle = this.puzzles[this.theme][this.currentLevel - 1];
+                document.getElementById('completedImageInfo').innerHTML = `
+                    <h4>${puzzle.title}</h4>
+                    <p>${puzzle.description}</p>
+                    <div class="fact-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <strong>معلومة:</strong> ${puzzle.fact}
+                    </div>
+                `;
+                
+                // عرض نافذة النتائج
+                document.getElementById('resultsModal').style.display = 'flex';
+            }
+            
+            startTimer() {
+                clearInterval(this.timerInterval);
+                
+                this.timerInterval = setInterval(() => {
+                    this.timer--;
+                    this.updateTimerDisplay();
+                    
+                    if (this.timer <= 0) {
+                        clearInterval(this.timerInterval);
+                        this.gameOver();
+                    }
+                }, 1000);
+            }
+            
+            updateTimerDisplay() {
+                const minutes = Math.floor(this.timer / 60);
+                const seconds = this.timer % 60;
+                
+                document.getElementById('gameTimer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            updateUI() {
+                document.getElementById('gamePoints').textContent = this.points;
+                document.getElementById('placedPieces').textContent = 
+                    `${this.placedPieces}/${this.gridSize * this.gridSize}`;
+                document.getElementById('movesCount').textContent = this.movesCount;
+                document.getElementById('accuracyRate').textContent = 
+                    this.movesCount > 0 ? 
+                    `${Math.floor((this.placedPieces / this.movesCount) * 100)}%` : 
+                    '٠٪';
+                document.getElementById('hintsLeft').textContent = this.hintsLeft;
+            }
+            
+            useHint() {
+                if (this.hintsLeft <= 0) {
+                    this.showFeedback('لا توجد تلميحات متاحة', 'warning');
+                    return;
+                }
+                
+                this.hintsLeft--;
+                this.showFeedback('تم استخدام تلميح', 'info');
+                this.updateUI();
+                
+                // تنفيذ تأثير التلميح
+                this.highlightCorrectPiece();
+            }
+            
+            highlightCorrectPiece() {
+                // إيجاد قطعة غير مثبتة في مكانها الصحيح
+                const misplacedPiece = this.pieces.find(piece => 
+                    piece.isPlaced && piece.currentPosition !== piece.correctPosition
+                );
+                
+                if (misplacedPiece) {
+                    // تسليط الضوء على القطعة
+                    const pieceElement = document.querySelector(`[data-id="${misplacedPiece.id}"]`);
+                    if (pieceElement) {
+                        pieceElement.classList.add('hint-highlight');
+                        
+                        setTimeout(() => {
+                            pieceElement.classList.remove('hint-highlight');
+                        }, 2000);
+                    }
+                }
+            }
+            
+            showPieceInfo(pieceId) {
+                const piece = this.pieces.find(p => p.id === pieceId);
+                if (!piece) return;
+                
+                const infoDiv = document.getElementById('pieceInfo');
+                infoDiv.innerHTML = `
+                    <h3>معلومات عن القطعة</h3>
+                    <div class="piece-details">
+                        <p><strong>الرقم:</strong> ${piece.id + 1}</p>
+                        <p><strong>المكان الصحيح:</strong> الصف ${piece.row + 1}، العمود ${piece.col + 1}</p>
+                        <p><strong>الحالة:</strong> ${piece.isPlaced ? 'مثبتة' : 'غير مثبتة'}</p>
+                    </div>
+                `;
+            }
+            
+            setupEventListeners() {
+                // اختيار الصعوبة
+                document.querySelectorAll('.diff-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        
+                        this.difficulty = btn.dataset.difficulty;
+                        this.resetGame();
+                    });
+                });
+                
+                // اختيار الموضوع
+                document.querySelectorAll('.theme-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        
+                        this.theme = btn.dataset.theme;
+                        this.currentLevel = 1;
+                        this.resetGame();
+                    });
+                });
+            }
+            
+            resetGame() {
+                clearInterval(this.timerInterval);
+                
+                this.points = 0;
+                this.timer = 120;
+                this.hintsLeft = 3;
+                this.movesCount = 0;
+                this.placedPieces = 0;
+                this.gameStarted = false;
+                
+                this.createNewPuzzle();
+                this.updateUI();
+                this.updateTimerDisplay();
+            }
+            
+            startNewGame() {
+                this.gameStarted = true;
+                this.startTimer();
+                this.showFeedback('ابدأ! حظاً موفقاً', 'success');
+            }
+            
+            saveGameState() {
+                const gameState = {
+                    difficulty: this.difficulty,
+                    theme: this.theme,
+                    currentLevel: this.currentLevel,
+                    points: this.points,
+                    hintsLeft: this.hintsLeft,
+                    timer: this.timer,
+                    movesCount: this.movesCount,
+                    placedPieces: this.placedPieces,
+                    board: this.board,
+                    pieces: this.pieces
+                };
+                
+                localStorage.setItem('puzzleGameState', JSON.stringify(gameState));
+            }
+            
+            loadGameState() {
+                const savedState = localStorage.getItem('puzzleGameState');
+                if (savedState) {
+                    const state = JSON.parse(savedState);
+                    
+                    this.difficulty = state.difficulty;
+                    this.theme = state.theme;
+                    this.currentLevel = state.currentLevel;
+                    this.points = state.points;
+                    this.hintsLeft = state.hintsLeft;
+                    this.timer = state.timer;
+                    this.movesCount = state.movesCount;
+                    this.placedPieces = state.placedPieces;
+                    this.board = state.board;
+                    this.pieces = state.pieces;
+                    
+                    // تحديث أزرار الواجهة
+                    document.querySelectorAll('.diff-btn').forEach(btn => {
+                        btn.classList.toggle('active', btn.dataset.difficulty === this.difficulty);
+                    });
+                    
+                    document.querySelectorAll('.theme-btn').forEach(btn => {
+                        btn.classList.toggle('active', btn.dataset.theme === this.theme);
+                    });
+                }
+            }
+            
+            showFeedback(message, type) {
+                // نفس دالة الإشعارات السابقة
+            }
+            
+            playSound(soundType) {
+                // محاكاة الأصوات
+                const sounds = {
+                    drag: new Audio('assets/audio/drag.mp3'),
+                    correct: new Audio('assets/audio/correct.mp3'),
+                    wrong: new Audio('assets/audio/wrong.mp3'),
+                    complete: new Audio('assets/audio/complete.mp3')
+                };
+                
+                if (sounds[soundType]) {
+                    sounds[soundType].play().catch(() => {
+                        // تجاهل الأخطاء إذا لم يتم تحميل الصوت
+                    });
+                }
+            }
+            
+            formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+            
+            updateUserPoints(points) {
+                const user = JSON.parse(localStorage.getItem('user') || '{}');
+                if (user.points) {
+                    user.points += points;
+                    localStorage.setItem('user', JSON.stringify(user));
+                }
+            }
+        }
+        
+        // تهيئة اللعبة
+        let puzzleGame;
+        document.addEventListener('DOMContentLoaded', () => {
+            puzzleGame = new PuzzleGame();
+        });
+        
+        // وظائف عامة
+        function startNewGame() {
+            if (puzzleGame) {
+                puzzleGame.startNewGame();
+            }
+        }
+        
+        function pauseTimer() {
+            if (puzzleGame && puzzleGame.timerInterval) {
+                clearInterval(puzzleGame.timerInterval);
+                puzzleGame.timerInterval = null;
+                puzzleGame.showFeedback('تم إيقاف المؤقت', 'info');
+            }
+        }
+        
+        function resetTimer() {
+            if (puzzleGame) {
+                puzzleGame.timer = 120;
+                puzzleGame.updateTimerDisplay();
+                puzzleGame.showFeedback('تم إعادة ضبط المؤقت', 'info');
+            }
+        }
+        
+        function useHint() {
+            if (puzzleGame) {
+                puzzleGame.useHint();
+            }
+        }
+        
+        function showPreview() {
+            if (puzzleGame) {
+                puzzleGame.showFeedback('معاينة الصورة الكاملة', 'info');
+                // في التنفيذ الحقيقي، عرض الصورة الكاملة لمدة ثانيتين
+            }
+        }
+        
+        function suggestSwap() {
+            if (puzzleGame) {
+                puzzleGame.showFeedback('اقتراح تبديل موقعين', 'info');
+                // اقتراح تبديل قطعتين
+            }
+        }
+        
+        function solvePiece() {
+            if (puzzleGame && puzzleGame.hintsLeft > 0) {
+                puzzleGame.hintsLeft--;
+                puzzleGame.showFeedback('تم حل قطعة واحدة', 'success');
+                // وضع قطعة في مكانها الصحيح
+            }
+        }
+        
+        function toggleSound() {
+            if (puzzleGame) {
+                puzzleGame.soundEnabled = !puzzleGame.soundEnabled;
+                const btn = document.getElementById('soundBtn');
+                const icon = btn.querySelector('i');
+                
+                if (puzzleGame.soundEnabled) {
+                    icon.className = 'fas fa-volume-up';
+                    btn.innerHTML = '<i class="fas fa-volume-up"></i> الصوت';
+                    puzzleGame.showFeedback('تم تشغيل الصوت', 'info');
+                } else {
+                    icon.className = 'fas fa-volume-mute';
+                    btn.innerHTML = '<i class="fas fa-volume-mute"></i> الصوت';
+                    puzzleGame.showFeedback('تم إيقاف الصوت', 'info');
+                }
+            }
+        }
+        
+        function showInstructions() {
+            document.getElementById('instructionsModal').style.display = 'flex';
+        }
+        
+        function closeInstructions() {
+            document.getElementById('instructionsModal').style.display = 'none';
+        }
+        
+        function nextPuzzle() {
+            if (puzzleGame) {
+                puzzleGame.currentLevel++;
+                puzzleGame.resetGame();
+                document.getElementById('resultsModal').style.display = 'none';
+            }
+        }
+        
+        function sharePuzzleResult() {
+            const points = document.getElementById('resultPoints').textContent;
+            const level = puzzleGame.currentLevel;
+            
+            const shareText = `🎮 حصلت على ${points} نقطة في المستوى ${level} من لعبة البازل الزمني!\n\nجربها بنفسك على: ${window.location.origin}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'نتيجتي في البازل الزمني',
+                    text: shareText,
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    puzzleGame.showFeedback('تم نسخ النتيجة للمشاركة', 'success');
+                });
+            }
+        }
+        
+        function retryPuzzle() {
+            if (puzzleGame) {
+                puzzleGame.resetGame();
+                document.getElementById('resultsModal').style.display = 'none';
+                startNewGame();
+            }
+        }
+    </script>
+</body>
+</html>

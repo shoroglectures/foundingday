@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ذاكرة الملحمة | رحلة التأسيس</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="exhibits.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="../assets/images/logo.png" alt="شعار يوم التأسيس" class="logo-img">
+                <span class="logo-text">رحلة التأسيس</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="memory.html" class="nav-link active"><i class="fas fa-landmark"></i> ذاكرة الملحمة</a>
+                <a href="heritage.html" class="nav-link"><i class="fas fa-archway"></i> إرث الأجداد</a>
+                <a href="sound.html" class="nav-link"><i class="fas fa-music"></i> صوت الوطن</a>
+                <a href="vision.html" class="nav-link"><i class="fas fa-chart-line"></i> الرؤية المتجددة</a>
+            </div>
+            
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- رأس الصفحة -->
+    <header class="exhibit-header">
+        <div class="header-content">
+            <h1 class="exhibit-title">ذاكرة الملحمة</h1>
+            <p class="exhibit-subtitle">خط زمني تفاعلي يروي قصة تأسيس المملكة العربية السعودية</p>
+            <div class="exhibit-meta">
+                <span><i class="far fa-clock"></i> الوقت المقدر: ٣٠ دقيقة</span>
+                <span><i class="fas fa-star"></i> ١٥٠ نقطة يمكن ربحها</span>
+                <span><i class="fas fa-users"></i> ٥٠٠+ طالبة استكشفته</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- الخط الزمني التفاعلي -->
+    <section class="timeline-section">
+        <div class="container">
+            <h2 class="section-title">الخط الزمني للتأسيس</h2>
+            <p class="section-subtitle">انتقلي بين الحقب التاريخية وشاهدي الأحداث الرئيسية</p>
+            
+            <div class="timeline-container">
+                <div class="timeline-navigation">
+                    <button class="timeline-nav-btn" data-year="1446">١٤٤٦هـ</button>
+                    <button class="timeline-nav-btn" data-year="1727">١١٣٩هـ / ١٧٢٧م</button>
+                    <button class="timeline-nav-btn" data-year="1818">١٢٣٣هـ / ١٨١٨م</button>
+                    <button class="timeline-nav-btn" data-year="1902">١٣١٩هـ / ١٩٠٢م</button>
+                    <button class="timeline-nav-btn" data-year="1932">١٣٥١هـ / ١٩٣٢م</button>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-event" id="year-1446">
+                        <div class="event-content">
+                            <h3>جذور التأسيس: مانع المريدي</h3>
+                            <div class="event-date">٨٥٠هـ / ١٤٤٦م</div>
+                            <div class="event-media">
+                                <img src="../assets/images/manea.png" alt="مانع المريدي">
+                                <div class="media-caption">مانع بن ربيعة المريدي - الجد المؤسس</div>
+                            </div>
+                            <div class="event-description">
+                                <p>في منتصف القرن التاسع الهجري، قدم مانع بن ربيعة المريدي من بلدة "الدروع" في وادي حنيفة إلى منطقة "المليبيد" و"غصيبة"، واستقر فيهما بعد أن منحه ابن عمه ابن درع أرضاً في المنطقة. هذا الحدث يمثل البذرة الأولى لتأسيس الدولة السعودية.</p>
+                                
+                                <div class="event-highlights">
+                                    <h4>أبرز نقاط هذه الحقبة:</h4>
+                                    <ul>
+                                        <li>الاستقرار في وادي حنيفة وتأسيس مجتمع زراعي</li>
+                                        <li>تأسيس بلدتي "المليبيد" و"غصيبة" كمراكز سكنية</li>
+                                        <li>بداية النمو السكاني والزراعي في المنطقة</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="interactive-quiz">
+                                <h4>اختبر معلوماتك</h4>
+                                <div class="quiz-question">
+                                    <p>من الذي منح مانع المريدي الأرض في وادي حنيفة؟</p>
+                                    <div class="quiz-options">
+                                        <button class="quiz-option" data-correct="false">الإمام محمد بن سعود</button>
+                                        <button class="quiz-option" data-correct="true">ابن درع</button>
+                                        <button class="quiz-option" data-correct="false">الشيخ محمد بن عبدالوهاب</button>
+                                        <button class="quiz-option" data-correct="false">السلطان سليم الأول</button>
+                                    </div>
+                                    <div class="quiz-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- بقية السنوات ستظهر عند النقر عليها -->
+                </div>
+                
+                <div class="timeline-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="progress-steps">
+                        <div class="step active" data-step="1">الجذور</div>
+                        <div class="step" data-step="2">الدولة الأولى</div>
+                        <div class="step" data-step="3">التحديات</div>
+                        <div class="step" data-step="4">الدولة الثانية</div>
+                        <div class="step" data-step="5">الدولة الثالثة</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الخرائط التفاعلية -->
+    <section class="maps-section">
+        <div class="container">
+            <h2 class="section-title">رحلة التأسيس على الخريطة</h2>
+            
+            <div class="map-container">
+                <div class="map-viewer">
+                    <div class="map-overlay">
+                        <div class="map-point" style="top: 40%; left: 45%;" data-location="الدرعية">
+                            <div class="point-marker"></div>
+                            <div class="point-info">
+                                <h4>الدرعية</h4>
+                                <p>عاصمة الدولة السعودية الأولى</p>
+                                <button class="btn-small" onclick="showLocationDetail('الدرعية')">استكشف</button>
+                            </div>
+                        </div>
+                        
+                        <div class="map-point" style="top: 50%; left: 55%;" data-location="الرياض">
+                            <div class="point-marker"></div>
+                            <div class="point-info">
+                                <h4>الرياض</h4>
+                                <p>عاصمة الدولة السعودية الثالثة</p>
+                                <button class="btn-small" onclick="showLocationDetail('الرياض')">استكشف</button>
+                            </div>
+                        </div>
+                        
+                        <!-- نقاط أخرى -->
+                    </div>
+                    
+                    <img src="../assets/images/saudi-map.png" alt="خريطة المملكة" class="map-image">
+                </div>
+                
+                <div class="map-details" id="locationDetails">
+                    <h3>اختر موقعاً على الخريطة</h3>
+                    <p>انقري على أحد المواقع على الخريطة لاستكشاف دوره في قصة التأسيس.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الشخصيات المؤثرة -->
+    <section class="characters-section">
+        <div class="container">
+            <h2 class="section-title">شخصيات صنعت التاريخ</h2>
+            
+            <div class="characters-grid">
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="../assets/images/mohammed-bin-saud.png" alt="الإمام محمد بن سعود">
+                        <div class="character-badge">المؤسس</div>
+                    </div>
+                    <div class="character-info">
+                        <h3>الإمام محمد بن سعود</h3>
+                        <p class="character-dates">(١١٣٩ - ١١٧٩هـ / ١٧٢٧ - ١٧٦٥م)</p>
+                        <p class="character-bio">مؤسس الدولة السعودية الأولى، حكم من ١٧٢٧م حتى ١٧٦٥م. اتسمت فترة حكمه بالحكمة والتخطيط الاستراتيجي، حيث أسس نظاماً إدارياً قوياً واهتم بالعلم والعلماء.</p>
+                        
+                        <div class="character-achievements">
+                            <h4>أبرز الإنجازات:</h4>
+                            <ul>
+                                <li>تأسيس الدولة السعودية الأولى عام ١١٣٩هـ</li>
+                                <li>تحقيق الوحدة والاستقرار في نجد</li>
+                                <li>إرساء قواعد العدل والحكم الرشيد</li>
+                            </ul>
+                        </div>
+                        
+                        <button class="btn-primary" onclick="showCharacterModal(1)">المزيد</button>
+                    </div>
+                </div>
+                
+                <!-- شخصيات أخرى -->
+            </div>
+        </div>
+    </section>
+
+    <!-- اختبار نهاية الرحلة -->
+    <section class="quiz-section">
+        <div class="container">
+            <div class="quiz-card">
+                <h2 class="section-title">اختبر معرفتك التاريخية</h2>
+                <p class="section-subtitle">أكملي هذا الاختبار لتربحي ٥٠ نقطة إضافية</p>
+                
+                <div id="memoryQuiz">
+                    <!-- سيتم تحميل الأسئلة ديناميكياً -->
+                </div>
+                
+                <div class="quiz-results" id="quizResults" style="display: none;">
+                    <h3>نتيجتك</h3>
+                    <div class="score-display">
+                        <div class="score-circle">
+                            <span id="finalScore">٠</span>
+                            <small>من ١٠٠</small>
+                        </div>
+                    </div>
+                    <p id="resultMessage"></p>
+                    <button class="btn-primary" onclick="retakeQuiz()">أعد الاختبار</button>
+                    <button class="btn-secondary" onclick="shareResults()">شارك النتيجة</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="footer-container">
+            <!-- نفس الفوتر السابق -->
+        </div>
+    </footer>
+
+    <!-- نافذة تفاصيل الشخصية -->
+    <div id="characterModal" class="modal">
+        <div class="modal-content wide-modal">
+            <span class="close" onclick="closeCharacterModal()">&times;</span>
+            <div id="characterModalContent">
+                <!-- سيتم تعبئته ديناميكياً -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script src="exhibits.js"></script>
+    <script>
+        // كود خاص بركن ذاكرة الملحمة
+        document.addEventListener('DOMContentLoaded', function() {
+            initTimeline();
+            initMap();
+            initQuiz();
+        });
+        
+        function initTimeline() {
+            const navBtns = document.querySelectorAll('.timeline-nav-btn');
+            const events = document.querySelectorAll('.timeline-event');
+            const steps = document.querySelectorAll('.progress-step');
+            
+            navBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const year = this.getAttribute('data-year');
+                    
+                    // تحديث الأزرار النشطة
+                    navBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // إظهار الحدث المناسب
+                    events.forEach(event => event.style.display = 'none');
+                    document.getElementById(`year-${year}`).style.display = 'block';
+                    
+                    // تحديث شريط التقدم
+                    updateProgress(year);
+                });
+            });
+            
+            // عرض أول حدث بشكل افتراضي
+            if (navBtns.length > 0) {
+                navBtns[0].click();
+            }
+        }
+        
+        function updateProgress(year) {
+            const yearMap = {
+                '1446': 1,
+                '1727': 2,
+                '1818': 3,
+                '1902': 4,
+                '1932': 5
+            };
+            
+            const currentStep = yearMap[year] || 1;
+            const progressFill = document.querySelector('.progress-fill');
+            const steps = document.querySelectorAll('.step');
+            
+            // تحديث شريط التقدم
+            const percentage = ((currentStep - 1) / (steps.length - 1)) * 100;
+            progressFill.style.width = `${percentage}%`;
+            
+            // تحديث الخطوات
+            steps.forEach((step, index) => {
+                if (index < currentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+        }
+        
+        function initMap() {
+            const points = document.querySelectorAll('.map-point');
+            
+            points.forEach(point => {
+                point.addEventListener('click', function() {
+                    const location = this.getAttribute('data-location');
+                    showLocationDetail(location);
+                });
+            });
+        }
+        
+        function showLocationDetail(location) {
+            const details = {
+                'الدرعية': {
+                    title: 'الدرعية التاريخية',
+                    content: `
+                        <h3>الدرعية: عاصمة التأسيس</h3>
+                        <p>تعد الدرعية رمزاً للوحدة الوطنية وبداية تأسيس الدولة السعودية. كانت عاصمة الدولة السعودية الأولى منذ عام ١٧٢٧م وحتى ١٨١٨م.</p>
+                        
+                        <div class="location-facts">
+                            <h4>حقائق سريعة:</h4>
+                            <ul>
+                                <li>أسسها مانع المريدي عام ١٤٤٦م</li>
+                                <li>اتخذها الإمام محمد بن سعود عاصمة لدولته عام ١٧٢٧م</li>
+                                <li>شهدت ازدهاراً علمياً وثقافياً كبيراً</li>
+                                <li>أدرجت في قائمة اليونسكو للتراث العالمي عام ٢٠١٠</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="location-images">
+                            <img src="../assets/images/diriyah-1.jpg" alt="الدرعية">
+                            <img src="../assets/images/diriyah-2.jpg" alt="حي الطريف">
+                        </div>
+                    `
+                },
+                'الرياض': {
+                    title: 'الرياض: قلب المملكة',
+                    content: `
+                        <h3>الرياض: من قلعة صغيرة إلى عاصمة عالمية</h3>
+                        <p>تطورت الرياض من بلدة صغيرة محصنة إلى واحدة من أسرع العواصم نمواً في العالم، ومركزاً اقتصادياً وسياسياً للمملكة.</p>
+                        
+                        <div class="location-facts">
+                            <h4>محطات التطور:</h4>
+                            <ul>
+                                <li>استعادها الملك عبدالعزيز عام ١٩٠٢م</li>
+                                <li>أصبحت عاصمة الدولة السعودية الثالثة عام ١٩٣٢م</li>
+                                <li>شهدت نهضة تنموية غير مسبوقة</li>
+                                <li>تحتضن الآن أهم المشاريع التنموية في رؤية ٢٠٣٠</li>
+                            </ul>
+                        </div>
+                    `
+                }
+            };
+            
+            const detailDiv = document.getElementById('locationDetails');
+            if (details[location]) {
+                detailDiv.innerHTML = details[location].content;
+            }
+        }
+        
+        function initQuiz() {
+            const questions = [
+                {
+                    question: "في أي عام تأسست الدولة السعودية الأولى؟",
+                    options: ["١٧٢٧م", "١٧٤٤م", "١٨١٨م", "١٩٠٢م"],
+                    correct: 0,
+                    points: 10
+                },
+                // المزيد من الأسئلة
+            ];
+            
+            // عرض الأسئلة
+            displayQuiz(questions);
+        }
+        
+        function showCharacterModal(characterId) {
+            // تحميل تفاصيل الشخصية وعرضها
+            const modal = document.getElementById('characterModal');
+            modal.style.display = 'flex';
+        }
+        
+        function closeCharacterModal() {
+            document.getElementById('characterModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

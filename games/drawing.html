@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أرسم تاريخك | رحلة التأسيس</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="games.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .drawing-game {
+            padding-top: 100px;
+            background: linear-gradient(135deg, #f8f4ef 0%, #e8dfd6 100%);
+            min-height: 100vh;
+        }
+        
+        .game-header {
+            text-align: center;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-green) 100%);
+            color: white;
+            margin-bottom: 2rem;
+        }
+        
+        .game-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .game-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .game-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+        
+        @media (max-width: 1024px) {
+            .game-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .drawing-tools {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .tool-section {
+            margin-bottom: 2rem;
+        }
+        
+        .tool-section h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-beige);
+        }
+        
+        .tool-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .tool-btn {
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .tool-btn.active {
+            border-color: var(--secondary-green);
+            background: var(--light-beige);
+            transform: scale(1.1);
+        }
+        
+        .tool-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .tool-btn i {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+        }
+        
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .color-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .color-btn.active {
+            border-color: var(--primary-dark);
+            transform: scale(1.2);
+        }
+        
+        .color-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .brush-sizes {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .size-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--light-gray);
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-dark);
+        }
+        
+        .size-btn.active {
+            border-color: var(--secondary-green);
+            background: var(--light-beige);
+        }
+        
+        .drawing-area {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .canvas-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 3px dashed var(--light-gray);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #drawingCanvas {
+            width: 100%;
+            height: 500px;
+            display: block;
+            cursor: crosshair;
+            background: white;
+        }
+        
+        .reference-image {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 150px;
+            border: 2px solid var(--secondary-green);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .reference-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .reference-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .reference-overlay:hover {
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .drawing-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .drawing-info {
+            flex: 1;
+        }
+        
+        .drawing-info h3 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .drawing-info p {
+            color: var(--gray);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 2px solid var(--light-gray);
+            background: white;
+            color: var(--primary-dark);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .action-btn.primary {
+            background: var(--secondary-green);
+            color: white;
+            border-color: var(--secondary-green);
+        }
+        
+        .action-btn.danger {
+            background: #dc3545;
+            color: white;
+            border-color: #dc3545;
+        }
+        
+        .drawing-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--light-beige);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--secondary-green);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-card .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-dark);
+            display: block;
+        }
+        
+        .stat-card .label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .templates {
+            margin-top: 3rem;
+        }
+        
+        .templates h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        
+        .template-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: var(--secondary-green);
+        }
+        
+        .template-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+        
+        .template-card .info {
+            padding: 0.5rem;
+            text-align: center;
+        }
+        
+        .template-card .title {
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 0.9rem;
+        }
+        
+        .template-card .difficulty {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .difficulty-stars {
+            color: var(--accent-gold);
+            margin-top: 0.25rem;
+        }
+        
+        .game-instructions {
+            background: var(--light-beige);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .game-instructions h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .instructions-list {
+            list-style: none;
+            padding-right: 0;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 0.8rem;
+            padding-right: 1.5rem;
+            position: relative;
+        }
+        
+        .instructions-list li:before {
+            content: '🎨';
+            position: absolute;
+            right: -1.5rem;
+        }
+        
+        .modal-content.drawing-modal {
+            max-width: 800px;
+        }
+        
+        .drawing-result {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .result-canvas {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            margin: 1rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .score-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--light-beige);
+            border-radius: 10px;
+        }
+        
+        .score-item .label {
+            display: block;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+        
+        .score-item .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary-green);
+        }
+        
+        @media (max-width: 768px) {
+            .game-header h1 {
+                font-size: 2rem;
+            }
+            
+            .tool-buttons {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .color-palette {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .drawing-controls {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .action-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="../assets/images/logo.png" alt="شعار يوم التأسيس" class="logo-img">
+                <span class="logo-text">رحلة التأسيس</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="../exhibits/" class="nav-link"><i class="fas fa-landmark"></i> المعارض</a>
+                <a href="../competition/" class="nav-link"><i class="fas fa-trophy"></i> المسابقة</a>
+                <a href="puzzle.html" class="nav-link"><i class="fas fa-puzzle-piece"></i> البازل الزمني</a>
+                <a href="drawing.html" class="nav-link active"><i class="fas fa-palette"></i> أرسم تاريخك</a>
+                <a href="photo-booth.html" class="nav-link"><i class="fas fa-camera"></i> أنا وطني</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="drawing-game">
+        <div class="game-header">
+            <div class="container">
+                <h1>أرسم تاريخك</h1>
+                <p>أكملي الرسم الناقص لأحد المعالم التاريخية واربح نقاطاً إبداعية</p>
+            </div>
+        </div>
+
+        <div class="container game-container">
+            <div class="game-layout">
+                <!-- أدوات الرسم -->
+                <aside class="drawing-tools">
+                    <div class="tool-section">
+                        <h3>أدوات الرسم</h3>
+                        <div class="tool-buttons">
+                            <button class="tool-btn active" data-tool="brush" title="فرشاة">
+                                <i class="fas fa-paint-brush"></i>
+                            </button>
+                            <button class="tool-btn" data-tool="eraser" title="ممحاة">
+                                <i class="fas fa-eraser"></i>
+                            </button>
+                            <button class="tool-btn" data-tool="line" title="خط">
+                                <i class="fas fa-slash"></i>
+                            </button>
+                            <button class="tool-btn" data-tool="rectangle" title="مستطيل">
+                                <i class="fas fa-square"></i>
+                            </button>
+                            <button class="tool-btn" data-tool="circle" title="دائرة">
+                                <i class="fas fa-circle"></i>
+                            </button>
+                            <button class="tool-btn" data-tool="fill" title="ملء">
+                                <i class="fas fa-fill-drip"></i>
+                            </button>
+                            <button class="tool-btn" data-tool="text" title="نص">
+                                <i class="fas fa-font"></i>
+                            </button>
+                            <button class="tool-btn" data-tool="select" title="تحديد">
+                                <i class="fas fa-mouse-pointer"></i>
+                            </button>
+                            <button class="tool-btn" data-tool="undo" title="تراجع">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="tool-section">
+                        <h3>الألوان</h3>
+                        <div class="color-palette">
+                            <button class="color-btn active" style="background: #000000;" data-color="#000000"></button>
+                            <button class="color-btn" style="background: #113D1C;" data-color="#113D1C"></button>
+                            <button class="color-btn" style="background: #1E5631;" data-color="#1E5631"></button>
+                            <button class="color-btn" style="background: #8DAE49;" data-color="#8DAE49"></button>
+                            <button class="color-btn" style="background: #C6A467;" data-color="#C6A467"></button>
+                            <button class="color-btn" style="background: #8B4513;" data-color="#8B4513"></button>
+                            <button class="color-btn" style="background: #FF0000;" data-color="#FF0000"></button>
+                            <button class="color-btn" style="background: #0000FF;" data-color="#0000FF"></button>
+                            <button class="color-btn" style="background: #FFFF00;" data-color="#FFFF00"></button>
+                            <button class="color-btn" style="background: #FFA500;" data-color="#FFA500"></button>
+                            <button class="color-btn" style="background: #800080;" data-color="#800080"></button>
+                            <button class="color-btn" style="background: #FFFFFF; border: 1px solid #ccc;" data-color="#FFFFFF"></button>
+                        </div>
+                    </div>
+
+                    <div class="tool-section">
+                        <h3>سمك الخط</h3>
+                        <div class="brush-sizes">
+                            <button class="size-btn active" data-size="2">٢</button>
+                            <button class="size-btn" data-size="5">٥</button>
+                            <button class="size-btn" data-size="10">١٠</button>
+                            <button class="size-btn" data-size="20">٢٠</button>
+                        </div>
+                    </div>
+
+                    <div class="tool-section">
+                        <h3>القالب الحالي</h3>
+                        <div class="current-template">
+                            <img src="../assets/images/masmak-template.png" alt="قصر المصمك" style="width: 100%; border-radius: 10px;">
+                            <div class="template-info">
+                                <h4>قصر المصمك</h4>
+                                <p>أكملي رسم القصر التاريخي</p>
+                                <div class="difficulty">
+                                    <span>الصعوبة: </span>
+                                    <span class="difficulty-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-section">
+                        <h3>الإحصائيات</h3>
+                        <div class="drawing-stats">
+                            <div class="stat-card">
+                                <i class="fas fa-clock"></i>
+                                <span class="value" id="drawingTime">٠٠:٠٠</span>
+                                <span class="label">الوقت</span>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-paint-brush"></i>
+                                <span class="value" id="brushStrokes">٠</span>
+                                <span class="label">الضربات</span>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-palette"></i>
+                                <span class="value" id="colorsUsed">٠</span>
+                                <span class="label">الألوان</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- منطقة الرسم -->
+                <div class="drawing-area">
+                    <div class="drawing-controls">
+                        <div class="drawing-info">
+                            <h3 id="templateTitle">قصر المصمك</h3>
+                            <p id="templateDescription">أكملي رسم القصر التاريخي الذي شهد معركة استعادة الرياض</p>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="action-btn" onclick="clearCanvas()">
+                                <i class="fas fa-trash"></i> مسح الكل
+                            </button>
+                            <button class="action-btn" onclick="saveDrawing()">
+                                <i class="fas fa-save"></i> حفظ
+                            </button>
+                            <button class="action-btn primary" onclick="submitDrawing()">
+                                <i class="fas fa-check"></i> إنهاء الرسم
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="canvas-container">
+                        <canvas id="drawingCanvas" width="800" height="500"></canvas>
+                        
+                        <div class="reference-image">
+                            <img src="../assets/images/masmak-reference.jpg" alt="صورة مرجعية">
+                            <div class="reference-overlay" onclick="toggleReference()">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- القوالب -->
+                    <div class="templates">
+                        <h3>اختي قالباً آخر</h3>
+                        <div class="template-grid" id="templatesGrid">
+                            <!-- سيتم تعبئته ديناميكياً -->
+                        </div>
+                    </div>
+
+                    <!-- التعليمات -->
+                    <div class="game-instructions">
+                        <h3>كيفية اللعب</h3>
+                        <ul class="instructions-list">
+                            <li>اختر أداة الرسم المناسبة من القائمة الجانبية</li>
+                            <li>اختر اللون وسمك الخط الذي تريدينه</li>
+                            <li>انقري واسحبي على اللوحة لبدء الرسم</li>
+                            <li>استخدمي الصورة المرجعية كدليل للرسم</li>
+                            <li>اضغطي على "إنهاء الرسم" عند الانتهاء</li>
+                            <li>ستحصلين على نقاط بناءً على دقة رسمك</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- نافذة النتائج -->
+    <div id="resultsModal" class="modal">
+        <div class="modal-content drawing-modal">
+            <span class="close" onclick="closeResults()">&times;</span>
+            
+            <div class="drawing-result">
+                <i class="fas fa-trophy" style="font-size: 4rem; color: var(--accent-gold); margin-bottom: 1rem;"></i>
+                <h2>🎉 أحسنت الرسم! 🎉</h2>
+                <p>لقد أتممت الرسم بنجاح وحصلت على النقاط التالية:</p>
+                
+                <canvas id="resultCanvas" class="result-canvas"></canvas>
+                
+                <div class="score-breakdown">
+                    <div class="score-item">
+                        <span class="label">الدقة</span>
+                        <span class="value" id="accuracyScore">٠٪</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="label">الإبداع</span>
+                        <span class="value" id="creativityScore">٠</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="label">السرعة</span>
+                        <span class="value" id="speedScore">٠</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="label">المجموع</span>
+                        <span class="value" id="totalScore">٠</span>
+                    </div>
+                </div>
+                
+                <div class="drawing-feedback">
+                    <h3>ملاحظات على رسمك:</h3>
+                    <p id="drawingFeedback">...</p>
+                </div>
+                
+                <div class="action-buttons" style="margin-top: 2rem;">
+                    <button class="action-btn primary" onclick="shareDrawing()">
+                        <i class="fas fa-share"></i> شارك رسمك
+                    </button>
+                    <button class="action-btn" onclick="tryAgain()">
+                        <i class="fas fa-redo"></i> حاول مرة أخرى
+                    </button>
+                    <button class="action-btn" onclick="chooseNewTemplate()">
+                        <i class="fas fa-forward"></i> قالب جديد
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <!-- نفس الفوتر السابق -->
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // كود خاص بلعبة الرسم
+        class DrawingGame {
+            constructor() {
+                this.canvas = document.getElementById('drawingCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.resultCanvas = document.getElementById('resultCanvas');
+                this.resultCtx = this.resultCanvas?.getContext('2d');
+                
+                this.currentTool = 'brush';
+                this.currentColor = '#000000';
+                this.currentSize = 2;
+                this.isDrawing = false;
+                this.lastX = 0;
+                this.lastY = 0;
+                this.drawingHistory = [];
+                this.historyIndex = -1;
+                
+                this.startTime = null;
+                this.timerInterval = null;
+                this.brushStrokes = 0;
+                this.colorsUsed = new Set();
+                this.currentTemplate = null;
+                
+                this.templates = [
+                    {
+                        id: 1,
+                        title: 'قصر المصمك',
+                        description: 'أكملي رسم القصر التاريخي الذي شهد معركة استعادة الرياض',
+                        image: '../assets/images/masmak-template.png',
+                        reference: '../assets/images/masmak-reference.jpg',
+                        difficulty: 2,
+                        outline: this.generateMasmakOutline.bind(this)
+                    },
+                    {
+                        id: 2,
+                        title: 'الدرعية التاريخية',
+                        description: 'ارسمي معالم حي الطريف في الدرعية',
+                        image: '../assets/images/diriyah-template.png',
+                        reference: '../assets/images/diriyah-reference.jpg',
+                        difficulty: 3,
+                        outline: this.generateDiriyahOutline.bind(this)
+                    },
+                    {
+                        id: 3,
+                        title: 'شعار المملكة',
+                        description: 'أكملي رسم شعار المملكة العربية السعودية',
+                        image: '../assets/images/emblem-template.png',
+                        reference: '../assets/images/emblem-reference.jpg',
+                        difficulty: 3,
+                        outline: this.generateEmblemOutline.bind(this)
+                    },
+                    {
+                        id: 4,
+                        title: 'نخلة التمر',
+                        description: 'ارسمي شجرة النخيل رمز الخير والعطاء',
+                        image: '../assets/images/palm-template.png',
+                        reference: '../assets/images/palm-reference.jpg',
+                        difficulty: 1,
+                        outline: this.generatePalmOutline.bind(this)
+                    }
+                ];
+                
+                this.init();
+            }
+            
+            init() {
+                this.setupCanvas();
+                this.setupEventListeners();
+                this.loadTemplate(1);
+                this.startTimer();
+                this.renderTemplates();
+                this.loadSavedDrawing();
+            }
+            
+            setupCanvas() {
+                // ضبط حجم الكانفاس
+                const container = this.canvas.parentElement;
+                this.canvas.width = container.clientWidth - 40;
+                this.canvas.height = 500;
+                
+                if (this.resultCanvas) {
+                    this.resultCanvas.width = 600;
+                    this.resultCanvas.height = 400;
+                }
+                
+                // خلفية بيضاء
+                this.ctx.fillStyle = '#FFFFFF';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // حفظ الحالة الأولية
+                this.saveToHistory();
+            }
+            
+            setupEventListeners() {
+                // أدوات الرسم
+                document.querySelectorAll('.tool-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const tool = e.currentTarget.dataset.tool;
+                        this.setTool(tool);
+                        
+                        document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                    });
+                });
+                
+                // الألوان
+                document.querySelectorAll('.color-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const color = e.currentTarget.dataset.color;
+                        this.setColor(color);
+                        
+                        document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                    });
+                });
+                
+                // أحجام الفرشاة
+                document.querySelectorAll('.size-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const size = parseInt(e.currentTarget.dataset.size);
+                        this.setSize(size);
+                        
+                        document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                    });
+                });
+                
+                // أحداث الكانفاس
+                this.canvas.addEventListener('mousedown', (e) => this.startDrawing(e));
+                this.canvas.addEventListener('mousemove', (e) => this.draw(e));
+                this.canvas.addEventListener('mouseup', () => this.stopDrawing());
+                this.canvas.addEventListener('mouseout', () => this.stopDrawing());
+                
+                // أحداث اللمس
+                this.canvas.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    this.startDrawing(touch);
+                });
+                
+                this.canvas.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    this.draw(touch);
+                });
+                
+                this.canvas.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    this.stopDrawing();
+                });
+                
+                // اختصارات لوحة المفاتيح
+                document.addEventListener('keydown', (e) => {
+                    if (e.ctrlKey && e.key === 'z') {
+                        e.preventDefault();
+                        this.undo();
+                    }
+                    
+                    if (e.ctrlKey && e.key === 'y') {
+                        e.preventDefault();
+                        this.redo();
+                    }
+                });
+            }
+            
+            setTool(tool) {
+                this.currentTool = tool;
+                
+                // تغيير شكل المؤشر
+                switch(tool) {
+                    case 'brush':
+                        this.canvas.style.cursor = 'crosshair';
+                        break;
+                    case 'eraser':
+                        this.canvas.style.cursor = 'cell';
+                        break;
+                    case 'select':
+                        this.canvas.style.cursor = 'default';
+                        break;
+                    default:
+                        this.canvas.style.cursor = 'crosshair';
+                }
+            }
+            
+            setColor(color) {
+                this.currentColor = color;
+                this.colorsUsed.add(color);
+                this.updateColorsUsed();
+            }
+            
+            setSize(size) {
+                this.currentSize = size;
+            }
+            
+            startDrawing(e) {
+                this.isDrawing = true;
+                const rect = this.canvas.getBoundingClientRect();
+                
+                this.lastX = e.clientX - rect.left;
+                this.lastY = e.clientY - rect.top;
+                
+                // رسم النقطة الأولى
+                this.drawPoint(this.lastX, this.lastY);
+            }
+            
+            draw(e) {
+                if (!this.isDrawing) return;
+                
+                const rect = this.canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                switch(this.currentTool) {
+                    case 'brush':
+                        this.drawLine(this.lastX, this.lastY, x, y);
+                        break;
+                    case 'eraser':
+                        this.eraseLine(this.lastX, this.lastY, x, y);
+                        break;
+                    case 'line':
+                        // سيتم الرسم عند التحرر
+                        break;
+                    case 'rectangle':
+                        // سيتم الرسم عند التحرر
+                        break;
+                    case 'circle':
+                        // سيتم الرسم عند التحرر
+                        break;
+                }
+                
+                this.lastX = x;
+                this.lastY = y;
+                this.brushStrokes++;
+                this.updateBrushStrokes();
+            }
+            
+            stopDrawing() {
+                if (this.isDrawing) {
+                    this.isDrawing = false;
+                    this.saveToHistory();
+                }
+            }
+            
+            drawLine(x1, y1, x2, y2) {
+                this.ctx.beginPath();
+                this.ctx.moveTo(x1, y1);
+                this.ctx.lineTo(x2, y2);
+                this.ctx.strokeStyle = this.currentColor;
+                this.ctx.lineWidth = this.currentSize;
+                this.ctx.lineCap = 'round';
+                this.ctx.lineJoin = 'round';
+                this.ctx.stroke();
+            }
+            
+            drawPoint(x, y) {
+                this.ctx.beginPath();
+                this.ctx.arc(x, y, this.currentSize / 2, 0, Math.PI * 2);
+                this.ctx.fillStyle = this.currentColor;
+                this.ctx.fill();
+            }
+            
+            eraseLine(x1, y1, x2, y2) {
+                this.ctx.beginPath();
+                this.ctx.moveTo(x1, y1);
+                this.ctx.lineTo(x2, y2);
+                this.ctx.strokeStyle = '#FFFFFF';
+                this.ctx.lineWidth = this.currentSize * 2;
+                this.ctx.lineCap = 'round';
+                this.ctx.stroke();
+            }
+            
+            saveToHistory() {
+                // حفظ الحالة الحالية
+                const imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
+                
+                // إزالة السجلات بعد المؤشر الحالي
+                if (this.historyIndex < this.drawingHistory.length - 1) {
+                    this.drawingHistory = this.drawingHistory.slice(0, this.historyIndex + 1);
+                }
+                
+                this.drawingHistory.push(imageData);
+                this.historyIndex++;
+                
+                // حفظ في localStorage
+                this.saveToLocalStorage();
+            }
+            
+            undo() {
+                if (this.historyIndex > 0) {
+                    this.historyIndex--;
+                    const imageData = this.drawingHistory[this.historyIndex];
+                    this.ctx.putImageData(imageData, 0, 0);
+                }
+            }
+            
+            redo() {
+                if (this.historyIndex < this.drawingHistory.length - 1) {
+                    this.historyIndex++;
+                    const imageData = this.drawingHistory[this.historyIndex];
+                    this.ctx.putImageData(imageData, 0, 0);
+                }
+            }
+            
+            clearCanvas() {
+                if (confirm('هل تريدين مسح الرسم بالكامل؟')) {
+                    this.ctx.fillStyle = '#FFFFFF';
+                    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                    
+                    // إعادة رسم الخطوط العريضة
+                    if (this.currentTemplate && this.currentTemplate.outline) {
+                        this.currentTemplate.outline();
+                    }
+                    
+                    this.saveToHistory();
+                    this.resetStats();
+                }
+            }
+            
+            resetStats() {
+                this.brushStrokes = 0;
+                this.colorsUsed.clear();
+                this.updateBrushStrokes();
+                this.updateColorsUsed();
+            }
+            
+            updateBrushStrokes() {
+                document.getElementById('brushStrokes').textContent = this.brushStrokes.toLocaleString('ar-SA');
+            }
+            
+            updateColorsUsed() {
+                document.getElementById('colorsUsed').textContent = this.colorsUsed.size.toLocaleString('ar-SA');
+            }
+            
+            startTimer() {
+                this.startTime = new Date();
+                this.timerInterval = setInterval(() => {
+                    const now = new Date();
+                    const diff = Math.floor((now - this.startTime) / 1000);
+                    
+                    const minutes = Math.floor(diff / 60);
+                    const seconds = diff % 60;
+                    
+                    document.getElementById('drawingTime').textContent = 
+                        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }, 1000);
+            }
+            
+            stopTimer() {
+                if (this.timerInterval) {
+                    clearInterval(this.timerInterval);
+                    this.timerInterval = null;
+                }
+            }
+            
+            loadTemplate(templateId) {
+                const template = this.templates.find(t => t.id === templateId);
+                if (!template) return;
+                
+                this.currentTemplate = template;
+                
+                // تحديث الواجهة
+                document.getElementById('templateTitle').textContent = template.title;
+                document.getElementById('templateDescription').textContent = template.description;
+                
+                // تحديث صورة القالب
+                const templateImage = document.querySelector('.current-template img');
+                if (templateImage) {
+                    templateImage.src = template.image;
+                }
+                
+                // تحديث الصورة المرجعية
+                const referenceImage = document.querySelector('.reference-image img');
+                if (referenceImage) {
+                    referenceImage.src = template.reference;
+                }
+                
+                // تحديث صعوبة القالب
+                const starsContainer = document.querySelector('.difficulty-stars');
+                if (starsContainer) {
+                    starsContainer.innerHTML = '';
+                    for (let i = 1; i <= 3; i++) {
+                        const star = document.createElement('i');
+                        star.className = i <= template.difficulty ? 'fas fa-star' : 'far fa-star';
+                        starsContainer.appendChild(star);
+                    }
+                }
+                
+                // مسح الرسم الحالي
+                this.ctx.fillStyle = '#FFFFFF';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // رسم الخطوط العريضة
+                if (template.outline) {
+                    template.outline();
+                }
+                
+                // إعادة تعيين الإحصائيات
+                this.resetStats();
+                this.startTime = new Date();
+                this.drawingHistory = [];
+                this.historyIndex = -1;
+                this.saveToHistory();
+            }
+            
+            generateMasmakOutline() {
+                this.ctx.strokeStyle = '#CCCCCC';
+                this.ctx.lineWidth = 1;
+                this.ctx.setLineDash([5, 5]);
+                
+                // رسم الخطوط العريضة الأساسية
+                this.ctx.beginPath();
+                this.ctx.rect(this.canvas.width * 0.3, this.canvas.height * 0.2, 200, 150);
+                this.ctx.stroke();
+                
+                this.ctx.beginPath();
+                this.ctx.rect(this.canvas.width * 0.3 + 60, this.canvas.height * 0.2 - 30, 80, 30);
+                this.ctx.stroke();
+                
+                this.ctx.setLineDash([]);
+            }
+            
+            generateDiriyahOutline() {
+                this.ctx.strokeStyle = '#CCCCCC';
+                this.ctx.lineWidth = 1;
+                this.ctx.setLineDash([5, 5]);
+                
+                // رسم مبانٍ بسيطة
+                for (let i = 0; i < 5; i++) {
+                    this.ctx.beginPath();
+                    this.ctx.rect(
+                        this.canvas.width * 0.2 + i * 60,
+                        this.canvas.height * 0.3 + i * 10,
+                        50,
+                        80 - i * 10
+                    );
+                    this.ctx.stroke();
+                }
+                
+                this.ctx.setLineDash([]);
+            }
+            
+            generateEmblemOutline() {
+                this.ctx.strokeStyle = '#CCCCCC';
+                this.ctx.lineWidth = 1;
+                this.ctx.setLineDash([5, 5]);
+                
+                // دائرة خارجية
+                this.ctx.beginPath();
+                this.ctx.arc(
+                    this.canvas.width / 2,
+                    this.canvas.height / 2,
+                    100,
+                    0,
+                    Math.PI * 2
+                );
+                this.ctx.stroke();
+                
+                // سيفان متقاطعان
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.canvas.width / 2 - 80, this.canvas.height / 2);
+                this.ctx.lineTo(this.canvas.width / 2 + 80, this.canvas.height / 2);
+                this.ctx.stroke();
+                
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.canvas.width / 2, this.canvas.height / 2 - 80);
+                this.ctx.lineTo(this.canvas.width / 2, this.canvas.height / 2 + 80);
+                this.ctx.stroke();
+                
+                this.ctx.setLineDash([]);
+            }
+            
+            generatePalmOutline() {
+                this.ctx.strokeStyle = '#CCCCCC';
+                this.ctx.lineWidth = 1;
+                this.ctx.setLineDash([5, 5]);
+                
+                // جذع النخلة
+                this.ctx.beginPath();
+                this.ctx.rect(this.canvas.width / 2 - 10, this.canvas.height * 0.4, 20, 150);
+                this.ctx.stroke();
+                
+                // الأوراق
+                for (let i = 0; i < 8; i++) {
+                    const angle = (i / 8) * Math.PI * 2;
+                    const length = 60;
+                    
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(this.canvas.width / 2, this.canvas.height * 0.4);
+                    this.ctx.lineTo(
+                        this.canvas.width / 2 + Math.cos(angle) * length,
+                        this.canvas.height * 0.4 + Math.sin(angle) * length
+                    );
+                    this.ctx.stroke();
+                }
+                
+                this.ctx.setLineDash([]);
+            }
+            
+            renderTemplates() {
+                const container = document.getElementById('templatesGrid');
+                if (!container) return;
+                
+                container.innerHTML = this.templates.map(template => `
+                    <div class="template-card" onclick="drawingGame.loadTemplate(${template.id})">
+                        <img src="${template.image}" alt="${template.title}">
+                        <div class="info">
+                            <div class="title">${template.title}</div>
+                            <div class="difficulty">
+                                <div class="difficulty-stars">
+                                    ${Array(3).fill().map((_, i) => `
+                                        <i class="${i < template.difficulty ? 'fas' : 'far'} fa-star"></i>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            saveDrawing() {
+                const dataURL = this.canvas.toDataURL('image/png');
+                localStorage.setItem('savedDrawing', dataURL);
+                alert('تم حفظ الرسم بنجاح!');
+            }
+            
+            loadSavedDrawing() {
+                const saved = localStorage.getItem('savedDrawing');
+                if (saved) {
+                    const img = new Image();
+                    img.onload = () => {
+                        this.ctx.drawImage(img, 0, 0);
+                        this.saveToHistory();
+                    };
+                    img.src = saved;
+                }
+            }
+            
+            saveToLocalStorage() {
+                const dataURL = this.canvas.toDataURL('image/png');
+                localStorage.setItem('currentDrawing', dataURL);
+            }
+            
+            submitDrawing() {
+                this.stopTimer();
+                
+                // حساب النقاط
+                const timeSpent = Math.floor((new Date() - this.startTime) / 1000);
+                const accuracy = this.calculateAccuracy();
+                const creativity = this.calculateCreativity();
+                const speed = this.calculateSpeed(timeSpent);
+                
+                const totalScore = accuracy + creativity + speed;
+                
+                // حفظ النتيجة
+                this.saveResult({
+                    accuracy,
+                    creativity,
+                    speed,
+                    totalScore,
+                    timeSpent,
+                    template: this.currentTemplate.id
+                });
+                
+                // عرض النتائج
+                this.showResults(accuracy, creativity, speed, totalScore, timeSpent);
+            }
+            
+            calculateAccuracy() {
+                // محاكاة حساب الدقة
+                const baseAccuracy = 70;
+                const strokesBonus = Math.min(this.brushStrokes / 10, 20);
+                const colorsBonus = this.colorsUsed.size * 2;
+                
+                return Math.min(baseAccuracy + strokesBonus + colorsBonus, 100);
+            }
+            
+            calculateCreativity() {
+                // محاكاة حساب الإبداع
+                const colorsScore = this.colorsUsed.size * 10;
+                const strokesScore = Math.min(this.brushStrokes / 5, 50);
+                
+                return Math.min(colorsScore + strokesScore, 100);
+            }
+            
+            calculateSpeed(timeSpent) {
+                // أسرع وقت = ٣٠٠ نقطة، أبطأ وقت = ٠ نقطة
+                const maxTime = 600; // ١٠ دقائق
+                const minTime = 60; // دقيقة واحدة
+                
+                if (timeSpent <= minTime) return 100;
+                if (timeSpent >= maxTime) return 0;
+                
+                return Math.round(100 * (1 - (timeSpent - minTime) / (maxTime - minTime)));
+            }
+            
+            saveResult(result) {
+                const results = JSON.parse(localStorage.getItem('drawingResults') || '[]');
+                results.push({
+                    ...result,
+                    date: new Date().toISOString(),
+                    template: this.currentTemplate.title
+                });
+                
+                localStorage.setItem('drawingResults', JSON.stringify(results));
+                
+                // تحديث نقاط المستخدم
+                this.updateUserPoints(result.totalScore);
+            }
+            
+            updateUserPoints(points) {
+                const user = JSON.parse(localStorage.getItem('user') || '{}');
+                if (user.points) {
+                    user.points += points;
+                    localStorage.setItem('user', JSON.stringify(user));
+                }
+            }
+            
+            showResults(accuracy, creativity, speed, totalScore, timeSpent) {
+                // تحديث النتائج في النافذة المنبثقة
+                document.getElementById('accuracyScore').textContent = `${accuracy}٪`;
+                document.getElementById('creativityScore').textContent = creativity;
+                document.getElementById('speedScore').textContent = speed;
+                document.getElementById('totalScore').textContent = totalScore;
+                
+                // عرض تعليق بناءً على النتيجة
+                let feedback = '';
+                if (totalScore >= 250) {
+                    feedback = 'رسم رائع! دقة وإبداع عاليين. تستحقين أعلى النقاط!';
+                } else if (totalScore >= 200) {
+                    feedback = 'عمل جيد! رسم واضح ومبدع. استمري في التقدم!';
+                } else if (totalScore >= 150) {
+                    feedback = 'ليس سيئاً! حاولي التركيز أكثر على التفاصيل في المرة القادمة.';
+                } else {
+                    feedback = 'محاولة جيدة! جربي استخدام ألوان أكثر وركزي على التفاصيل.';
+                }
+                
+                document.getElementById('drawingFeedback').textContent = feedback;
+                
+                // نسخ الرسم إلى كانفاس النتائج
+                if (this.resultCanvas && this.resultCtx) {
+                    this.resultCtx.clearRect(0, 0, this.resultCanvas.width, this.resultCanvas.height);
+                    
+                    // رسم خلفية
+                    this.resultCtx.fillStyle = '#FFFFFF';
+                    this.resultCtx.fillRect(0, 0, this.resultCanvas.width, this.resultCanvas.height);
+                    
+                    // رسم الرسم
+                    const img = new Image();
+                    img.onload = () => {
+                        const scale = Math.min(
+                            this.resultCanvas.width / this.canvas.width,
+                            this.resultCanvas.height / this.canvas.height
+                        );
+                        
+                        const width = this.canvas.width * scale;
+                        const height = this.canvas.height * scale;
+                        const x = (this.resultCanvas.width - width) / 2;
+                        const y = (this.resultCanvas.height - height) / 2;
+                        
+                        this.resultCtx.drawImage(img, x, y, width, height);
+                    };
+                    img.src = this.canvas.toDataURL('image/png');
+                }
+                
+                // عرض النافذة المنبثقة
+                document.getElementById('resultsModal').style.display = 'flex';
+            }
+        }
+        
+        // تهيئة اللعبة
+        let drawingGame;
+        document.addEventListener('DOMContentLoaded', () => {
+            drawingGame = new DrawingGame();
+        });
+        
+        // وظائف عامة
+        function clearCanvas() {
+            if (drawingGame) {
+                drawingGame.clearCanvas();
+            }
+        }
+        
+        function saveDrawing() {
+            if (drawingGame) {
+                drawingGame.saveDrawing();
+            }
+        }
+        
+        function submitDrawing() {
+            if (drawingGame) {
+                drawingGame.submitDrawing();
+            }
+        }
+        
+        function toggleReference() {
+            const overlay = document.querySelector('.reference-overlay');
+            if (overlay) {
+                overlay.style.display = overlay.style.display === 'none' ? 'flex' : 'none';
+            }
+        }
+        
+        function closeResults() {
+            document.getElementById('resultsModal').style.display = 'none';
+        }
+        
+        function shareDrawing() {
+            const canvas = document.getElementById('resultCanvas');
+            if (canvas) {
+                canvas.toBlob((blob) => {
+                    if (navigator.share) {
+                        navigator.share({
+                            title: 'رسمي في لعبة "أرسم تاريخك"',
+                            text: 'شاركت في رسم معلم تاريخي في لعبة "أرسم تاريخك"!',
+                            files: [new File([blob], 'رسم-تاريخي.png', { type: 'image/png' })]
+                        });
+                    } else {
+                        // بديل للمتصفحات التي لا تدعم Web Share API
+                        const link = document.createElement('a');
+                        link.download = 'رسم-تاريخي.png';
+                        link.href = URL.createObjectURL(blob);
+                        link.click();
+                    }
+                });
+            }
+        }
+        
+        function tryAgain() {
+            closeResults();
+            if (drawingGame && drawingGame.currentTemplate) {
+                drawingGame.loadTemplate(drawingGame.currentTemplate.id);
+            }
+        }
+        
+        function chooseNewTemplate() {
+            closeResults();
+            // يمكن عرض قائمة القوالب للاختيار
+            alert('اختر قالباً جديداً من القائمة الجانبية');
+        }
+        
+        // تصدير للاستخدام في الملفات الأخرى
+        window.DrawingGame = DrawingGame;
+        window.drawingGame = drawingGame;
+    </script>
+</body>
+</html>

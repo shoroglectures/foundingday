@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة المحتوى | رحلة التأسيس</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .content-management {
+            padding-top: 80px;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        
+        .management-header {
+            background: var(--primary-dark);
+            color: white;
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .content-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+        
+        .content-tabs {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .tab-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            text-align: right;
+            border: none;
+            background: white;
+            border-right: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'El Messiri', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .tab-btn:hover,
+        .tab-btn.active {
+            background: var(--light-beige);
+            border-right-color: var(--secondary-green);
+        }
+        
+        .content-area {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light-beige);
+        }
+        
+        .content-header h2 {
+            color: var(--primary-dark);
+        }
+        
+        .add-btn {
+            background: var(--secondary-green);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .add-btn:hover {
+            background: var(--primary-green);
+            transform: translateY(-2px);
+        }
+        
+        .content-list {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .content-item {
+            background: var(--light-beige);
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .content-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .item-info h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .item-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--light-gray);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .edit-btn:hover {
+            border-color: var(--secondary-green);
+            color: var(--secondary-green);
+        }
+        
+        .delete-btn:hover {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+        
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-published {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-draft {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .form-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-family: 'El Messiri', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+        
+        .question-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 1024px) {
+            .content-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-management">
+        <!-- نفس الهيدر من dashboard.html -->
+        
+        <div class="container">
+            <div class="content-layout">
+                <!-- التبويبات -->
+                <div class="content-tabs">
+                    <button class="tab-btn active" data-tab="exhibits">
+                        <i class="fas fa-landmark"></i>
+                        معارض
+                    </button>
+                    
+                    <button class="tab-btn" data-tab="questions">
+                        <i class="fas fa-question-circle"></i>
+                        أسئلة المسابقة
+                    </button>
+                    
+                    <button class="tab-btn" data-tab="games">
+                        <i class="fas fa-gamepad"></i>
+                        الألعاب
+                    </button>
+                    
+                    <button class="tab-btn" data-tab="announcements">
+                        <i class="fas fa-bullhorn"></i>
+                        الإعلانات
+                    </button>
+                    
+                    <button class="tab-btn" data-tab="users">
+                        <i class="fas fa-users"></i>
+                        المستخدمين
+                    </button>
+                </div>
+
+                <!-- المحتوى -->
+                <div class="content-area">
+                    <!-- معارض -->
+                    <div class="tab-content active" id="exhibits-tab">
+                        <div class="content-header">
+                            <h2>إدارة المعارض</h2>
+                            <button class="add-btn" onclick="openExhibitForm()">
+                                <i class="fas fa-plus"></i>
+                                إضافة معرض
+                            </button>
+                        </div>
+                        
+                        <div class="content-list" id="exhibitsList">
+                            <!-- سيتم تعبئته ديناميكياً -->
+                        </div>
+                    </div>
+
+                    <!-- أسئلة المسابقة -->
+                    <div class="tab-content" id="questions-tab">
+                        <div class="content-header">
+                            <h2>إدارة أسئلة المسابقة</h2>
+                            <button class="add-btn" onclick="openQuestionForm()">
+                                <i class="fas fa-plus"></i>
+                                إضافة سؤال
+                            </button>
+                        </div>
+                        
+                        <div class="questions-filters">
+                            <select id="categoryFilter">
+                                <option value="all">جميع الفئات</option>
+                                <option value="history">التاريخ</option>
+                                <option value="geography">الجغرافيا</option>
+                                <option value="heritage">التراث</option>
+                            </select>
+                        </div>
+                        
+                        <div class="content-list" id="questionsList">
+                            <!-- سيتم تعبئته ديناميكياً -->
+                        </div>
+                    </div>
+
+                    <!-- الألعاب -->
+                    <div class="tab-content" id="games-tab">
+                        <div class="content-header">
+                            <h2>إدارة الألعاب</h2>
+                            <button class="add-btn" onclick="openGameForm()">
+                                <i class="fas fa-plus"></i>
+                                إضافة لعبة
+                            </button>
+                        </div>
+                        
+                        <div class="content-list" id="gamesList">
+                            <!-- سيتم تعبئته ديناميكياً -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نموذج إضافة معرض -->
+    <div id="exhibitModal" class="form-modal">
+        <div class="modal-content">
+            <h2>إضافة معرض جديد</h2>
+            <form id="exhibitForm">
+                <div class="form-group">
+                    <label>اسم المعرض</label>
+                    <input type="text" id="exhibitName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>الوصف</label>
+                    <textarea id="exhibitDescription" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>الصورة</label>
+                    <input type="file" id="exhibitImage" accept="image/*">
+                </div>
+                
+                <div class="form-group">
+                    <label>الفئة</label>
+                    <select id="exhibitCategory">
+                        <option value="history">تاريخي</option>
+                        <option value="heritage">تراثي</option>
+                        <option value="cultural">ثقافي</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('exhibitModal')">إلغاء</button>
+                    <button type="submit" class="btn-primary">حفظ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        // كود إدارة المحتوى
+        class ContentManager {
+            constructor() {
+                this.currentTab = 'exhibits';
+                this.exhibits = [];
+                this.questions = [];
+                this.games = [];
+                
+                this.init();
+            }
+            
+            init() {
+                this.setupTabs();
+                this.loadExhibits();
+                this.loadQuestions();
+                this.loadGames();
+                this.setupForms();
+            }
+            
+            setupTabs() {
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const tab = btn.dataset.tab;
+                        this.switchTab(tab);
+                    });
+                });
+            }
+            
+            switchTab(tab) {
+                this.currentTab = tab;
+                
+                // تحديث الأزرار النشطة
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                event.target.classList.add('active');
+                
+                // إظهار المحتوى المناسب
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(`${tab}-tab`).classList.add('active');
+            }
+            
+            async loadExhibits() {
+                // محاكاة تحميل المعارض
+                this.exhibits = [
+                    {
+                        id: 1,
+                        name: 'ذاكرة الملحمة',
+                        description: 'خط زمني تفاعلي يروي قصة التأسيس',
+                        category: 'history',
+                        status: 'published',
+                        views: 1245,
+                        createdAt: '2024-01-15'
+                    },
+                    {
+                        id: 2,
+                        name: 'إرث الأجداد',
+                        description: 'رحلة في عمق التراث السعودي الأصيل',
+                        category: 'heritage',
+                        status: 'published',
+                        views: 987,
+                        createdAt: '2024-01-20'
+                    }
+                ];
+                
+                this.renderExhibits();
+            }
+            
+            renderExhibits() {
+                const container = document.getElementById('exhibitsList');
+                if (!container) return;
+                
+                container.innerHTML = this.exhibits.map(exhibit => `
+                    <div class="content-item">
+                        <div class="item-info">
+                            <h4>${exhibit.name}</h4>
+                            <p>${exhibit.description}</p>
+                            <div class="item-meta">
+                                <span>${this.getCategoryName(exhibit.category)}</span>
+                                <span>${exhibit.views.toLocaleString('ar-SA')} مشاهدة</span>
+                                <span class="status-badge status-${exhibit.status}">
+                                    ${exhibit.status === 'published' ? 'منشور' : 'مسودة'}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="item-actions">
+                            <button class="action-btn edit-btn" onclick="editExhibit(${exhibit.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete-btn" onclick="deleteExhibit(${exhibit.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            async loadQuestions() {
+                // محاكاة تحميل الأسئلة
+                this.questions = [
+                    {
+                        id: 1,
+                        question: 'في أي عام تأسست الدولة السعودية الأولى؟',
+                        category: 'history',
+                        difficulty: 'easy',
+                        points: 10,
+                        status: 'published',
+                        createdAt: '2024-02-01'
+                    },
+                    {
+                        id: 2,
+                        question: 'ما هو أطول وادي في المملكة العربية السعودية؟',
+                        category: 'geography',
+                        difficulty: 'hard',
+                        points: 20,
+                        status: 'published',
+                        createdAt: '2024-02-02'
+                    }
+                ];
+                
+                this.renderQuestions();
+            }
+            
+            renderQuestions() {
+                const container = document.getElementById('questionsList');
+                if (!container) return;
+                
+                container.innerHTML = this.questions.map(q => `
+                    <div class="question-item">
+                        <div class="question-header">
+                            <h4>${q.question}</h4>
+                            <span class="status-badge status-${q.status}">
+                                ${q.status === 'published' ? 'منشور' : 'مسودة'}
+                            </span>
+                        </div>
+                        <div class="item-meta">
+                            <span>${this.getCategoryName(q.category)}</span>
+                            <span>${this.getDifficultyName(q.difficulty)}</span>
+                            <span>${q.points} نقطة</span>
+                        </div>
+                        <div class="item-actions">
+                            <button class="action-btn edit-btn" onclick="editQuestion(${q.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete-btn" onclick="deleteQuestion(${q.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            async loadGames() {
+                // محاكاة تحميل الألعاب
+                this.games = [
+                    {
+                        id: 1,
+                        name: 'البازل الزمني',
+                        description: 'رتب قطع البازل لاكتشاف صور تاريخية',
+                        category: 'puzzle',
+                        difficulty: 2,
+                        plays: 2341,
+                        status: 'published'
+                    },
+                    {
+                        id: 2,
+                        name: 'أرسم تاريخك',
+                        description: 'أكمل الرسم الناقص للمعالم التاريخية',
+                        category: 'drawing',
+                        difficulty: 3,
+                        plays: 1876,
+                        status: 'published'
+                    }
+                ];
+                
+                this.renderGames();
+            }
+            
+            renderGames() {
+                const container = document.getElementById('gamesList');
+                if (!container) return;
+                
+                container.innerHTML = this.games.map(game => `
+                    <div class="content-item">
+                        <div class="item-info">
+                            <h4>${game.name}</h4>
+                            <p>${game.description}</p>
+                            <div class="item-meta">
+                                <span>${this.getGameCategoryName(game.category)}</span>
+                                <span>${game.plays.toLocaleString('ar-SA')} مرة لعب</span>
+                                <span>${'★'.repeat(game.difficulty)}${'☆'.repeat(3-game.difficulty)}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="item-actions">
+                            <button class="action-btn edit-btn" onclick="editGame(${game.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete-btn" onclick="deleteGame(${game.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            setupForms() {
+                // نموذج المعرض
+                const exhibitForm = document.getElementById('exhibitForm');
+                if (exhibitForm) {
+                    exhibitForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        this.saveExhibit();
+                    });
+                }
+            }
+            
+            getCategoryName(category) {
+                const categories = {
+                    'history': 'تاريخ',
+                    'geography': 'جغرافيا',
+                    'heritage': 'تراث',
+                    'cultural': 'ثقافي'
+                };
+                return categories[category] || category;
+            }
+            
+            getDifficultyName(difficulty) {
+                const difficulties = {
+                    'easy': 'سهل',
+                    'medium': 'متوسط',
+                    'hard': 'صعب'
+                };
+                return difficulties[difficulty] || difficulty;
+            }
+            
+            getGameCategoryName(category) {
+                const categories = {
+                    'puzzle': 'بازل',
+                    'drawing': 'رسم',
+                    'photo': 'تصوير',
+                    'quiz': 'اختبار'
+                };
+                return categories[category] || category;
+            }
+            
+            saveExhibit() {
+                const name = document.getElementById('exhibitName').value;
+                const description = document.getElementById('exhibitDescription').value;
+                const category = document.getElementById('exhibitCategory').value;
+                
+                // في التطبيق الحقيقي، إرسال البيانات إلى API
+                const newExhibit = {
+                    id: Date.now(),
+                    name,
+                    description,
+                    category,
+                    status: 'draft',
+                    views: 0,
+                    createdAt: new Date().toISOString().split('T')[0]
+                };
+                
+                this.exhibits.push(newExhibit);
+                this.renderExhibits();
+                this.closeModal('exhibitModal');
+                alert('تم حفظ المعرض بنجاح!');
+            }
+            
+            editExhibit(id) {
+                const exhibit = this.exhibits.find(e => e.id === id);
+                if (exhibit) {
+                    document.getElementById('exhibitName').value = exhibit.name;
+                    document.getElementById('exhibitDescription').value = exhibit.description;
+                    document.getElementById('exhibitCategory').value = exhibit.category;
+                    this.openModal('exhibitModal');
+                }
+            }
+            
+            deleteExhibit(id) {
+                if (confirm('هل أنت متأكد من حذف هذا المعرض؟')) {
+                    this.exhibits = this.exhibits.filter(e => e.id !== id);
+                    this.renderExhibits();
+                    alert('تم الحذف بنجاح!');
+                }
+            }
+            
+            openModal(modalId) {
+                document.getElementById(modalId).style.display = 'flex';
+            }
+            
+            closeModal(modalId) {
+                document.getElementById(modalId).style.display = 'none';
+                // إعادة تعيين النموذج
+                const form = document.querySelector(`#${modalId} form`);
+                if (form) form.reset();
+            }
+        }
+        
+        // تهيئة مدير المحتوى
+        let contentManager;
+        document.addEventListener('DOMContentLoaded', () => {
+            contentManager = new ContentManager();
+        });
+        
+        // وظائف عامة
+        function openExhibitForm() {
+            contentManager.openModal('exhibitModal');
+        }
+        
+        function openQuestionForm() {
+            alert('نموذج إضافة سؤال جديد - قيد التطوير');
+        }
+        
+        function openGameForm() {
+            alert('نموذج إضافة لعبة جديدة - قيد التطوير');
+        }
+        
+        function closeModal(modalId) {
+            contentManager.closeModal(modalId);
+        }
+        
+        function editExhibit(id) {
+            contentManager.editExhibit(id);
+        }
+        
+        function deleteExhibit(id) {
+            contentManager.deleteExhibit(id);
+        }
+        
+        function editQuestion(id) {
+            alert(`تعديل السؤال ${id} - قيد التطوير`);
+        }
+        
+        function deleteQuestion(id) {
+            if (confirm('هل أنت متأكد من حذف هذا السؤال؟')) {
+                contentManager.questions = contentManager.questions.filter(q => q.id !== id);
+                contentManager.renderQuestions();
+                alert('تم الحذف بنجاح!');
+            }
+        }
+        
+        function editGame(id) {
+            alert(`تعديل اللعبة ${id} - قيد التطوير`);
+        }
+        
+        function deleteGame(id) {
+            if (confirm('هل أنت متأكد من حذف هذه اللعبة؟')) {
+                contentManager.games = contentManager.games.filter(g => g.id !== id);
+                contentManager.renderGames();
+                alert('تم الحذف بنجاح!');
+            }
+        }
+        
+        // تصدير للاستخدام في الملفات الأخرى
+        window.ContentManager = ContentManager;
+        window.contentManager = contentManager;
+    </script>
+</body>
+</html>

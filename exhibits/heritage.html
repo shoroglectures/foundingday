@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إرث الأجداد | رحلة التأسيس</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="exhibits.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="../assets/images/logo.png" alt="شعار يوم التأسيس" class="logo-img">
+                <span class="logo-text">رحلة التأسيس</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="memory.html" class="nav-link"><i class="fas fa-landmark"></i> ذاكرة الملحمة</a>
+                <a href="heritage.html" class="nav-link active"><i class="fas fa-archway"></i> إرث الأجداد</a>
+                <a href="sound.html" class="nav-link"><i class="fas fa-music"></i> صوت الوطن</a>
+                <a href="vision.html" class="nav-link"><i class="fas fa-chart-line"></i> الرؤية المتجددة</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- رأس الصفحة -->
+    <header class="exhibit-header">
+        <div class="header-content">
+            <h1 class="exhibit-title">إرث الأجداد</h1>
+            <p class="exhibit-subtitle">رحلة في عمق التراث السعودي الأصيل: حرف يدوية، أزياء تقليدية، ومقتنيات تروي حكاية إرث حضاري عريق</p>
+            <div class="exhibit-meta">
+                <span><i class="far fa-clock"></i> الوقت المقدر: ٢٥ دقيقة</span>
+                <span><i class="fas fa-star"></i> ١٢٠ نقطة يمكن ربحها</span>
+                <span><i class="fas fa-users"></i> ٤٥٠+ طالبة استكشفته</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- معرض الحرف اليدوية -->
+    <section class="crafts-section">
+        <div class="container">
+            <h2 class="section-title">الحرف اليدوية التقليدية</h2>
+            <p class="section-subtitle">اكتشفي مهارات الأجداد التي تشكل هوية المملكة</p>
+            
+            <div class="crafts-grid">
+                <!-- حرفة 1 -->
+                <div class="craft-card">
+                    <div class="craft-image">
+                        <img src="../assets/images/sadu.jpg" alt="السدو">
+                        <div class="craft-badge">تراث اليونسكو</div>
+                    </div>
+                    <div class="craft-info">
+                        <h3>حرفة السدو</h3>
+                        <p class="craft-description">
+                            فن نسج الصوف التقليدي الذي تمارسه نساء البادية، يستخدم لصنع الخيام، الوسائد، ومفارش الإبل. يتميز بألوانه الزاهية ورموزه الهندسية.
+                        </p>
+                        <div class="craft-details">
+                            <div class="detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>منطقة: نجد والشمال</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-clock"></i>
+                                <span>تاريخ: منذ ٣٠٠٠ سنة</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-award"></i>
+                                <span>التصنيف: تراث عالمي</span>
+                            </div>
+                        </div>
+                        
+                        <div class="interactive-element">
+                            <h4>جربي بنفسك!</h4>
+                            <div class="weaving-simulator">
+                                <div class="weaving-loom" id="weavingLoom">
+                                    <!-- محاكاة نسج السدو -->
+                                </div>
+                                <button class="btn-small" onclick="startWeaving()">
+                                    <i class="fas fa-palette"></i> ابدئي النسج
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- حرفة 2 -->
+                <div class="craft-card">
+                    <div class="craft-image">
+                        <img src="../assets/images/pottery.jpg" alt="الفخار">
+                    </div>
+                    <div class="craft-info">
+                        <h3>صناعة الفخار</h3>
+                        <p class="craft-description">
+                            أحد أقدم الحرف في الجزيرة العربية، تشتهر بها منطقة الأحساء. يصنع منها الأواني المنزلية وأدوات التخزين بأشكال هندسية متنوعة.
+                        </p>
+                        <div class="craft-details">
+                            <div class="detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>منطقة: الأحساء</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-clock"></i>
+                                <span>تاريخ: منذ ٥٠٠٠ سنة</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-award"></i>
+                                <span>التصنيف: تراث محلي</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- حرفة 3 -->
+                <div class="craft-card">
+                    <div class="craft-image">
+                        <img src="../assets/images/woodwork.jpg" alt="النقش على الخشب">
+                    </div>
+                    <div class="craft-info">
+                        <h3>النقش على الخشب</h3>
+                        <p class="craft-description">
+                            فن الزخرفة الإسلامية الذي يزين الأبواب والنوافذ والمشربيات. يستخدم في المساجد والبيوت التقليدية بنقوش هندسية ونباتية.
+                        </p>
+                        <div class="craft-details">
+                            <div class="detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>منطقة: الحجاز</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-clock"></i>
+                                <span>تاريخ: منذ ١٠٠٠ سنة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- معرض الأزياء -->
+    <section class="fashion-section">
+        <div class="container">
+            <h2 class="section-title">الأزياء التقليدية السعودية</h2>
+            
+            <div class="fashion-tabs">
+                <button class="fashion-tab active" data-tab="women">أزياء النساء</button>
+                <button class="fashion-tab" data-tab="men">أزياء الرجال</button>
+                <button class="fashion-tab" data-tab="accessories">المجوهرات</button>
+            </div>
+            
+            <div class="fashion-content active" id="women-fashion">
+                <div class="fashion-grid">
+                    <div class="costume-card">
+                        <div class="costume-image">
+                            <img src="../assets/images/thobe.jpg" alt="الثوب النسائي">
+                        </div>
+                        <div class="costume-info">
+                            <h4>الثوب النجدي</h4>
+                            <p>ثوب فضفاض مزين بالتطريز الذهبي والفضي، يلبس في المناسبات الخاصة.</p>
+                            <div class="costume-details">
+                                <span class="region"><i class="fas fa-map-pin"></i> نجد</span>
+                                <span class="material"><i class="fas fa-tshirt"></i> قماش مشجر</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="costume-card">
+                        <div class="costume-image">
+                            <img src="../assets/images/abaya.jpg" alt="العباءة">
+                        </div>
+                        <div class="costume-info">
+                            <h4>العباءة التقليدية</h4>
+                            <p>عباءة سوداء مطرزة من الأمام، كانت تصنع من الصوف وتزين بالخيوط الذهبية.</p>
+                            <div class="costume-details">
+                                <span class="region"><i class="fas fa-map-pin"></i> جميع المناطق</span>
+                                <span class="material"><i class="fas fa-tshirt"></i> صوف أو قطن</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- المطبخ التقليدي -->
+    <section class="cuisine-section">
+        <div class="container">
+            <h2 class="section-title">المأكولات التقليدية</h2>
+            
+            <div class="cuisine-slider">
+                <div class="dish-card">
+                    <img src="../assets/images/kabsa.jpg" alt="الكبسة">
+                    <h3>الكبسة</h3>
+                    <p>الأكلة الوطنية للمملكة، أرز مع لحم ودجاج ومجموعة من البهارات الخاصة.</p>
+                    <button class="btn-small" onclick="showRecipe('kabsa')">شاهدي الوصفة</button>
+                </div>
+                
+                <div class="dish-card">
+                    <img src="../assets/images/jareesh.jpg" alt="الجريش">
+                    <h3>الجريش</h3>
+                    <p>طبق من حبوب القمح المطحون مع اللبن، أكلة شعبية في نجد.</p>
+                    <button class="btn-small" onclick="showRecipe('jareesh')">شاهدي الوصفة</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- اختبار التراث -->
+    <section class="heritage-quiz">
+        <div class="container">
+            <div class="quiz-card">
+                <h2>اختبر معرفتك بالتراث السعودي</h2>
+                <div id="heritageQuiz">
+                    <!-- أسئلة التراث -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="footer-container">
+            <!-- نفس الفوتر السابق -->
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // كود خاص بركن إرث الأجداد
+        document.addEventListener('DOMContentLoaded', function() {
+            initFashionTabs();
+            initCuisineSlider();
+            initHeritageQuiz();
+        });
+        
+        function initFashionTabs() {
+            const tabs = document.querySelectorAll('.fashion-tab');
+            const contents = document.querySelectorAll('.fashion-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    const tabId = tab.dataset.tab;
+                    contents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `${tabId}-fashion`) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        }
+        
+        function startWeaving() {
+            // محاكاة حرفة السدو
+            alert('ابدئي بسحب الخيوط واختيار الألوان لصنع نمط سدو تقليدي!');
+        }
+        
+        function showRecipe(dishName) {
+            const recipes = {
+                kabsa: {
+                    title: "وصفة الكبسة السعودية",
+                    ingredients: [
+                        "٢ كوب أرز بسمتي",
+                        "٥٠٠ غرام لحم ضأن",
+                        "بصلة مفرومة",
+                        "طماطم مفرومة",
+                        "بهارات كبسة",
+                        "لوز وزبيب للتزيين"
+                    ],
+                    steps: [
+                        "نقلي البصل حتى يذبل",
+                        "أضيفي اللحم وقلبيه",
+                        "أضيفي الطماطم والبهارات",
+                        "اغلي مع الماء لمدة ساعة",
+                        "أضيفي الأرز واطبخيه على نار هادئة"
+                    ]
+                },
+                jareesh: {
+                    title: "وصفة الجريش النجدي",
+                    ingredients: [
+                        "٢ كوب جريش (قمح مطحون)",
+                        "٥٠٠ غرام لحم مفروم",
+                        "بصل مفروم",
+                        "بهارات",
+                        "لبن رائب"
+                    ],
+                    steps: [
+                        "انقعي الجريش لمدة ساعة",
+                        "اقليه مع البصل واللحم",
+                        "أضيفي الماء والبهارات",
+                        "اطبخيه على نار هادئة",
+                        "أضيفي اللبن قبل التقديم"
+                    ]
+                }
+            };
+            
+            const recipe = recipes[dishName];
+            if (recipe) {
+                const modalContent = `
+                    <h3>${recipe.title}</h3>
+                    <div class="recipe-container">
+                        <div class="ingredients">
+                            <h4>المقادير:</h4>
+                            <ul>
+                                ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="steps">
+                            <h4>طريقة التحضير:</h4>
+                            <ol>
+                                ${recipe.steps.map(step => `<li>${step}</li>`).join('')}
+                            </ol>
+                        </div>
+                    </div>
+                `;
+                
+                // عرض الوصفة في نافذة منبثقة
+                showModal(recipe.title, modalContent);
+            }
+        }
+        
+        function initCuisineSlider() {
+            // تهيئة سلايدر المأكولات
+            // يمكن استخدام مكتبة مثل Swiper.js
+        }
+        
+        function initHeritageQuiz() {
+            const questions = [
+                {
+                    question: "أي منطقة تشتهر بحرفة السدو؟",
+                    options: ["نجد", "الحجاز", "الجنوب", "الشرقية"],
+                    correct: 0,
+                    points: 10
+                },
+                {
+                    question: "ما هو الطبق الوطني للمملكة؟",
+                    options: ["المفطح", "الكبسة", "المندي", "الحنيني"],
+                    correct: 1,
+                    points: 10
+                }
+            ];
+            
+            displayQuiz('heritageQuiz', questions);
+        }
+        
+        function displayQuiz(containerId, questions) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            container.innerHTML = questions.map((q, index) => `
+                <div class="quiz-item">
+                    <h4>سؤال ${index + 1}: ${q.question}</h4>
+                    <div class="quiz-options">
+                        ${q.options.map((option, optIndex) => `
+                            <label class="quiz-option">
+                                <input type="radio" name="q${index}" value="${optIndex}">
+                                <span>${option}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML += `
+                <button class="btn-primary" onclick="submitHeritageQuiz()">تحقق من الإجابات</button>
+                <div id="quizResults"></div>
+            `;
+        }
+        
+        function submitHeritageQuiz() {
+            // تصحيح الإجابات
+            alert('تم تصحيح الإجابات!');
+        }
+        
+        function showModal(title, content) {
+            // إنشاء نافذة منبثقة
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
+                    ${content}
+                </div>
+            `;
+            document.body.appendChild(modal);
+            modal.style.display = 'flex';
+        }
+    </script>
+</body>
+</html>

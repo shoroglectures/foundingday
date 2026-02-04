@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رحلة التأسيس | يوم التأسيس السعودي ٢٠٢٦</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="شعار يوم التأسيس" class="logo-img">
+                <span class="logo-text">رحلة التأسيس</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> الرئيسية</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link"><i class="fas fa-landmark"></i> المعرض</a>
+                    <div class="dropdown-content">
+                        <a href="exhibits/memory.html">ذاكرة الملحمة</a>
+                        <a href="exhibits/heritage.html">إرث الأجداد</a>
+                        <a href="exhibits/sound.html">صوت الوطن</a>
+                        <a href="exhibits/vision.html">الرؤية المتجددة</a>
+                    </div>
+                </div>
+                <a href="competition/" class="nav-link"><i class="fas fa-trophy"></i> المسابقة</a>
+                <a href="games/" class="nav-link"><i class="fas fa-gamepad"></i> الألعاب</a>
+                <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i> عنا</a>
+                
+                <div class="auth-buttons">
+                    <button class="btn-login" onclick="openLoginModal()">تسجيل الدخول</button>
+                    <button class="btn-register" onclick="openRegisterModal()">تسجيل جديد</button>
+                </div>
+            </div>
+            
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- قسم الهيرو -->
+    <section class="hero">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1 class="hero-title">رحلة التأسيس: من الدرعية إلى رؤية ٢٠٣٠</h1>
+                <p class="hero-subtitle">انضمي إلى الرحلة التفاعلية الأكبر للاحتفاء بيوم التأسيس السعودي ٢٠٢٦</p>
+                <div class="hero-buttons">
+                    <a href="#exhibits" class="btn-primary">ابدأ الرحلة <i class="fas fa-arrow-left"></i></a>
+                    <a href="competition/" class="btn-secondary">سجل في المسابقة <i class="fas fa-trophy"></i></a>
+                </div>
+                <div class="countdown-container">
+                    <h3>العد التنازلي ليوم التأسيس</h3>
+                    <div class="countdown">
+                        <div class="countdown-item">
+                            <span id="days">00</span>
+                            <small>أيام</small>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="hours">00</span>
+                            <small>ساعات</small>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="minutes">00</span>
+                            <small>دقائق</small>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="seconds">00</span>
+                            <small>ثواني</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم إحصائيات سريعة -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3><span class="counter" data-target="1250">0</span>+</h3>
+                    <p>طالبة مشاركة</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3><span class="counter" data-target="50">0</span>+</h3>
+                    <p>جائزة قيمة</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h3><span class="counter" data-target="8">0</span></h3>
+                    <p>ألعاب تفاعلية</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3><span class="counter" data-target="7">0</span></h3>
+                    <p>أيام من الفعاليات</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم المعارض التفاعلية -->
+    <section id="exhibits" class="exhibits-section">
+        <div class="container">
+            <h2 class="section-title">المعرض الافتراضي التفاعلي</h2>
+            <p class="section-subtitle">استكشفي أركان المعارض الأربعة الرئيسية</p>
+            
+            <div class="exhibits-tabs">
+                <button class="tab-btn active" data-tab="memory">ذاكرة الملحمة</button>
+                <button class="tab-btn" data-tab="heritage">إرث الأجداد</button>
+                <button class="tab-btn" data-tab="sound">صوت الوطن</button>
+                <button class="tab-btn" data-tab="vision">الرؤية المتجددة</button>
+            </div>
+            
+            <div class="tab-content active" id="memory-tab">
+                <!-- محتوى الركن الأول -->
+                <div class="exhibit-preview">
+                    <div class="preview-content">
+                        <h3>ذاكرة الملحمة</h3>
+                        <p>خط زمني تفاعلي يروي قصة التأسيس من خلال ١٠٠ حدث تاريخي. اكشفي القصص الخفية وقومي برحلات افتراضية في مواقع تاريخية.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> خط زمني تفاعلي</li>
+                            <li><i class="fas fa-check-circle"></i> رحلات افتراضية ٣٦٠ درجة</li>
+                            <li><i class="fas fa-check-circle"></i> قصص مصورة</li>
+                            <li><i class="fas fa-check-circle"></i> اختبارات معرفية</li>
+                        </ul>
+                        <a href="exhibits/memory.html" class="btn-primary">استكشف الركن الآن</a>
+                    </div>
+                    <div class="preview-image">
+                        <img src="assets/images/memory-preview.png" alt="ذاكرة الملحمة">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- باقي الأركان (يتم تبديلها بالجافاسكريبت) -->
+        </div>
+    </section>
+
+    <!-- قسم المسابقة -->
+    <section class="competition-preview">
+        <div class="container">
+            <h2 class="section-title">مسابقة "باحثات التأسيس"</h2>
+            <div class="competition-highlight">
+                <div class="highlight-content">
+                    <h3>تحدي المعرفة والتراث</h3>
+                    <p>انضمي إلى أكبر مسابقة معرفية عن تاريخ المملكة. اربحي نقاطاً وتصعدي في لوحة الصدارة لتفوزي بجائزة "باحثة التأسيس".</p>
+                    
+                    <div class="competition-features">
+                        <div class="feature">
+                            <i class="fas fa-question-circle"></i>
+                            <h4>١٠٠٠+ سؤال</h4>
+                            <p>أسئلة متنوعة عن التاريخ والتراث</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-medal"></i>
+                            <h4>٣ مراحل</h4>
+                            <p>تأهيلي، نصف نهائي، نهائي</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-gift"></i>
+                            <h4>جوائز يومية</h4>
+                            <p>فرصة ربح جوائز في كل مرحلة</p>
+                        </div>
+                    </div>
+                    
+                    <a href="competition/" class="btn-primary">سجل في المسابقة الآن</a>
+                </div>
+                
+                <div class="highlight-stats">
+                    <div class="live-stats">
+                        <h4>إحصائيات حية</h4>
+                        <div class="stat">
+                            <span class="stat-label">المشاركات اليوم:</span>
+                            <span class="stat-value" id="todayParticipants">٣٤٧</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">الأفضل اليوم:</span>
+                            <span class="stat-value" id="topScore">٩٨٥</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">الوقت المتبقي:</span>
+                            <span class="stat-value" id="quizTime">٢٣:١٥:٠٨</span>
+                        </div>
+                    </div>
+                    
+                    <div class="leaderboard-preview">
+                        <h4>أفضل ٣ مشاركات</h4>
+                        <ol>
+                            <li>
+                                <span class="rank">١</span>
+                                <span class="name">نورة أحمد</span>
+                                <span class="score">٩٨٥ نقطة</span>
+                            </li>
+                            <li>
+                                <span class="rank">٢</span>
+                                <span class="name">سارة الخالدي</span>
+                                <span class="score">٩٧٢ نقطة</span>
+                            </li>
+                            <li>
+                                <span class="rank">٣</span>
+                                <span class="name">فاطمة العتيبي</span>
+                                <span class="score">٩٦٥ نقطة</span>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الألعاب -->
+    <section class="games-section">
+        <div class="container">
+            <h2 class="section-title">منطقة الألعاب التفاعلية</h2>
+            
+            <div class="games-grid">
+                <div class="game-card" onclick="window.location.href='games/puzzle.html'">
+                    <div class="game-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3>البازل الزمني</h3>
+                    <p>رتبي قطع البازل لاكتشاف صورة تاريخية مهمة. كلما أسرعتِ، زادت نقاطك!</p>
+                    <div class="game-difficulty">
+                        <span class="difficulty-label">الصعوبة:</span>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card" onclick="window.location.href='games/drawing.html'">
+                    <div class="game-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>أرسم تاريخك</h3>
+                    <p>أكملي الرسم الناقص لأحد المعالم التاريخية واربحي نقاطاً إبداعية.</p>
+                    <div class="game-difficulty">
+                        <span class="difficulty-label">الصعوبة:</span>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card" onclick="window.location.href='games/photo-booth.html'">
+                    <div class="game-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>أنا وطني</h3>
+                    <p>التقطي صورة مع خلفيات تراثية وشاركيها مع زميلاتك.</p>
+                    <div class="game-difficulty">
+                        <span class="difficulty-label">الصعوبة:</span>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card" onclick="window.location.href='games/trivia.html'">
+                    <div class="game-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>تحدي المعرفة</h3>
+                    <p>أجيبي على أسئلة سريعة في وقت محدود وكوني الأسرع.</p>
+                    <div class="game-difficulty">
+                        <span class="difficulty-label">الصعوبة:</span>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الفعاليات القادمة -->
+    <section class="events-section">
+        <div class="container">
+            <h2 class="section-title">الفعاليات القادمة</h2>
+            <div class="events-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span class="day">٢٢</span>
+                        <span class="month">فبراير</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>حفل افتتاح المسابقة</h3>
+                        <p>حفل افتراضي لبدء مسابقة "باحثات التأسيس" بحضور ضيوف شرف.</p>
+                        <span class="event-time"><i class="far fa-clock"></i> ٦:٠٠ مساءً</span>
+                        <button class="btn-small" onclick="registerEvent(1)">سجل حضورك</button>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span class="day">٢٤</span>
+                        <span class="month">فبراير</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>ورشة التراث السعودي</h3>
+                        <p>ورشة تفاعلية عن الحرف اليدوية التقليدية السعودية.</p>
+                        <span class="event-time"><i class="far fa-clock"></i> ٤:٠٠ عصراً</span>
+                        <button class="btn-small" onclick="registerEvent(2)">سجل حضورك</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer id="about">
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="assets/images/logo.png" alt="شعار يوم التأسيس">
+                    <h3>رحلة التأسيس</h3>
+                </div>
+                <p class="footer-description">
+                    مشروع تعليمي تفاعلي بمناسبة يوم التأسيس السعودي ٢٠٢٦، تم تطويره بالتعاون مع طالبات قسم الحاسب الآلي.
+                </p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>روابط سريعة</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="#exhibits">المعرض الافتراضي</a></li>
+                    <li><a href="competition/">المسابقة</a></li>
+                    <li><a href="games/">الألعاب</a></li>
+                    <li><a href="#about">عن المشروع</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>المعرض الافتراضي</h4>
+                <ul class="footer-links">
+                    <li><a href="exhibits/memory.html">ذاكرة الملحمة</a></li>
+                    <li><a href="exhibits/heritage.html">إرث الأجداد</a></li>
+                    <li><a href="exhibits/sound.html">صوت الوطن</a></li>
+                    <li><a href="exhibits/vision.html">الرؤية المتجددة</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>اتصل بنا</h4>
+                <div class="contact-info">
+                    <p><i class="fas fa-envelope"></i> foundingday@uni.edu.sa</p>
+                    <p><i class="fas fa-phone"></i> +٩٦٦ ١١ ٢٣٤ ٥٦٧٨</p>
+                    <p><i class="fas fa-map-marker-alt"></i> قسم الحاسب الآلي، الجامعة</p>
+                </div>
+                <div class="newsletter">
+                    <h5>اشترك في النشرة</h5>
+                    <form id="newsletterForm">
+                        <input type="email" placeholder="بريدك الإلكتروني" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© ٢٠٢٦ رحلة التأسيس - يوم التأسيس السعودي. جميع الحقوق محفوظة.</p>
+            <p>هذا المشروع تعليمي ويتبع الهوية الرسمية ليوم التأسيس من الموقع الرسمي.</p>
+        </div>
+    </footer>
+
+    <!-- نافذة تسجيل الدخول -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h2>تسجيل الدخول</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">البريد الإلكتروني</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">كلمة المرور</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">تسجيل الدخول</button>
+            </form>
+            <p class="form-footer">ليس لديك حساب؟ <a href="#" onclick="switchToRegister()">سجل الآن</a></p>
+        </div>
+    </div>
+    
+    <!-- نافذة التسجيل -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRegisterModal()">&times;</span>
+            <h2>تسجيل جديد</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="fullName">الاسم الكامل</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentId">الرقم الجامعي</label>
+                    <input type="text" id="studentId" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">البريد الإلكتروني</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">كلمة المرور</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">تأكيد كلمة المرور</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">إنشاء حساب</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
