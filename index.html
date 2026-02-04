@@ -4,9 +4,703 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>رحلة التأسيس | يوم التأسيس السعودي ٢٠٢٦</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* متغيرات الألوان بناءً على الهوية الرسمية */
+        :root {
+            --primary-dark: #113D1C;
+            --primary-green: #1E5631;
+            --secondary-green: #8DAE49;
+            --accent-beige: #E8DFD6;
+            --accent-gold: #C6A467;
+            --accent-brown: #8B4513;
+            --light-beige: #F8F4EF;
+            --white: #FFFFFF;
+            --black: #1A1A1A;
+            --gray: #666666;
+            --light-gray: #EEEEEE;
+            
+            /* الظلال */
+            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-heavy: 0 12px 36px rgba(0, 0, 0, 0.15);
+            
+            /* أنماط الحدود */
+            --border-radius: 12px;
+            --border-radius-lg: 20px;
+        }
+
+        /* إعادة الضبط الأساسية */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'El Messiri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-beige);
+            color: var(--black);
+            line-height: 1.6;
+            direction: rtl;
+            overflow-x: hidden;
+        }
+
+        /* تصميم متجاوب */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* شريط التنقل */
+        .navbar {
+            background-color: var(--primary-dark);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            color: var(--white);
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--accent-gold);
+        }
+
+        /* القوائم المنسدلة */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 220px;
+            box-shadow: var(--shadow-heavy);
+            border-radius: var(--border-radius);
+            z-index: 1001;
+            top: 100%;
+            right: 0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: var(--primary-dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid var(--light-gray);
+            transition: all 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--light-beige);
+            color: var(--secondary-green);
+        }
+
+        /* زر القائمة المتنقلة */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* قسم الهيرو */
+        .hero {
+            background: linear-gradient(rgba(17, 61, 28, 0.9), rgba(17, 61, 28, 0.95)), 
+                        url('https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+        }
+
+        .hero-overlay {
+            width: 100%;
+            padding: 4rem 0;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-green);
+            color: var(--white);
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-gold);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--white);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* العد التنازلي */
+        .countdown-container {
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .countdown-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            min-width: 110px;
+            backdrop-filter: blur(10px);
+        }
+
+        .countdown-item span {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .countdown-item small {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* الأقسام العامة */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--secondary-green), var(--accent-gold));
+            margin: 15px auto 30px;
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* تبويبات المعارض */
+        .exhibits-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 28px;
+            background-color: var(--light-beige);
+            border: 2px solid var(--light-beige);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            border-color: var(--primary-dark);
+        }
+
+        /* معاينة المعارض */
+        .exhibit-preview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 3rem;
+            box-shadow: var(--shadow-light);
+        }
+
+        .preview-content h3 {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .preview-content p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .feature-list li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-list i {
+            color: var(--secondary-green);
+        }
+
+        .preview-image img {
+            width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* قسم المسابقة */
+        .competition-preview {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--light-beige) 0%, var(--white) 100%);
+        }
+
+        .competition-highlight {
+            margin-top: 3rem;
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 3rem;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .highlight-content h3 {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-content p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .competition-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--light-beige);
+            border-radius: var(--border-radius);
+        }
+
+        .feature i {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .feature h4 {
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        /* قسم الألعاب */
+        .games-section {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .game-card {
+            background-color: var(--light-beige);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary-green);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .game-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--secondary-green), var(--accent-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .game-icon i {
+            font-size: 2.5rem;
+            color: var(--white);
+        }
+
+        .game-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .game-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            min-height: 80px;
+        }
+
+        .game-difficulty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .difficulty-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .stars {
+            color: var(--accent-gold);
+        }
+
+        /* الفوتر */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding-top: 4rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 3rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo img {
+            height: 40px;
+        }
+
+        .footer-logo h3 {
+            font-size: 1.5rem;
+        }
+
+        .footer-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+            padding-right: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .footer-bottom p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* التصميم المتجاوب */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .exhibit-preview {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                background-color: var(--primary-dark);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow-medium);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .countdown {
+                flex-wrap: wrap;
+            }
+            
+            .countdown-item {
+                min-width: 90px;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .exhibit-preview {
+                padding: 1.5rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* الرسوم المتحركة */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* صور بديلة */
+        .preview-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--light-beige);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            height: 300px;
+        }
+        
+        .preview-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+    </style>
 </head>
 <body>
     <!-- شريط التنقل -->
@@ -18,21 +712,18 @@
             </div>
             
             <div class="nav-menu">
-                <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="#" class="nav-link active"><i class="fas fa-home"></i> الرئيسية</a>
                 <div class="dropdown">
                     <a href="#" class="nav-link"><i class="fas fa-landmark"></i> المعرض</a>
                     <div class="dropdown-content">
-                        <a href="exhibits/memory.html">ذاكرة الملحمة</a>
-                        <a href="exhibits/heritage.html">إرث الأجداد</a>
-                        <a href="exhibits/sound.html">صوت الوطن</a>
-                        <a href="exhibits/vision.html">الرؤية المتجددة</a>
+                        <a href="#">ذاكرة الملحمة</a>
+                        <a href="#">إرث الأجداد</a>
+                        <a href="#">صوت الوطن</a>
+                        <a href="#">الرؤية المتجددة</a>
                     </div>
                 </div>
-                <a href="competition/" class="nav-link"><i class="fas fa-trophy"></i> المسابقة</a>
-                <a href="games/" class="nav-link"><i class="fas fa-gamepad"></i> الألعاب</a>
-                
-                <!-- تم حذف قسم "عنا" -->
-                <!-- تم حذف أزرار تسجيل الدخول والتسجيل -->
+                <a href="#" class="nav-link"><i class="fas fa-trophy"></i> المسابقة</a>
+                <a href="#" class="nav-link"><i class="fas fa-gamepad"></i> الألعاب</a>
             </div>
             
             <button class="menu-toggle" onclick="toggleMenu()">
@@ -49,7 +740,6 @@
                 <p class="hero-subtitle">انضمي إلى الرحلة التفاعلية الأكبر للاحتفاء بيوم التأسيس السعودي ٢٠٢٦</p>
                 <div class="hero-buttons">
                     <a href="#exhibits" class="btn-primary">ابدأ الرحلة <i class="fas fa-arrow-left"></i></a>
-                    <!-- تم حذف زر "سجل في المسابقة" -->
                 </div>
                 <div class="countdown-container">
                     <h3>العد التنازلي ليوم التأسيس</h3>
@@ -76,10 +766,8 @@
         </div>
     </section>
 
-    <!-- تم حذف قسم إحصائيات سريعة بالكامل -->
-
     <!-- قسم المعارض التفاعلية -->
-    <section id="exhibits" class="exhibits-section">
+    <section id="exhibits" class="exhibits-section" style="padding: 5rem 0;">
         <div class="container">
             <h2 class="section-title">المعرض الافتراضي التفاعلي</h2>
             <p class="section-subtitle">استكشفي أركان المعارض الأربعة الرئيسية</p>
@@ -92,7 +780,6 @@
             </div>
             
             <div class="tab-content active" id="memory-tab">
-                <!-- محتوى الركن الأول -->
                 <div class="exhibit-preview">
                     <div class="preview-content">
                         <h3>ذاكرة الملحمة</h3>
@@ -103,15 +790,32 @@
                             <li><i class="fas fa-check-circle"></i> قصص مصورة</li>
                             <li><i class="fas fa-check-circle"></i> اختبارات معرفية</li>
                         </ul>
-                        <a href="exhibits/memory.html" class="btn-primary">استكشف الركن الآن</a>
+                        <a href="#" class="btn-primary">استكشف الركن الآن</a>
                     </div>
                     <div class="preview-image">
-                        <img src="assets/images/memory-preview.png" alt="ذاكرة الملحمة">
+                        <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80" alt="ذاكرة الملحمة">
                     </div>
                 </div>
             </div>
             
-            <!-- باقي الأركان (يتم تبديلها بالجافاسكريبت) -->
+            <div class="tab-content" id="heritage-tab" style="display: none;">
+                <div class="exhibit-preview">
+                    <div class="preview-content">
+                        <h3>إرث الأجداد</h3>
+                        <p>اكتشفي تراث المملكة الثقافي الغني من خلال معرض تفاعلي يعرض الفنون والحرف والتقاليد السعودية الأصيلة.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> معرض للحرف اليدوية</li>
+                            <li><i class="fas fa-check-circle"></i> ورش عمل تفاعلية</li>
+                            <li><i class="fas fa-check-circle"></i> أزياء تقليدية</li>
+                            <li><i class="fas fa-check-circle"></i> فنون سعودية</li>
+                        </ul>
+                        <a href="#" class="btn-primary">استكشف الركن الآن</a>
+                    </div>
+                    <div class="preview-image">
+                        <img src="https://images.unsplash.com/photo-1556302132-4c8c8e8a8b0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="إرث الأجداد">
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -142,10 +846,8 @@
                         </div>
                     </div>
                     
-                    <!-- تم حذف زر "سجل في المسابقة الآن" -->
+                    <a href="#" class="btn-primary">ابدأ المسابقة الآن</a>
                 </div>
-                
-                <!-- تم حذف قسم highlight-stats بالكامل -->
             </div>
         </div>
     </section>
@@ -156,7 +858,7 @@
             <h2 class="section-title">منطقة الألعاب التفاعلية</h2>
             
             <div class="games-grid">
-                <div class="game-card" onclick="window.location.href='games/puzzle.html'">
+                <div class="game-card" onclick="startGame('puzzle')">
                     <div class="game-icon">
                         <i class="fas fa-puzzle-piece"></i>
                     </div>
@@ -172,7 +874,7 @@
                     </div>
                 </div>
                 
-                <div class="game-card" onclick="window.location.href='games/drawing.html'">
+                <div class="game-card" onclick="startGame('drawing')">
                     <div class="game-icon">
                         <i class="fas fa-palette"></i>
                     </div>
@@ -188,7 +890,7 @@
                     </div>
                 </div>
                 
-                <div class="game-card" onclick="window.location.href='games/photo-booth.html'">
+                <div class="game-card" onclick="startGame('photo')">
                     <div class="game-icon">
                         <i class="fas fa-camera"></i>
                     </div>
@@ -204,7 +906,7 @@
                     </div>
                 </div>
                 
-                <div class="game-card" onclick="window.location.href='games/trivia.html'">
+                <div class="game-card" onclick="startGame('trivia')">
                     <div class="game-icon">
                         <i class="fas fa-brain"></i>
                     </div>
@@ -224,8 +926,6 @@
         </div>
     </section>
 
-    <!-- تم حذف قسم الفعاليات القادمة بالكامل -->
-
     <!-- الفوتر -->
     <footer>
         <div class="footer-container">
@@ -237,31 +937,27 @@
                 <p class="footer-description">
                     مشروع تعليمي تفاعلي بمناسبة يوم التأسيس السعودي ٢٠٢٦، تم تطويره بواسطة المدربة شروق الحربي.
                 </p>
-                <!-- تم حذف وسائل التواصل الاجتماعي -->
             </div>
             
             <div class="footer-section">
                 <h4>روابط سريعة</h4>
                 <ul class="footer-links">
-                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="#">الرئيسية</a></li>
                     <li><a href="#exhibits">المعرض الافتراضي</a></li>
-                    <li><a href="competition/">المسابقة</a></li>
-                    <li><a href="games/">الألعاب</a></li>
+                    <li><a href="#competition">المسابقة</a></li>
+                    <li><a href="#games">الألعاب</a></li>
                 </ul>
             </div>
             
             <div class="footer-section">
                 <h4>المعرض الافتراضي</h4>
                 <ul class="footer-links">
-                    <li><a href="exhibits/memory.html">ذاكرة الملحمة</a></li>
-                    <li><a href="exhibits/heritage.html">إرث الأجداد</a></li>
-                    <li><a href="exhibits/sound.html">صوت الوطن</a></li>
-                    <li><a href="exhibits/vision.html">الرؤية المتجددة</a></li>
+                    <li><a href="#memory">ذاكرة الملحمة</a></li>
+                    <li><a href="#heritage">إرث الأجداد</a></li>
+                    <li><a href="#sound">صوت الوطن</a></li>
+                    <li><a href="#vision">الرؤية المتجددة</a></li>
                 </ul>
             </div>
-            
-            <!-- تم حذف قسم "اتصل بنا" بالكامل -->
-            <!-- تم حذف قسم "اشترك في النشرة" بالكامل -->
         </div>
         
         <div class="footer-bottom">
@@ -270,9 +966,224 @@
         </div>
     </footer>
 
-    <!-- تم حذف نافذة تسجيل الدخول -->
-    <!-- تم حذف نافذة التسجيل -->
+    <script>
+        // تطبيق رحلة التأسيس - JavaScript الرئيسي
 
-    <script src="script.js"></script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // تهيئة جميع المكونات
+            initCountdown();
+            initTabs();
+            initNavigation();
+            
+            // إضافة تأثير للموقع عند التمرير
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 100) {
+                    navbar.style.backgroundColor = 'rgba(17, 61, 28, 0.95)';
+                    navbar.style.backdropFilter = 'blur(10px)';
+                } else {
+                    navbar.style.backgroundColor = 'var(--primary-dark)';
+                    navbar.style.backdropFilter = 'none';
+                }
+            });
+        });
+
+        // 1. العد التنازلي ليوم التأسيس
+        function initCountdown() {
+            // تاريخ يوم التأسيس 22 فبراير 2026
+            const foundingDay = new Date('February 22, 2026 00:00:00').getTime();
+            
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const timeLeft = foundingDay - now;
+                
+                if (timeLeft > 0) {
+                    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                    
+                    // تنسيق الأرقام العربية
+                    document.getElementById('days').textContent = days.toLocaleString('ar-SA');
+                    document.getElementById('hours').textContent = hours.toLocaleString('ar-SA', {minimumIntegerDigits: 2});
+                    document.getElementById('minutes').textContent = minutes.toLocaleString('ar-SA', {minimumIntegerDigits: 2});
+                    document.getElementById('seconds').textContent = seconds.toLocaleString('ar-SA', {minimumIntegerDigits: 2});
+                } else {
+                    document.querySelector('.countdown-container').innerHTML = `
+                        <h3>🎉 اليوم هو يوم التأسيس السعودي! 🎉</h3>
+                        <p>كل عام والمملكة العربية السعودية وشعبها بخير</p>
+                    `;
+                }
+            }
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        // 2. تبويبات المعارض
+        function initTabs() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // إزالة النشاط من جميع الأزرار
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    // إضافة النشاط للزر المختار
+                    btn.classList.add('active');
+                    
+                    // إخفاء جميع المحتويات
+                    tabContents.forEach(content => {
+                        content.style.display = 'none';
+                        content.classList.remove('active');
+                    });
+                    
+                    // إظهار المحتوى المحدد
+                    const tabId = btn.getAttribute('data-tab');
+                    const activeContent = document.getElementById(`${tabId}-tab`);
+                    if (activeContent) {
+                        activeContent.style.display = 'block';
+                        activeContent.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // 3. التنقل
+        function initNavigation() {
+            // تبديل القائمة المتنقلة
+            window.toggleMenu = function() {
+                const navMenu = document.querySelector('.nav-menu');
+                navMenu.classList.toggle('active');
+            };
+            
+            // التنقل السلس
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // إغلاق القائمة المتنقلة إذا كانت مفتوحة
+                        document.querySelector('.nav-menu').classList.remove('active');
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // إلغاء السلوك الافتراضي للروابط التي تبدأ بـ #
+                        if (targetId.startsWith('#')) {
+                            e.preventDefault();
+                        }
+                    }
+                });
+            });
+        }
+
+        // 4. تشغيل الألعاب
+        function startGame(gameType) {
+            const gameNames = {
+                'puzzle': 'البازل الزمني',
+                'drawing': 'أرسم تاريخك',
+                'photo': 'أنا وطني',
+                'trivia': 'تحدي المعرفة'
+            };
+            
+            // عرض رسالة تأكيد
+            if (confirm(`هل تريدين بدء لعبة "${gameNames[gameType]}"؟`)) {
+                // محاكاة بدء اللعبة
+                alert(`تم بدء لعبة "${gameNames[gameType]}" بنجاح!\n\nستتم إضافة اللعبة قريباً بشكل تفاعلي كامل.`);
+                
+                // يمكن إضافة التوجيه إلى صفحة اللعبة هنا
+                // window.location.href = `games/${gameType}.html`;
+            }
+        }
+
+        // 5. عرض الإشعارات
+        function showNotification(message, type = 'info') {
+            // إشعار مؤقت
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                padding: 15px 25px;
+                background-color: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#F44336' : '#2196F3'};
+                color: white;
+                border-radius: 12px;
+                z-index: 3000;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+                animation: slideInRight 0.3s ease-out;
+                font-family: 'El Messiri', sans-serif;
+                font-size: 1rem;
+                max-width: 300px;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease-out';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // إضافة أنماط للرسوم المتحركة للإشعارات
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+            
+            /* تحسين مظهر علامات التبويب المخفية */
+            .tab-content {
+                display: none;
+            }
+            
+            .tab-content.active {
+                display: block;
+                animation: fadeInUp 0.5s ease-out;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // دالة لبدء المسابقة مباشرة
+        document.querySelector('.competition-preview .btn-primary').addEventListener('click', function(e) {
+            e.preventDefault();
+            showNotification('تم بدء المسابقة بنجاح! يمكنك الآن الإجابة على الأسئلة مباشرة.', 'success');
+            // يمكن إضافة منطق بدء المسابقة هنا
+        });
+
+        // دالة لاستكشاف المعارض
+        document.querySelectorAll('.exhibit-preview .btn-primary').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const exhibitName = this.closest('.preview-content').querySelector('h3').textContent;
+                showNotification(`تم فتح معرض "${exhibitName}" بنجاح!`, 'success');
+                // يمكن إضافة منطق فتح المعرض هنا
+            });
+        });
+    </script>
 </body>
 </html>
