@@ -30,7 +30,6 @@
             --border-radius-lg: 20px;
         }
 
-        /* ===== إعادة الضبط الأساسية ===== */
         * {
             margin: 0;
             padding: 0;
@@ -55,94 +54,6 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
-        }
-
-        /* ===== أنماط مشتركة ===== */
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary-light), var(--primary-dark));
-            margin: 15px auto 30px;
-            border-radius: 2px;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--gray);
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-light);
-            color: var(--primary-dark);
-            padding: 14px 32px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--white);
-            color: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--primary-dark);
-            padding: 14px 32px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            border: 2px solid var(--primary-dark);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--primary-dark);
-            color: var(--primary-light);
-            transform: translateY(-3px);
-        }
-
-        .btn-small {
-            background-color: var(--primary-light);
-            color: var(--primary-dark);
-            padding: 8px 16px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-small:hover {
-            background-color: var(--primary-dark);
-            color: var(--primary-light);
         }
 
         /* ===== شريط التنقل ===== */
@@ -263,6 +174,94 @@
             backdrop-filter: blur(10px);
         }
 
+        /* ===== أنماط مشتركة ===== */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-light), var(--primary-dark));
+            margin: 15px auto 30px;
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--white);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-dark);
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-dark);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        .btn-small {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-small:hover {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+        }
+
         /* ===== الخط الزمني ===== */
         .timeline-section {
             padding: 5rem 0;
@@ -311,7 +310,12 @@
         }
 
         .timeline-event {
+            display: none;
             animation: fadeIn 0.5s ease-out;
+        }
+
+        .timeline-event.active {
+            display: block;
         }
 
         @keyframes fadeIn {
@@ -529,10 +533,314 @@
             box-shadow: 0 0 0 4px rgba(107, 78, 69, 0.2);
         }
 
+        /* ===== الخرائط التفاعلية ===== */
+        .maps-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--secondary-light) 0%, var(--white) 100%);
+        }
+
+        .map-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        @media (max-width: 1024px) {
+            .map-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .map-viewer {
+            position: relative;
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--primary-light);
+            text-align: center;
+        }
+
+        .map-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            display: block;
+            margin: 0 auto;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            right: 2rem;
+            bottom: 2rem;
+        }
+
+        .map-point {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .map-point:hover .point-marker {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 8px rgba(222, 201, 178, 0.3);
+        }
+
+        .map-point:hover .point-info {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .point-marker {
+            width: 24px;
+            height: 24px;
+            background-color: var(--primary-dark);
+            border-radius: 50%;
+            border: 3px solid var(--white);
+            box-shadow: 0 0 0 4px var(--primary-dark);
+            transition: all 0.3s ease;
+        }
+
+        .point-info {
+            position: absolute;
+            top: 40px;
+            right: -50px;
+            background-color: var(--white);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-heavy);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .point-info h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .point-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .map-details {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--primary-light);
+        }
+
+        .map-details h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .location-facts {
+            background-color: var(--secondary-light);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+        }
+
+        .location-facts h4 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .location-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .location-images img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--primary-light);
+        }
+
+        /* ===== شخصيات صنعت التاريخ ===== */
+        .characters-section {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .character-card {
+            background-color: var(--secondary-light);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--primary-light);
+            transition: all 0.3s ease;
+        }
+
+        .character-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .character-image {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .character-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .character-card:hover .character-image img {
+            transform: scale(1.05);
+        }
+
+        .character-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .character-info {
+            padding: 2rem;
+        }
+
+        .character-info h3 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .character-dates {
+            color: var(--primary-dark);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .character-bio {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .character-achievements {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+            border-right: 3px solid var(--primary-dark);
+        }
+
+        .character-achievements h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .character-achievements ul {
+            list-style-position: inside;
+            color: var(--gray);
+        }
+
+        .character-achievements li {
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        /* ===== اختبار نهاية الرحلة ===== */
+        .quiz-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--secondary-light) 0%, var(--white) 100%);
+        }
+
+        .quiz-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 4rem;
+            box-shadow: var(--shadow-heavy);
+            border: 1px solid var(--primary-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #memoryQuiz {
+            margin-top: 2rem;
+        }
+
+        .quiz-results {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .score-display {
+            margin: 2rem 0;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            color: var(--white);
+        }
+
+        .score-circle span {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .score-circle small {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        #resultMessage {
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            margin: 1.5rem 0;
+        }
+
         /* ===== التصميم المتجاوب ===== */
         @media (max-width: 1024px) {
             .exhibit-title {
                 font-size: 2.8rem;
+            }
+            
+            .characters-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -565,6 +873,10 @@
                 font-size: 1.1rem;
             }
             
+            .quiz-card {
+                padding: 2rem;
+            }
+            
             .timeline-navigation {
                 flex-direction: column;
                 align-items: center;
@@ -584,6 +896,10 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 1rem;
+            }
+            
+            .quiz-options {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -632,7 +948,7 @@
             
             <div class="timeline-container">
                 <div class="timeline-navigation">
-                    <button class="timeline-nav-btn" data-year="1446">١٤٤٦هـ</button>
+                    <button class="timeline-nav-btn active" data-year="1446">١٤٤٦هـ</button>
                     <button class="timeline-nav-btn" data-year="1727">١١٣٩هـ / ١٧٢٧م</button>
                     <button class="timeline-nav-btn" data-year="1818">١٢٣٣هـ / ١٨١٨م</button>
                     <button class="timeline-nav-btn" data-year="1902">١٣١٩هـ / ١٩٠٢م</button>
@@ -640,7 +956,200 @@
                 </div>
                 
                 <div class="timeline-content">
-                    <!-- المحتوى سيتم تعبئته ديناميكياً -->
+                    <!-- سنة 1446 -->
+                    <div class="timeline-event active" id="year-1446">
+                        <div class="event-content">
+                            <h3>جذور التأسيس: مانع المريدي</h3>
+                            <div class="event-date">٨٥٠هـ / ١٤٤٦م</div>
+                            <div class="event-media">
+                                <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="مانع المريدي">
+                                <div class="media-caption">مانع بن ربيعة المريدي - الجد المؤسس</div>
+                            </div>
+                            <div class="event-description">
+                                <p>في منتصف القرن التاسع الهجري، قدم مانع بن ربيعة المريدي من بلدة "الدروع" في وادي حنيفة إلى منطقة "المليبيد" و"غصيبة"، واستقر فيهما بعد أن منحه ابن عمه ابن درع أرضاً في المنطقة. هذا الحدث يمثل البذرة الأولى لتأسيس الدولة السعودية.</p>
+                                
+                                <div class="event-highlights">
+                                    <h4>أبرز نقاط هذه الحقبة:</h4>
+                                    <ul>
+                                        <li>الاستقرار في وادي حنيفة وتأسيس مجتمع زراعي</li>
+                                        <li>تأسيس بلدتي "المليبيد" و"غصيبة" كمراكز سكنية</li>
+                                        <li>بداية النمو السكاني والزراعي في المنطقة</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="interactive-quiz">
+                                <h4>اختبر معلوماتك</h4>
+                                <div class="quiz-question">
+                                    <p>من الذي منح مانع المريدي الأرض في وادي حنيفة؟</p>
+                                    <div class="quiz-options">
+                                        <button class="quiz-option" data-correct="false">الإمام محمد بن سعود</button>
+                                        <button class="quiz-option" data-correct="true">ابن درع</button>
+                                        <button class="quiz-option" data-correct="false">الشيخ محمد بن عبدالوهاب</button>
+                                        <button class="quiz-option" data-correct="false">السلطان سليم الأول</button>
+                                    </div>
+                                    <div class="quiz-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- سنة 1727 -->
+                    <div class="timeline-event" id="year-1727">
+                        <div class="event-content">
+                            <h3>تأسيس الدولة السعودية الأولى</h3>
+                            <div class="event-date">١١٣٩هـ / ١٧٢٧م</div>
+                            <div class="event-media">
+                                <img src="https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="الدولة السعودية الأولى">
+                                <div class="media-caption">الإمام محمد بن سعود - مؤسس الدولة السعودية الأولى</div>
+                            </div>
+                            <div class="event-description">
+                                <p>تأسست الدولة السعودية الأولى عندما تولى الإمام محمد بن سعود الحكم في الدرعية. شكل هذا الحدث بداية حقبة جديدة من الوحدة والاستقرار في نجد، حيث وضع أسس الدولة الحديثة وبدأ في توسيع نفوذها.</p>
+                                
+                                <div class="event-highlights">
+                                    <h4>أبرز نقاط هذه الحقبة:</h4>
+                                    <ul>
+                                        <li>تأسيس الدولة السعودية الأولى في الدرعية</li>
+                                        <li>تحقيق الوحدة السياسية في منطقة نجد</li>
+                                        <li>إرساء قواعد النظام الإداري والحكم الرشيد</li>
+                                        <li>التحالف مع الشيخ محمد بن عبدالوهاب للإصلاح الديني</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="interactive-quiz">
+                                <h4>اختبر معلوماتك</h4>
+                                <div class="quiz-question">
+                                    <p>من هو مؤسس الدولة السعودية الأولى؟</p>
+                                    <div class="quiz-options">
+                                        <button class="quiz-option" data-correct="false">الملك عبدالعزيز</button>
+                                        <button class="quiz-option" data-correct="true">الإمام محمد بن سعود</button>
+                                        <button class="quiz-option" data-correct="false">الإمام تركي بن عبدالله</button>
+                                        <button class="quiz-option" data-correct="false">الملك سعود</button>
+                                    </div>
+                                    <div class="quiz-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- سنة 1818 -->
+                    <div class="timeline-event" id="year-1818">
+                        <div class="event-content">
+                            <h3>نهاية الدولة السعودية الأولى</h3>
+                            <div class="event-date">١٢٣٣هـ / ١٨١٨م</div>
+                            <div class="event-media">
+                                <img src="https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=70" alt="نهاية الدولة الأولى">
+                                <div class="media-caption">حصار الدرعية عام 1818م</div>
+                            </div>
+                            <div class="event-description">
+                                <p>في هذا العام، انتهت الدولة السعودية الأولى بعد الحملة العثمانية بقيادة إبراهيم باشا الذي حاصر الدرعية لمدة ستة أشهر ثم هدم أسوارها. كانت هذه فترة صعبة في تاريخ الدولة السعودية، لكنها لم تكن النهاية بل كانت بداية مرحلة جديدة من الكفاح.</p>
+                                
+                                <div class="event-highlights">
+                                    <h4>أبرز نقاط هذه الحقبة:</h4>
+                                    <ul>
+                                        <li>حصار وهدم الدرعية بعد معركة شرسة</li>
+                                        <li>نهاية الدولة السعودية الأولى بعد 91 عاماً</li>
+                                        <li>بداية فترة من التشتت والصراع بين القبائل</li>
+                                        <li>نفي أفراد العائلة المالكة إلى مصر</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="interactive-quiz">
+                                <h4>اختبر معلوماتك</h4>
+                                <div class="quiz-question">
+                                    <p>من قاد الحملة العثمانية على الدرعية عام ١٢٣٣هـ؟</p>
+                                    <div class="quiz-options">
+                                        <button class="quiz-option" data-correct="false">محمد علي باشا</button>
+                                        <button class="quiz-option" data-correct="true">إبراهيم باشا</button>
+                                        <button class="quiz-option" data-correct="false">سليم الثالث</button>
+                                        <button class="quiz-option" data-correct="false">عبدالحميد الثاني</button>
+                                    </div>
+                                    <div class="quiz-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- سنة 1902 -->
+                    <div class="timeline-event" id="year-1902">
+                        <div class="event-content">
+                            <h3>استعادة الرياض وتأسيس الدولة السعودية الثالثة</h3>
+                            <div class="event-date">١٣١٩هـ / ١٩٠٢م</div>
+                            <div class="event-media">
+                                <img src="https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60" alt="استعادة الرياض">
+                                <div class="media-caption">الملك عبدالعزيز يستعيد الرياض</div>
+                            </div>
+                            <div class="event-description">
+                                <p>استعاد الملك عبدالعزيز بن عبدالرحمن آل سعود مدينة الرياض من آل رشيد، وبدأ من هناك مسيرة توحيد المملكة. تعتبر هذه اللحظة بداية الدولة السعودية الثالثة، حيث قاد الملك عبدالعزيز حملة توحيد شبه الجزيرة العربية تحت راية واحدة.</p>
+                                
+                                <div class="event-highlights">
+                                    <h4>أبرز نقاط هذه الحقبة:</h4>
+                                    <ul>
+                                        <li>استعادة الرياض بقيادة الملك عبدالعزيز بعملية جريئة</li>
+                                        <li>بداية الدولة السعودية الثالثة</li>
+                                        <li>انطلاق مسيرة التوحيد التي استمرت 30 عاماً</li>
+                                        <li>تأسيس قاعدة صلبة لإعادة بناء الدولة</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="interactive-quiz">
+                                <h4>اختبر معلوماتك</h4>
+                                <div class="quiz-question">
+                                    <p>من أي عائلة استعاد الملك عبدالعزيز الرياض عام ١٩٠٢م؟</p>
+                                    <div class="quiz-options">
+                                        <button class="quiz-option" data-correct="true">آل رشيد</button>
+                                        <button class="quiz-option" data-correct="false">آل خليفة</button>
+                                        <button class="quiz-option" data-correct="false">آل نهيان</button>
+                                        <button class="quiz-option" data-correct="false">آل سعيد</button>
+                                    </div>
+                                    <div class="quiz-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- سنة 1932 -->
+                    <div class="timeline-event" id="year-1932">
+                        <div class="event-content">
+                            <h3>توحيد المملكة العربية السعودية</h3>
+                            <div class="event-date">١٣٥١هـ / ١٩٣٢م</div>
+                            <div class="event-media">
+                                <img src="https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=50" alt="توحيد المملكة">
+                                <div class="media-caption">إعلان توحيد المملكة العربية السعودية</div>
+                            </div>
+                            <div class="event-description">
+                                <p>أصدر الملك عبدالعزيز مرسوماً ملكياً بتوحيد البلاد تحت اسم "المملكة العربية السعودية"، لتنطلق المملكة في رحلة التطور والنهضة الحديثة. شهد هذا العام ميلاد الدولة السعودية الحديثة بحدودها الحالية.</p>
+                                
+                                <div class="event-highlights">
+                                    <h4>أبرز نقاط هذه الحقبة:</h4>
+                                    <ul>
+                                        <li>إعلان توحيد المملكة العربية السعودية رسمياً</li>
+                                        <li>بداية العهد الحديث للدولة</li>
+                                        <li>انطلاق مشروع النهضة التنموية الشاملة</li>
+                                        <li>تأسيس النظام الإداري والوزاري الحديث</li>
+                                        <li>بداية العلاقات الدبلوماسية الدولية</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="interactive-quiz">
+                                <h4>اختبر معلوماتك</h4>
+                                <div class="quiz-question">
+                                    <p>في أي عام تم توحيد المملكة العربية السعودية رسمياً؟</p>
+                                    <div class="quiz-options">
+                                        <button class="quiz-option" data-correct="false">١٩٢٧م</button>
+                                        <button class="quiz-option" data-correct="true">١٩٣٢م</button>
+                                        <button class="quiz-option" data-correct="false">١٩٣٨م</button>
+                                        <button class="quiz-option" data-correct="false">١٩٤٥م</button>
+                                    </div>
+                                    <div class="quiz-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="timeline-progress">
@@ -659,240 +1168,181 @@
         </div>
     </section>
 
-    <script>
-        // ===== 2. إدارة الخط الزمني =====
-        function initTimeline() {
-            const timelineData = {
-                '1446': {
-                    title: 'جذور التأسيس: مانع المريدي',
-                    date: '٨٥٠هـ / ١٤٤٦م',
-                    image: 'https://images.unsplash.com/photo-1586771107445-d3ca888129fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-                    description: 'في منتصف القرن التاسع الهجري، قدم مانع بن ربيعة المريدي من بلدة "الدروع" في وادي حنيفة إلى منطقة "المليبيد" و"غصيبة"، واستقر فيهما بعد أن منحه ابن عمه ابن درع أرضاً في المنطقة. هذا الحدث يمثل البذرة الأولى لتأسيس الدولة السعودية.',
-                    highlights: [
-                        'الاستقرار في وادي حنيفة وتأسيس مجتمع زراعي',
-                        'تأسيس بلدتي "المليبيد" و"غصيبة" كمراكز سكنية',
-                        'بداية النمو السكاني والزراعي في المنطقة'
-                    ],
-                    quiz: {
-                        question: 'من الذي منح مانع المريدي الأرض في وادي حنيفة؟',
-                        options: [
-                            { text: 'الإمام محمد بن سعود', correct: false },
-                            { text: 'ابن درع', correct: true },
-                            { text: 'الشيخ محمد بن عبدالوهاب', correct: false },
-                            { text: 'السلطان سليم الأول', correct: false }
-                        ]
-                    }
-                },
-                '1727': {
-                    title: 'تأسيس الدولة السعودية الأولى',
-                    date: '١١٣٩هـ / ١٧٢٧م',
-                    image: 'https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-                    description: 'تأسست الدولة السعودية الأولى عندما تولى الإمام محمد بن سعود الحكم في الدرعية. شكل هذا الحدث بداية حقبة جديدة من الوحدة والاستقرار في نجد.',
-                    highlights: [
-                        'تأسيس الدولة السعودية الأولى',
-                        'تحقيق الوحدة في منطقة نجد',
-                        'بداية النظام الإداري الحديث'
-                    ],
-                    quiz: {
-                        question: 'من هو مؤسس الدولة السعودية الأولى؟',
-                        options: [
-                            { text: 'الملك عبدالعزيز', correct: false },
-                            { text: 'الإمام محمد بن سعود', correct: true },
-                            { text: 'الإمام تركي بن عبدالله', correct: false },
-                            { text: 'الملك سعود', correct: false }
-                        ]
-                    }
-                },
-                '1818': {
-                    title: 'نهاية الدولة السعودية الأولى',
-                    date: '١٢٣٣هـ / ١٨١٨م',
-                    image: 'https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=70',
-                    description: 'في هذا العام، انتهت الدولة السعودية الأولى بعد الحملة العثمانية بقيادة إبراهيم باشا الذي حاصر الدرعية وهدم أسوارها. كانت هذه فترة صعبة في تاريخ الدولة السعودية.',
-                    highlights: [
-                        'حصار وهدم الدرعية',
-                        'نهاية الدولة السعودية الأولى',
-                        'بداية فترة من التشتت والصراع'
-                    ],
-                    quiz: {
-                        question: 'من قاد الحملة العثمانية على الدرعية عام ١٢٣٣هـ؟',
-                        options: [
-                            { text: 'محمد علي باشا', correct: false },
-                            { text: 'إبراهيم باشا', correct: true },
-                            { text: 'سليم الثالث', correct: false },
-                            { text: 'عبدالحميد الثاني', correct: false }
-                        ]
-                    }
-                },
-                '1902': {
-                    title: 'استعادة الرياض وتأسيس الدولة السعودية الثالثة',
-                    date: '١٣١٩هـ / ١٩٠٢م',
-                    image: 'https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60',
-                    description: 'استعاد الملك عبدالعزيز بن عبدالرحمن آل سعود مدينة الرياض من آل رشيد، وبدأ من هناك مسيرة توحيد المملكة. تعتبر هذه اللحظة بداية الدولة السعودية الثالثة.',
-                    highlights: [
-                        'استعادة الرياض بقيادة الملك عبدالعزيز',
-                        'بداية الدولة السعودية الثالثة',
-                        'انطلاق مسيرة التوحيد'
-                    ],
-                    quiz: {
-                        question: 'من أي عائلة استعاد الملك عبدالعزيز الرياض عام ١٩٠٢م؟',
-                        options: [
-                            { text: 'آل رشيد', correct: true },
-                            { text: 'آل خليفة', correct: false },
-                            { text: 'آل نهيان', correct: false },
-                            { text: 'آل سعيد', correct: false }
-                        ]
-                    }
-                },
-                '1932': {
-                    title: 'توحيد المملكة العربية السعودية',
-                    date: '١٣٥١هـ / ١٩٣٢م',
-                    image: 'https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=50',
-                    description: 'أصدر الملك عبدالعزيز مرسوماً ملكياً بتوحيد البلاد تحت اسم "المملكة العربية السعودية"، لتنطلق المملكة في رحلة التطور والنهضة الحديثة.',
-                    highlights: [
-                        'إعلان توحيد المملكة العربية السعودية',
-                        'بداية العهد الحديث',
-                        'انطلاق مشروع النهضة التنموية'
-                    ],
-                    quiz: {
-                        question: 'في أي عام تم توحيد المملكة العربية السعودية رسمياً؟',
-                        options: [
-                            { text: '١٩٢٧م', correct: false },
-                            { text: '١٩٣٢م', correct: true },
-                            { text: '١٩٣٨م', correct: false },
-                            { text: '١٩٤٥م', correct: false }
-                        ]
-                    }
-                }
-            };
+    <!-- الخرائط التفاعلية -->
+    <section class="maps-section">
+        <div class="container">
+            <h2 class="section-title">رحلة التأسيس على الخريطة</h2>
             
-            const navBtns = document.querySelectorAll('.timeline-nav-btn');
-            const timelineContent = document.querySelector('.timeline-content');
-            
-            navBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const year = this.getAttribute('data-year');
-                    
-                    // التحقق مما إذا كانت البيانات موجودة لهذا العام
-                    if (!timelineData[year]) {
-                        console.error(`لا توجد بيانات للعام ${year}`);
-                        return;
-                    }
-                    
-                    showTimelineEvent(year, timelineData[year]);
-                    updateProgress(year);
-                });
-            });
-            
-            // عرض أول حدث افتراضي
-            if (navBtns.length > 0) {
-                navBtns[0].click();
-            }
-        }
-        
-        function showTimelineEvent(year, data) {
-            const eventHTML = `
-                <div class="timeline-event" id="year-${year}">
-                    <div class="event-content">
-                        <h3>${data.title}</h3>
-                        <div class="event-date">${data.date}</div>
-                        ${data.image ? `
-                        <div class="event-media">
-                            <img src="${data.image}" alt="${data.title}">
-                            <div class="media-caption">${data.title}</div>
-                        </div>
-                        ` : ''}
-                        <div class="event-description">
-                            <p>${data.description}</p>
-                            
-                            ${data.highlights ? `
-                            <div class="event-highlights">
-                                <h4>أبرز نقاط هذه الحقبة:</h4>
-                                <ul>
-                                    ${data.highlights.map(item => `<li>${item}</li>`).join('')}
-                                </ul>
+            <div class="map-container">
+                <div class="map-viewer">
+                    <div class="map-overlay">
+                        <!-- الرياض - وسط المملكة -->
+                        <div class="map-point" style="top: 45%; left: 52%;" data-location="الرياض">
+                            <div class="point-marker"></div>
+                            <div class="point-info">
+                                <h4>الرياض</h4>
+                                <p>عاصمة المملكة العربية السعودية</p>
+                                <button class="btn-small" onclick="showLocationDetail('الرياض')">استكشف</button>
                             </div>
-                            ` : ''}
                         </div>
                         
-                        ${data.quiz ? `
-                        <div class="interactive-quiz">
-                            <h4>اختبر معلوماتك</h4>
-                            <div class="quiz-question">
-                                <p>${data.quiz.question}</p>
-                                <div class="quiz-options">
-                                    ${data.quiz.options.map((option, index) => `
-                                        <button class="quiz-option" data-correct="${option.correct}">
-                                            ${option.text}
-                                        </button>
-                                    `).join('')}
-                                </div>
-                                <div class="quiz-feedback"></div>
+                        <!-- الدرعية - قرب الرياض -->
+                        <div class="map-point" style="top: 46%; left: 50%;" data-location="الدرعية">
+                            <div class="point-marker"></div>
+                            <div class="point-info">
+                                <h4>الدرعية</h4>
+                                <p>عاصمة الدولة السعودية الأولى</p>
+                                <button class="btn-small" onclick="showLocationDetail('الدرعية')">استكشف</button>
                             </div>
                         </div>
-                        ` : ''}
+                        
+                        <!-- مكة المكرمة - غرب المملكة -->
+                        <div class="map-point" style="top: 55%; left: 25%;" data-location="مكة المكرمة">
+                            <div class="point-marker"></div>
+                            <div class="point-info">
+                                <h4>مكة المكرمة</h4>
+                                <p>أقدس المدن الإسلامية</p>
+                                <button class="btn-small" onclick="showLocationDetail('مكة المكرمة')">استكشف</button>
+                            </div>
+                        </div>
+                        
+                        <!-- المدينة المنورة - شمال مكة -->
+                        <div class="map-point" style="top: 40%; left: 30%;" data-location="المدينة المنورة">
+                            <div class="point-marker"></div>
+                            <div class="point-info">
+                                <h4>المدينة المنورة</h4>
+                                <p>مدينة الرسول صلى الله عليه وسلم</p>
+                                <button class="btn-small" onclick="showLocationDetail('المدينة المنورة')">استكشف</button>
+                            </div>
+                        </div>
+                        
+                        <!-- نجد - وسط المملكة -->
+                        <div class="map-point" style="top: 50%; left: 55%;" data-location="نجد">
+                            <div class="point-marker"></div>
+                            <div class="point-info">
+                                <h4>نجد</h4>
+                                <p>مهد الدولة السعودية</p>
+                                <button class="btn-small" onclick="showLocationDetail('نجد')">استكشف</button>
+                            </div>
+                        </div>
+                        
+                        <!-- الأحساء - شرق المملكة -->
+                        <div class="map-point" style="top: 60%; left: 70%;" data-location="الأحساء">
+                            <div class="point-marker"></div>
+                            <div class="point-info">
+                                <h4>الأحساء</h4>
+                                <p>أكبر واحة نخيل في العالم</p>
+                                <button class="btn-small" onclick="showLocationDetail('الأحساء')">استكشف</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- خريطة السعودية الحقيقية -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Saudi_Arabia_location_map.svg/800px-Saudi_Arabia_location_map.svg.png" alt="خريطة المملكة العربية السعودية" class="map-image">
+                </div>
+                
+                <div class="map-details" id="locationDetails">
+                    <h3>اختر موقعاً على الخريطة</h3>
+                    <p>انقري على أحد المواقع على الخريطة لاستكشاف دوره في قصة التأسيس.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الشخصيات المؤثرة -->
+    <section class="characters-section">
+        <div class="container">
+            <h2 class="section-title">شخصيات صنعت التاريخ</h2>
+            
+            <div class="characters-grid">
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="الإمام محمد بن سعود">
+                        <div class="character-badge">المؤسس</div>
+                    </div>
+                    <div class="character-info">
+                        <h3>الإمام محمد بن سعود</h3>
+                        <p class="character-dates">(١١٣٩ - ١١٧٩هـ / ١٧٢٧ - ١٧٦٥م)</p>
+                        <p class="character-bio">مؤسس الدولة السعودية الأولى، حكم من ١٧٢٧م حتى ١٧٦٥م. اتسمت فترة حكمه بالحكمة والتخطيط الاستراتيجي، حيث أسس نظاماً إدارياً قوياً واهتم بالعلم والعلماء.</p>
+                        
+                        <div class="character-achievements">
+                            <h4>أبرز الإنجازات:</h4>
+                            <ul>
+                                <li>تأسيس الدولة السعودية الأولى عام ١١٣٩هـ</li>
+                                <li>تحقيق الوحدة والاستقرار في نجد</li>
+                                <li>إرساء قواعد العدل والحكم الرشيد</li>
+                            </ul>
+                        </div>
+                        
+                        <button class="btn-primary" onclick="showCharacterModal(1)">المزيد</button>
                     </div>
                 </div>
-            `;
-            
-            timelineContent.innerHTML = eventHTML;
-            
-            // إضافة أحداث للاختبار التفاعلي إذا كان موجوداً
-            if (data.quiz) {
-                document.querySelectorAll('.quiz-option').forEach(option => {
-                    option.addEventListener('click', function() {
-                        const isCorrect = this.getAttribute('data-correct') === 'true';
-                        const feedback = this.closest('.quiz-question').querySelector('.quiz-feedback');
+                
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60" alt="الملك عبدالعزيز">
+                        <div class="character-badge">المؤسس</div>
+                    </div>
+                    <div class="character-info">
+                        <h3>الملك عبدالعزيز آل سعود</h3>
+                        <p class="character-dates">(١٢٩٣ - ١٣٧٣هـ / ١٨٧٦ - ١٩٥٣م)</p>
+                        <p class="character-bio">مؤسس الدولة السعودية الثالثة، استعاد الرياض عام ١٩٠٢م ووحد معظم أجزاء شبه الجزيرة العربية تحت اسم المملكة العربية السعودية عام ١٩٣٢م.</p>
                         
-                        // إزالة التنسيق من جميع الأزرار
-                        document.querySelectorAll('.quiz-option').forEach(btn => {
-                            btn.classList.remove('correct', 'incorrect');
-                        });
+                        <div class="character-achievements">
+                            <h4>أبرز الإنجازات:</h4>
+                            <ul>
+                                <li>استعادة الرياض عام ١٣١٩هـ / ١٩٠٢م</li>
+                                <li>توحيد المملكة العربية السعودية عام ١٣٥١هـ / ١٩٣٢م</li>
+                                <li>بدء التنمية الحديثة للمملكة</li>
+                            </ul>
+                        </div>
                         
-                        // تنسيق الزر المختار
-                        this.classList.add(isCorrect ? 'correct' : 'incorrect');
-                        
-                        // عرض التغذية الراجعة
-                        feedback.textContent = isCorrect ? 
-                            'إجابة صحيحة! أحسنتِ 👍' : 
-                            'إجابة غير صحيحة. حاولي مرة أخرى';
-                        feedback.className = `quiz-feedback ${isCorrect ? 'correct' : 'incorrect'}`;
-                    });
-                });
-            }
-            
-            // تحديث أزرار التنقل النشطة
-            document.querySelectorAll('.timeline-nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector(`.timeline-nav-btn[data-year="${year}"]`).classList.add('active');
-        }
+                        <button class="btn-primary" onclick="showCharacterModal(2)">المزيد</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- اختبار نهاية الرحلة -->
+    <section class="quiz-section">
+        <div class="container">
+            <div class="quiz-card">
+                <h2 class="section-title">اختبر معرفتك التاريخية</h2>
+                <p class="section-subtitle">أكملي هذا الاختبار لتربحي ٥٠ نقطة إضافية</p>
+                
+                <div id="memoryQuiz">
+                    <!-- سيتم تحميل الأسئلة ديناميكياً -->
+                </div>
+                
+                <div class="quiz-results" id="quizResults" style="display: none;">
+                    <h3>نتيجتك</h3>
+                    <div class="score-display">
+                        <div class="score-circle">
+                            <span id="finalScore">٠</span>
+                            <small>من ١٠٠</small>
+                        </div>
+                    </div>
+                    <p id="resultMessage"></p>
+                    <button class="btn-primary" onclick="retakeQuiz()">أعد الاختبار</button>
+                    <button class="btn-secondary" onclick="shareResults()">شارك النتيجة</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ===== الكود الرئيسي للصفحة =====
         
-        function updateProgress(year) {
-            const yearMap = {
-                '1446': 1,
-                '1727': 2,
-                '1818': 3,
-                '1902': 4,
-                '1932': 5
-            };
-            
-            const currentStep = yearMap[year] || 1;
-            const progressFill = document.querySelector('.progress-fill');
-            const steps = document.querySelectorAll('.step');
-            
-            // تحديث شريط التقدم
-            const percentage = ((currentStep - 1) / (steps.length - 1)) * 100;
-            progressFill.style.width = `${percentage}%`;
-            
-            // تحديث الخطوات
-            steps.forEach((step, index) => {
-                const stepElement = step;
-                if (index < currentStep) {
-                    stepElement.classList.add('active');
-                } else {
-                    stepElement.classList.remove('active');
-                }
-            });
+        document.addEventListener('DOMContentLoaded', function() {
+            initPage();
+        });
+        
+        function initPage() {
+            initTimeline();
+            initMap();
+            initQuiz();
+            initNavigation();
         }
         
         // ===== 1. إدارة شريط التنقل =====
@@ -922,11 +1372,413 @@
             });
         }
         
-        // تهيئة الصفحة عند التحميل
-        document.addEventListener('DOMContentLoaded', function() {
-            initNavigation();
-            initTimeline();
-        });
+        // ===== 2. إدارة الخط الزمني =====
+        function initTimeline() {
+            const navBtns = document.querySelectorAll('.timeline-nav-btn');
+            const events = document.querySelectorAll('.timeline-event');
+            
+            navBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const year = this.getAttribute('data-year');
+                    
+                    // إزالة النشاط من جميع الأزرار والأحداث
+                    navBtns.forEach(b => b.classList.remove('active'));
+                    events.forEach(event => event.classList.remove('active'));
+                    
+                    // إضافة النشاط للزر المختار
+                    this.classList.add('active');
+                    
+                    // إظهار الحدث المناسب
+                    const activeEvent = document.getElementById(`year-${year}`);
+                    if (activeEvent) {
+                        activeEvent.classList.add('active');
+                    }
+                    
+                    // تحديث شريط التقدم
+                    updateProgress(year);
+                    
+                    // إضافة أحداث للاختبار التفاعلي
+                    addQuizEvents();
+                });
+            });
+            
+            // إضافة أحداث للاختبار التفاعلي في البداية
+            addQuizEvents();
+        }
+        
+        function updateProgress(year) {
+            const yearMap = {
+                '1446': 1,
+                '1727': 2,
+                '1818': 3,
+                '1902': 4,
+                '1932': 5
+            };
+            
+            const currentStep = yearMap[year] || 1;
+            const progressFill = document.querySelector('.progress-fill');
+            const steps = document.querySelectorAll('.step');
+            
+            // تحديث شريط التقدم
+            const percentage = ((currentStep - 1) / (steps.length - 1)) * 100;
+            progressFill.style.width = `${percentage}%`;
+            
+            // تحديث الخطوات
+            steps.forEach((step, index) => {
+                if (index < currentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+        }
+        
+        function addQuizEvents() {
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const isCorrect = this.getAttribute('data-correct') === 'true';
+                    const feedback = this.closest('.quiz-question').querySelector('.quiz-feedback');
+                    
+                    // إزالة التنسيق من جميع الأزرار في هذا السؤال
+                    this.closest('.quiz-options').querySelectorAll('.quiz-option').forEach(btn => {
+                        btn.classList.remove('correct', 'incorrect');
+                    });
+                    
+                    // تنسيق الزر المختار
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    // عرض التغذية الراجعة
+                    feedback.textContent = isCorrect ? 
+                        'إجابة صحيحة! أحسنتِ 👍' : 
+                        'إجابة غير صحيحة. حاولي مرة أخرى';
+                    feedback.className = `quiz-feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+                });
+            });
+        }
+        
+        // ===== 3. إدارة الخرائط التفاعلية =====
+        function initMap() {
+            const points = document.querySelectorAll('.map-point');
+            
+            points.forEach(point => {
+                point.addEventListener('click', function() {
+                    const location = this.getAttribute('data-location');
+                    showLocationDetail(location);
+                });
+            });
+        }
+        
+        function showLocationDetail(location) {
+            const details = {
+                'الرياض': {
+                    title: 'الرياض: عاصمة المملكة',
+                    content: `
+                        <h3>الرياض: قلب المملكة النابض</h3>
+                        <p>تطورت الرياض من بلدة صغيرة محصنة إلى واحدة من أسرع العواصم نمواً في العالم، ومركزاً اقتصادياً وسياسياً للمملكة.</p>
+                        
+                        <div class="location-facts">
+                            <h4>محطات التطور:</h4>
+                            <ul>
+                                <li>استعادها الملك عبدالعزيز عام ١٣١٩هـ / ١٩٠٢م</li>
+                                <li>أصبحت عاصمة الدولة السعودية الثالثة عام ١٣٥١هـ / ١٩٣٢م</li>
+                                <li>شهدت نهضة تنموية غير مسبوقة</li>
+                                <li>تحتضن الآن أهم المشاريع التنموية في رؤية ٢٠٣٠</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="location-images">
+                            <img src="https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="الرياض الحديثة">
+                            <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="قصر المصمك">
+                        </div>
+                    `
+                },
+                'الدرعية': {
+                    title: 'الدرعية التاريخية',
+                    content: `
+                        <h3>الدرعية: عاصمة التأسيس</h3>
+                        <p>تعد الدرعية رمزاً للوحدة الوطنية وبداية تأسيس الدولة السعودية. كانت عاصمة الدولة السعودية الأولى منذ عام ١٧٢٧م وحتى ١٨١٨م.</p>
+                        
+                        <div class="location-facts">
+                            <h4>حقائق سريعة:</h4>
+                            <ul>
+                                <li>أسسها مانع المريدي عام ١٤٤٦م</li>
+                                <li>اتخذها الإمام محمد بن سعود عاصمة لدولته عام ١٧٢٧م</li>
+                                <li>شهدت ازدهاراً علمياً وثقافياً كبيراً</li>
+                                <li>أدرجت في قائمة اليونسكو للتراث العالمي عام ٢٠١٠</li>
+                            </ul>
+                        </div>
+                    `
+                },
+                'مكة المكرمة': {
+                    title: 'مكة المكرمة',
+                    content: `
+                        <h3>مكة المكرمة: قبلة المسلمين</h3>
+                        <p>تحتضن أقدس المقدسات الإسلامية وهي الكعبة المشرفة. كان ضم مكة إلى الدولة السعودية عام ١٣٤٣هـ / ١٩٢٥م حدثاً تاريخياً مهماً.</p>
+                        
+                        <div class="location-facts">
+                            <h4>أهميتها:</h4>
+                            <ul>
+                                <li>موطن الكعبة المشرفة وأول بيت وضع للناس</li>
+                                <li>مكان نزول الوحي ومولد الرسول محمد صلى الله عليه وسلم</li>
+                                <li>وجهة الحجاج والمعتمرين من جميع أنحاء العالم</li>
+                            </ul>
+                        </div>
+                    `
+                },
+                'المدينة المنورة': {
+                    title: 'المدينة المنورة',
+                    content: `
+                        <h3>المدينة المنورة: مدينة الرسول</h3>
+                        <p>ثاني أقدس المدن الإسلامية بعد مكة المكرمة، وتحتضن المسجد النبوي وقبر الرسول محمد صلى الله عليه وسلم.</p>
+                        
+                        <div class="location-facts">
+                            <h4>أهميتها:</h4>
+                            <ul>
+                                <li>موطن المسجد النبوي الشريف</li>
+                                <li>مكان هجرة الرسول محمد صلى الله عليه وسلم</li>
+                                <li>مركز الدولة الإسلامية الأولى</li>
+                                <li>مكان دفن الرسول وصاحبيه أبي بكر وعمر رضي الله عنهما</li>
+                            </ul>
+                        </div>
+                    `
+                },
+                'نجد': {
+                    title: 'نجد: مهد التأسيس',
+                    content: `
+                        <h3>نجد: الأرض التي انطلقت منها الدولة السعودية</h3>
+                        <p>تعتبر نجد القلب الجغرافي والسياسي للدولة السعودية، حيث نشأت وترعرعت قيم الوحدة والاستقرار.</p>
+                        
+                        <div class="location-facts">
+                            <h4>أهميتها:</h4>
+                            <ul>
+                                <li>المنطقة التي انطلقت منها الدولة السعودية الأولى</li>
+                                <li>مركز القوة السياسية والعسكرية</li>
+                                <li>موطن العائلة المالكة والقبائل المؤسسة</li>
+                                <li>تشمل مناطق الرياض والقصيم وحائل</li>
+                            </ul>
+                        </div>
+                    `
+                },
+                'الأحساء': {
+                    title: 'الأحساء',
+                    content: `
+                        <h3>الأحساء: جوهرة الشرق</h3>
+                        <p>إحدى أكبر الواحات الطبيعية في العالم، وتتميز بتاريخها العريق واقتصادها الزراعي الغني.</p>
+                        
+                        <div class="location-facts">
+                            <h4>أهميتها:</h4>
+                            <ul>
+                                <li>أكبر واحة نخيل في العالم (اليونسكو)</li>
+                                <li>مركز زراعي وتجاري مهم عبر التاريخ</li>
+                                <li>تضم مواقع أثرية تعود لأكثر من 5000 عام</li>
+                                <li>منطقة غنية بالنفط والثروات الطبيعية</li>
+                            </ul>
+                        </div>
+                    `
+                }
+            };
+            
+            const detailDiv = document.getElementById('locationDetails');
+            if (details[location]) {
+                detailDiv.innerHTML = details[location].content;
+            } else {
+                detailDiv.innerHTML = `
+                    <h3>${location}</h3>
+                    <p>اختر موقعاً آخر على الخريطة لمعرفة المزيد عنه.</p>
+                `;
+            }
+        }
+        
+        // ===== 4. إدارة الاختبارات =====
+        function initQuiz() {
+            const quizQuestions = [
+                {
+                    question: "في أي عام تأسست الدولة السعودية الأولى؟",
+                    options: ["١٧٢٧م", "١٧٤٤م", "١٨١٨م", "١٩٠٢م"],
+                    correct: 0,
+                    points: 10
+                },
+                {
+                    question: "من هو مؤسس الدولة السعودية الثالثة؟",
+                    options: ["الملك فيصل", "الملك عبدالعزيز", "الملك سعود", "الملك فهد"],
+                    correct: 1,
+                    points: 10
+                },
+                {
+                    question: "ما هي عاصمة الدولة السعودية الأولى؟",
+                    options: ["الرياض", "الدرعية", "مكة المكرمة", "جدة"],
+                    correct: 1,
+                    points: 10
+                },
+                {
+                    question: "في أي عام تم توحيد المملكة العربية السعودية؟",
+                    options: ["١٩٠٢م", "١٩٢٦م", "١٩٣٢م", "١٩٣٨م"],
+                    correct: 2,
+                    points: 10
+                }
+            ];
+            
+            displayQuiz(quizQuestions);
+        }
+        
+        function displayQuiz(questions) {
+            const quizContainer = document.getElementById('memoryQuiz');
+            let quizHTML = '';
+            
+            questions.forEach((q, index) => {
+                quizHTML += `
+                    <div class="quiz-question" id="q${index}">
+                        <p>${index + 1}. ${q.question}</p>
+                        <div class="quiz-options">
+                            ${q.options.map((option, optIndex) => `
+                                <button class="quiz-option" data-question="${index}" data-option="${optIndex}">
+                                    ${option}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <div class="quiz-feedback" id="feedback${index}"></div>
+                    </div>
+                `;
+            });
+            
+            quizHTML += `
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-primary" onclick="submitQuiz()">تقديم الإجابات</button>
+                    <button class="btn-secondary" onclick="resetQuiz()">إعادة تعيين</button>
+                </div>
+            `;
+            
+            quizContainer.innerHTML = quizHTML;
+            
+            // إضافة أحداث لأزرار الاختبار
+            document.querySelectorAll('#memoryQuiz .quiz-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionId = this.getAttribute('data-question');
+                    
+                    // إزالة التحديد من جميع خيارات هذا السؤال
+                    document.querySelectorAll(`#q${questionId} .quiz-option`).forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // تحديد الخيار الحالي
+                    this.classList.add('selected');
+                    this.setAttribute('data-selected', 'true');
+                });
+            });
+        }
+        
+        function submitQuiz() {
+            const questions = document.querySelectorAll('.quiz-question');
+            let score = 0;
+            let totalPoints = 0;
+            
+            const quizData = [
+                { correct: 0 }, // سؤال 1
+                { correct: 1 }, // سؤال 2
+                { correct: 1 }, // سؤال 3
+                { correct: 2 }  // سؤال 4
+            ];
+            
+            questions.forEach((question, index) => {
+                const selectedOption = question.querySelector('.quiz-option.selected');
+                const feedback = document.getElementById(`feedback${index}`);
+                
+                if (selectedOption) {
+                    const selectedIndex = parseInt(selectedOption.getAttribute('data-option'));
+                    const isCorrect = selectedIndex === quizData[index].correct;
+                    const points = isCorrect ? 10 : 0;
+                    
+                    // تلوين جميع الخيارات
+                    question.querySelectorAll('.quiz-option').forEach((opt, optIndex) => {
+                        if (optIndex === quizData[index].correct) {
+                            opt.classList.add('correct');
+                        } else if (optIndex === selectedIndex && !isCorrect) {
+                            opt.classList.add('incorrect');
+                        }
+                    });
+                    
+                    feedback.textContent = isCorrect ? 
+                        'إجابة صحيحة! +١٠ نقاط' : 
+                        'إجابة غير صحيحة. الجواب الصحيح هو: ' + question.querySelector(`.quiz-option:nth-child(${quizData[index].correct + 1})`).textContent;
+                    feedback.className = `quiz-feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+                    
+                    if (isCorrect) score += points;
+                    totalPoints += 10;
+                }
+            });
+            
+            // عرض النتائج
+            const quizContainer = document.getElementById('memoryQuiz');
+            const resultsContainer = document.getElementById('quizResults');
+            const finalScore = document.getElementById('finalScore');
+            const resultMessage = document.getElementById('resultMessage');
+            
+            finalScore.textContent = score;
+            
+            let message = '';
+            const percentage = (score / totalPoints) * 100;
+            
+            if (percentage >= 80) {
+                message = 'ممتاز! معرفتك بتاريخ التأسيس رائعة. تستحقين لقب "باحثة التأسيس" 🏆';
+            } else if (percentage >= 60) {
+                message = 'جيد جداً! لديك معرفة جيدة بتاريخ التأسيس. استمري في التعلم 💪';
+            } else if (percentage >= 40) {
+                message = 'ليس سيئاً! لديك معرفة أساسية. ننصحك بزيارة المعارض التفاعلية لتعزيز معلوماتك 📚';
+            } else {
+                message = 'تحتاجين لمعرفة المزيد عن تاريخ التأسيس. ابدئي رحلتك من جديد! 🌟';
+            }
+            
+            resultMessage.textContent = message;
+            
+            quizContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+        }
+        
+        function resetQuiz() {
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                option.removeAttribute('data-selected');
+            });
+            
+            document.querySelectorAll('.quiz-feedback').forEach(feedback => {
+                feedback.textContent = '';
+                feedback.className = 'quiz-feedback';
+            });
+            
+            document.getElementById('memoryQuiz').style.display = 'block';
+            document.getElementById('quizResults').style.display = 'none';
+        }
+        
+        function retakeQuiz() {
+            resetQuiz();
+        }
+        
+        function shareResults() {
+            const score = document.getElementById('finalScore').textContent;
+            const message = `حصلت على ${score} من 100 في اختبار ذاكرة الملحمة! 🏆\nجرب الاختبار الآن: ${window.location.href}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'نتيجة اختبار ذاكرة الملحمة',
+                    text: message,
+                    url: window.location.href
+                });
+            } else {
+                // نسخ النتيجة إلى الحافظة
+                navigator.clipboard.writeText(message).then(() => {
+                    alert('تم نسخ النتيجة إلى الحافظة! يمكنك مشاركتها الآن 📋');
+                });
+            }
+        }
+        
+        // ===== 5. نافذة تفاصيل الشخصية =====
+        function showCharacterModal(characterId) {
+            alert('تفاصيل الشخصية ستظهر هنا. هذه الميزة قيد التطوير.');
+        }
+        
+        function closeCharacterModal() {
+            // سيتم إضافة هذا لاحقاً
+        }
     </script>
 </body>
 </html>
