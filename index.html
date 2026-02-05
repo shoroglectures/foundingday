@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>رحلة التأسيس | يوم التأسيس السعودي ٢٠٢٦</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -34,10 +34,12 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         html {
             scroll-behavior: smooth;
+            font-size: 16px;
         }
 
         body {
@@ -47,6 +49,8 @@
             line-height: 1.6;
             direction: rtl;
             overflow-x: hidden;
+            min-height: 100vh;
+            font-size: 1rem;
         }
 
         .container {
@@ -159,6 +163,7 @@
             color: var(--white);
             font-size: 1.5rem;
             cursor: pointer;
+            padding: 5px;
         }
 
         /* قسم الهيرو */
@@ -394,7 +399,7 @@
             border: 1px solid var(--primary-light);
         }
 
-        /* قسم المسابقة */
+        /* قسم المسابقة المعدل */
         .competition-preview {
             padding: 5rem 0;
             background: linear-gradient(135deg, var(--secondary-light) 0%, var(--white) 100%);
@@ -407,6 +412,7 @@
             padding: 3rem;
             box-shadow: var(--shadow-medium);
             border: 1px solid var(--primary-light);
+            text-align: center;
         }
 
         .highlight-content h3 {
@@ -420,6 +426,9 @@
             color: var(--gray);
             margin-bottom: 2.5rem;
             line-height: 1.8;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .competition-features {
@@ -608,7 +617,13 @@
             margin-bottom: 0.5rem;
         }
 
-        /* التصميم المتجاوب */
+        /* التصميم المتجاوب - تحسينات للهواتف */
+        @media (max-width: 1200px) {
+            html {
+                font-size: 15px;
+            }
+        }
+
         @media (max-width: 1024px) {
             .hero-title {
                 font-size: 2.8rem;
@@ -617,20 +632,32 @@
             .exhibit-preview {
                 grid-template-columns: 1fr;
                 text-align: center;
+                gap: 2rem;
+            }
+            
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
+            html {
+                font-size: 14px;
+            }
+            
             .nav-menu {
                 display: none;
-                position: absolute;
-                top: 100%;
+                position: fixed;
+                top: 70px;
                 right: 0;
                 width: 100%;
                 background-color: var(--primary-dark);
                 flex-direction: column;
-                padding: 1rem;
+                padding: 2rem;
                 box-shadow: var(--shadow-medium);
+                height: calc(100vh - 70px);
+                overflow-y: auto;
+                z-index: 999;
             }
             
             .nav-menu.active {
@@ -639,42 +666,251 @@
             
             .menu-toggle {
                 display: block;
+                z-index: 1001;
             }
             
             .hero-title {
                 font-size: 2.2rem;
             }
             
+            .hero-subtitle {
+                font-size: 1.1rem;
+                padding: 0 10px;
+            }
+            
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 1rem;
             }
             
             .countdown {
                 flex-wrap: wrap;
+                gap: 1rem;
             }
             
             .countdown-item {
                 min-width: 90px;
                 padding: 1rem;
+                flex: 1;
             }
-        }
-
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 1.8rem;
+            
+            .countdown-item span {
+                font-size: 2rem;
             }
             
             .section-title {
                 font-size: 2rem;
+                padding: 0 10px;
+            }
+            
+            .section-subtitle {
+                font-size: 1rem;
+                padding: 0 15px;
+            }
+            
+            .exhibits-tabs {
+                gap: 0.5rem;
+                padding: 0 10px;
+            }
+            
+            .tab-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
             }
             
             .exhibit-preview {
                 padding: 1.5rem;
+                margin: 0 10px;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 10px;
+            }
+            
+            .game-card {
+                padding: 1.5rem;
+            }
+            
+            .competition-highlight {
+                padding: 2rem;
+                margin: 0 10px;
             }
             
             .footer-container {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 20px 2rem;
+            }
+            
+            .footer-section {
+                text-align: center;
+            }
+            
+            .footer-logo {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 13px;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+                padding: 0 10px;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .logo-text {
+                font-size: 1.4rem;
+            }
+            
+            .logo-img {
+                height: 40px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .exhibit-preview {
+                padding: 1rem;
+            }
+            
+            .preview-content h3 {
+                font-size: 1.6rem;
+            }
+            
+            .preview-content p {
+                font-size: 1rem;
+            }
+            
+            .btn-primary, .btn-secondary {
+                padding: 12px 24px;
+                font-size: 1rem;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .tab-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+                min-width: 100px;
+            }
+            
+            .countdown-item {
+                min-width: 70px;
+                padding: 0.8rem;
+            }
+            
+            .countdown-item span {
+                font-size: 1.5rem;
+            }
+            
+            .highlight-content h3 {
+                font-size: 1.6rem;
+            }
+            
+            .highlight-content p {
+                font-size: 1rem;
+            }
+            
+            .game-icon {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .game-icon i {
+                font-size: 2rem;
+            }
+            
+            .game-card h3 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            html {
+                font-size: 12px;
+            }
+            
+            .hero-title {
+                font-size: 1.6rem;
+            }
+            
+            .countdown {
+                gap: 0.5rem;
+            }
+            
+            .countdown-item {
+                min-width: 60px;
+                padding: 0.6rem;
+            }
+            
+            .tab-btn {
+                min-width: 80px;
+                padding: 6px 12px;
+            }
+        }
+
+        @media (orientation: landscape) and (max-height: 500px) {
+            .hero {
+                min-height: 120vh;
+                padding-top: 60px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .hero-buttons {
+                margin-bottom: 1.5rem;
+            }
+            
+            .countdown-container {
+                margin-top: 1.5rem;
+            }
+        }
+
+        /* تحسينات للأجهزة التي تدعم hover */
+        @media (hover: hover) and (pointer: fine) {
+            .game-card:hover {
+                transform: translateY(-10px);
+            }
+            
+            .btn-primary:hover, .btn-secondary:hover {
+                transform: translateY(-3px);
+            }
+        }
+
+        /* تحسينات للأجهزة التي لا تدعم hover (الهواتف) */
+        @media (hover: none) and (pointer: coarse) {
+            .game-card:active {
+                transform: scale(0.98);
+            }
+            
+            .btn-primary:active, .btn-secondary:active {
+                transform: scale(0.98);
+            }
+            
+            .nav-link:active {
+                background-color: rgba(255, 255, 255, 0.2);
             }
         }
 
@@ -757,7 +993,7 @@
                 </div>
             </div>
             
-            <button class="menu-toggle" onclick="toggleMenu()">
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="قائمة التنقل">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -892,33 +1128,15 @@
         </div>
     </section>
 
-    <!-- قسم المسابقة -->
+    <!-- قسم المسابقة المعدل -->
     <section class="competition-preview">
         <div class="container">
             <h2 class="section-title">مسابقة "باحثات التأسيس"</h2>
             <div class="competition-highlight">
                 <div class="highlight-content">
                     <h3>تحدي المعرفة والتراث</h3>
-                    <p>انضمي إلى أكبر مسابقة معرفية عن تاريخ المملكة. اربحي نقاطاً وتصعدي في لوحة الصدارة لتفوزي بجائزة "باحثة التأسيس".</p>
-                    
-                    <div class="competition-features">
-                        <div class="feature">
-                            <i class="fas fa-question-circle"></i>
-                            <h4>١٠٠٠+ سؤال</h4>
-                            <p>أسئلة متنوعة عن التاريخ والتراث</p>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-medal"></i>
-                            <h4>٣ مراحل</h4>
-                            <p>تأهيلي، نصف نهائي، نهائي</p>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-gift"></i>
-                            <h4>جوائز يومية</h4>
-                            <p>فرصة ربح جوائز في كل مرحلة</p>
-                        </div>
-                    </div>
-                    
+                    <p>اختبر معلوماتك في تاريخ المملكة وتراثها من خلال أسئلة متنوعة وممتعة. شاركي الآن بدون حاجة للتسجيل!</p>
+                    <p>تضم المسابقة مجموعة واسعة من الأسئلة التاريخية والتراثية التي تغطي مختلف جوانب تاريخ المملكة العربية السعودية.</p>
                     <a href="competition/index.html" class="btn-primary">ابدأ المسابقة الآن</a>
                 </div>
             </div>
@@ -1058,6 +1276,18 @@
             initNavigation();
             initTabs();
             
+            // إغلاق القائمة عند النقر خارجها
+            document.addEventListener('click', function(event) {
+                const navMenu = document.querySelector('.nav-menu');
+                const menuToggle = document.querySelector('.menu-toggle');
+                
+                if (navMenu.classList.contains('active') && 
+                    !navMenu.contains(event.target) && 
+                    !menuToggle.contains(event.target)) {
+                    navMenu.classList.remove('active');
+                }
+            });
+            
             // إضافة تأثير للموقع عند التمرير
             window.addEventListener('scroll', () => {
                 const navbar = document.querySelector('.navbar');
@@ -1069,6 +1299,11 @@
                     navbar.style.backdropFilter = 'none';
                 }
             });
+            
+            // تحسين تجربة الهواتف
+            if ('ontouchstart' in window || navigator.maxTouchPoints) {
+                document.body.classList.add('touch-device');
+            }
         });
 
         // 1. العد التنازلي ليوم التأسيس
@@ -1132,6 +1367,11 @@
                             activeContent.classList.add('active');
                         }, 10);
                     }
+                    
+                    // إغلاق القائمة المتنقلة على الهواتف
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.nav-menu').classList.remove('active');
+                    }
                 });
             });
         }
@@ -1167,6 +1407,15 @@
                     }
                 });
             });
+            
+            // إغلاق القائمة عند النقر على رابط
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.nav-menu').classList.remove('active');
+                    }
+                });
+            });
         }
 
         // 4. عرض الإشعارات
@@ -1198,6 +1447,33 @@
                 setTimeout(() => notification.remove(), 300);
             }, 3000);
         }
+
+        // 5. تحسينات للهواتف
+        function initMobileOptimizations() {
+            // منع التكبير المزدوج على الهواتف
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+            
+            // إضافة touch events للأزرار
+            document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
+                btn.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                btn.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
+            });
+        }
+
+        // تهيئة تحسينات الهواتف
+        initMobileOptimizations();
 
         // إضافة أنماط للرسوم المتحركة للإشعارات
         const style = document.createElement('style');
