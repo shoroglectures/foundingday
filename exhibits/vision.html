@@ -4,16 +4,1009 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الرؤية المتجددة | رحلة التأسيس</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="exhibits.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== متغيرات الألوان للهوية الجديدة ===== */
+        :root {
+            --primary-dark: #6B4E45;
+            --primary-light: #DEC9B2;
+            --secondary-light: #F4EADA;
+            --accent-beige: #E8DFD6;
+            --accent-gold: #C6A467;
+            --accent-brown: #231F20;
+            --light-beige: #F8F4EF;
+            --white: #FFFFFF;
+            --black: #231F20;
+            --gray: #666666;
+            --light-gray: #EEEEEE;
+            
+            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-heavy: 0 12px 36px rgba(0, 0, 0, 0.15);
+            
+            --border-radius: 12px;
+            --border-radius-lg: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'El Messiri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-light);
+            color: var(--black);
+            line-height: 1.6;
+            direction: rtl;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== شريط التنقل ===== */
+        .navbar {
+            background-color: var(--primary-dark);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            color: var(--white);
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--primary-light);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== رأس الصفحة ===== */
+        .exhibit-header {
+            background: linear-gradient(rgba(107, 78, 69, 0.9), rgba(107, 78, 69, 0.95));
+            background-size: cover;
+            background-position: center;
+            padding: 150px 0 80px;
+            margin-top: 80px;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .exhibit-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .exhibit-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        /* ===== أنماط مشتركة ===== */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-light), var(--primary-dark));
+            margin: 15px auto 30px;
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--white);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-dark);
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-dark);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        .btn-small {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-small:hover {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+        }
+
+        /* ===== أعمدة الرؤية ===== */
+        .vision-overview {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .vision-pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pillar-card {
+            background-color: var(--secondary-light);
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--primary-light);
+            transition: all 0.3s ease;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .pillar-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+        }
+
+        .pillar-card h3 {
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .pillar-card p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .pillar-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1.5rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+        }
+
+        /* ===== المشاريع الكبرى ===== */
+        .mega-projects {
+            padding: 5rem 0;
+            background-color: var(--secondary-light);
+        }
+
+        .projects-timeline {
+            margin-top: 3rem;
+        }
+
+        .timeline-item {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: 100px 1fr 300px;
+            gap: 2rem;
+            align-items: center;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--primary-light);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .timeline-year {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .timeline-content h3 {
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-stats span {
+            background-color: rgba(222, 201, 178, 0.3);
+            padding: 8px 16px;
+            border-radius: var(--border-radius);
+            color: var(--primary-dark);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timeline-image {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            height: 200px;
+            position: relative;
+        }
+
+        .timeline-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--primary-light);
+        }
+
+        /* ===== الإنجازات ===== */
+        .achievements-section {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .achievement-card {
+            background-color: var(--secondary-light);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--primary-light);
+            transition: all 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .achievement-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.8rem;
+        }
+
+        .achievement-card h3 {
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .progress-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary-dark) 0% var(--percent), var(--light-gray) var(--percent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .progress-circle span {
+            background-color: var(--white);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        /* ===== خارطة المشاريع ===== */
+        .projects-map {
+            padding: 5rem 0;
+            background-color: var(--secondary-light);
+        }
+
+        .map-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        @media (max-width: 1024px) {
+            .map-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .saudi-map {
+            position: relative;
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--primary-light);
+            text-align: center;
+            min-height: 500px;
+        }
+
+        .saudi-map img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+        }
+
+        .project-point {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .project-point:hover .point {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 8px rgba(222, 201, 178, 0.3);
+        }
+
+        .project-point:hover .project-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .point {
+            width: 24px;
+            height: 24px;
+            background-color: var(--primary-dark);
+            border-radius: 50%;
+            border: 3px solid var(--white);
+            box-shadow: 0 0 0 4px var(--primary-dark);
+            transition: all 0.3s ease;
+        }
+
+        .project-tooltip {
+            position: absolute;
+            top: 40px;
+            right: -50px;
+            background-color: var(--white);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-heavy);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+            text-align: right;
+        }
+
+        .project-tooltip h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-tooltip p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .projects-list {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--primary-light);
+        }
+
+        .projects-list h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .project-item {
+            background-color: var(--secondary-light);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .project-item:hover {
+            border-color: var(--primary-light);
+            transform: translateX(-5px);
+        }
+
+        .project-item h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .project-item p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .project-status.active {
+            background-color: rgba(222, 201, 178, 0.3);
+            color: var(--primary-dark);
+        }
+
+        .project-status.completed {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: #2E7D32;
+        }
+
+        /* ===== المستقبل ===== */
+        .future-section {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .future-vision {
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+
+        .vision-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            background-color: var(--secondary-light);
+            padding: 1.5rem;
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--primary-light);
+            transition: all 0.3s ease;
+        }
+
+        .vision-item:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-light);
+        }
+
+        .vision-number {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .vision-content h3 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .vision-content p {
+            color: var(--gray);
+        }
+
+        /* ===== اختبار الرؤية ===== */
+        .vision-quiz {
+            padding: 5rem 0;
+            background-color: var(--secondary-light);
+        }
+
+        .quiz-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 4rem;
+            box-shadow: var(--shadow-heavy);
+            border: 1px solid var(--primary-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quiz-card h2 {
+            text-align: center;
+            color: var(--primary-dark);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        #visionQuiz {
+            margin: 2rem 0;
+        }
+
+        .quiz-item {
+            background-color: var(--secondary-light);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--primary-light);
+        }
+
+        .quiz-item h4 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            padding: 12px 20px;
+            background-color: var(--white);
+            border: 2px solid var(--primary-light);
+            border-radius: var(--border-radius);
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quiz-option:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .quiz-option input[type="radio"] {
+            display: none;
+        }
+
+        .quiz-option.selected {
+            background-color: var(--primary-light);
+            border-color: var(--primary-dark);
+        }
+
+        .quiz-results {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .quiz-results h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .answers-breakdown {
+            margin-top: 2rem;
+        }
+
+        .answer-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: var(--border-radius);
+            text-align: right;
+        }
+
+        .answer-item.correct {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-right: 4px solid #4CAF50;
+        }
+
+        .answer-item.incorrect {
+            background-color: rgba(244, 67, 54, 0.1);
+            border-right: 4px solid #F44336;
+        }
+
+        /* ===== مودال المشروع ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            background-color: var(--light-gray);
+        }
+
+        .project-modal {
+            padding: 2rem;
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .project-header h3 {
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+        }
+
+        .project-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .project-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--primary-light);
+        }
+
+        .project-info p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .project-facts {
+            background-color: var(--secondary-light);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border-right: 4px solid var(--primary-dark);
+        }
+
+        .project-facts h4 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .project-facts ul {
+            list-style-position: inside;
+            color: var(--gray);
+        }
+
+        .project-facts li {
+            margin-bottom: 0.5rem;
+            padding-right: 1rem;
+        }
+
+        /* ===== الفوتر ===== */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            padding: 3rem 0;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== التصميم المتجاوب ===== */
+        @media (max-width: 1024px) {
+            .exhibit-title {
+                font-size: 2.8rem;
+            }
+            
+            .timeline-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .timeline-year {
+                width: 100px;
+                margin: 0 auto;
+            }
+            
+            .timeline-image {
+                order: -1;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                background-color: var(--primary-dark);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow-medium);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .exhibit-title {
+                font-size: 2.2rem;
+            }
+            
+            .exhibit-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .quiz-card {
+                padding: 2rem;
+            }
+            
+            .project-stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .vision-pillars {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .exhibit-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .timeline-image {
+                height: 180px;
+            }
+            
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-body {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- شريط التنقل -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <img src="../assets/images/logo.png" alt="شعار يوم التأسيس" class="logo-img">
+                <img src="https://www.foundingday.sa/-/media/FoundingDay/images/Header/Header-logo.svg" alt="شعار يوم التأسيس" class="logo-img">
                 <span class="logo-text">رحلة التأسيس</span>
             </div>
             
@@ -21,21 +1014,20 @@
                 <a href="../index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
                 <a href="memory.html" class="nav-link"><i class="fas fa-landmark"></i> ذاكرة الملحمة</a>
                 <a href="heritage.html" class="nav-link"><i class="fas fa-archway"></i> إرث الأجداد</a>
-                <a href="sound.html" class="nav-link"><i class="fas fa-music"></i> صوت الوطن</a>
                 <a href="vision.html" class="nav-link active"><i class="fas fa-chart-line"></i> الرؤية المتجددة</a>
             </div>
+            
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
+    <!-- رأس الصفحة -->
     <header class="exhibit-header">
         <div class="header-content">
             <h1 class="exhibit-title">الرؤية المتجددة</h1>
             <p class="exhibit-subtitle">جسر بين عراقة الماضي وطموح المستقبل: كيف تحقق رؤية ٢٠٣٠ قيم التأسيس في مشاريع تنموية عالمية</p>
-            <div class="exhibit-meta">
-                <span><i class="far fa-clock"></i> الوقت المقدر: ٢٠ دقيقة</span>
-                <span><i class="fas fa-star"></i> ١٠٠ نقطة يمكن ربحها</span>
-                <span><i class="fas fa-users"></i> ٥٥٠+ طالبة استكشفته</span>
-            </div>
         </div>
     </header>
 
@@ -122,7 +1114,7 @@
                         <button class="btn-small" onclick="showProjectDetails('neom')">استكشف المشروع</button>
                     </div>
                     <div class="timeline-image">
-                        <img src="../assets/images/neom.jpg" alt="نيوم">
+                        <img src="https://sa.sakan.co/blog/wp-content/uploads/2024/05/%D9%85%D8%B4%D8%B1%D9%88%D8%B9-%D9%86%D9%8A%D9%88%D9%85-1.webp" alt="نيوم">
                     </div>
                 </div>
                 
@@ -139,11 +1131,26 @@
                         <button class="btn-small" onclick="showProjectDetails('theline')">استكشف المشروع</button>
                     </div>
                     <div class="timeline-image">
-                        <img src="../assets/images/the-line.jpg" alt="ذا لاين">
+                        <img src="https://ipgegypt.com/storage/9357/62fe0e6ddf827_4.png" alt="ذا لاين">
                     </div>
                 </div>
                 
-                <!-- مشاريع أخرى -->
+                <div class="timeline-item">
+                    <div class="timeline-year">٢٠٢٤</div>
+                    <div class="timeline-content">
+                        <h3>القدية</h3>
+                        <p>وجهة ترفيهية ورياضية عالمية تهدف إلى تنويع مصادر الدخل الوطني</p>
+                        <div class="project-stats">
+                            <span><i class="fas fa-mountain"></i> ٣٣٤ كم²</span>
+                            <span><i class="fas fa-ticket-alt"></i> ٤٨ منشأة</span>
+                            <span><i class="fas fa-briefcase"></i> ٣٣,٠٠٠ وظيفة</span>
+                        </div>
+                        <button class="btn-small" onclick="showProjectDetails('qiddiya')">استكشف المشروع</button>
+                    </div>
+                    <div class="timeline-image">
+                        <img src="https://www.oilnewsagency.com/wp-content/uploads/2023/12/1635350-780x470.jpeg" alt="القدية">
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -160,7 +1167,7 @@
                     </div>
                     <h3>تمكين المرأة</h3>
                     <p>ارتفاع مشاركة المرأة في سوق العمل من ١٩٪ إلى ٣٦٪</p>
-                    <div class="progress-circle" data-percent="٨٩">
+                    <div class="progress-circle" data-percent="89" id="progress1">
                         <span>٨٩٪</span>
                     </div>
                 </div>
@@ -171,7 +1178,7 @@
                     </div>
                     <h3>التعليم</h3>
                     <p>٥ جامعات سعودية ضمن أفضل ٣٠٠ جامعة عالمياً</p>
-                    <div class="progress-circle" data-percent="٩٢">
+                    <div class="progress-circle" data-percent="92" id="progress2">
                         <span>٩٢٪</span>
                     </div>
                 </div>
@@ -182,7 +1189,7 @@
                     </div>
                     <h3>الصحة</h3>
                     <p>زيادة متوسط العمر المتوقع إلى ٧٨ عاماً</p>
-                    <div class="progress-circle" data-percent="٨٥">
+                    <div class="progress-circle" data-percent="85" id="progress3">
                         <span>٨٥٪</span>
                     </div>
                 </div>
@@ -193,7 +1200,7 @@
                     </div>
                     <h3>التحول الرقمي</h3>
                     <p>٩٥٪ من الخدمات الحكومية إلكترونية</p>
-                    <div class="progress-circle" data-percent="٩٥">
+                    <div class="progress-circle" data-percent="95" id="progress4">
                         <span>٩٥٪</span>
                     </div>
                 </div>
@@ -208,8 +1215,10 @@
             
             <div class="map-container">
                 <div class="saudi-map" id="saudiMap">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Regions_of_Saudi_Arabia_-_Main.svg" alt="خريطة المملكة العربية السعودية">
+                    
                     <!-- نقاط المشاريع على الخريطة -->
-                    <div class="project-point" style="top: 20%; left: 15%;" data-project="neom">
+                    <div class="project-point" style="top: 15%; left: 15%;" data-project="neom">
                         <div class="point"></div>
                         <div class="project-tooltip">
                             <h4>نيوم</h4>
@@ -225,7 +1234,21 @@
                         </div>
                     </div>
                     
-                    <!-- المزيد من النقاط -->
+                    <div class="project-point" style="top: 40%; left: 25%;" data-project="qiddiya">
+                        <div class="point"></div>
+                        <div class="project-tooltip">
+                            <h4>القدية</h4>
+                            <p>أكبر وجهة ترفيهية في المملكة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-point" style="top: 70%; left: 40%;" data-project="jeddah">
+                        <div class="point"></div>
+                        <div class="project-tooltip">
+                            <h4>مشروع البحر الأحمر</h4>
+                            <p>وجهة سياحية فاخرة على الساحل</p>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="projects-list">
@@ -240,6 +1263,18 @@
                         <h4>الرياض الخضراء</h4>
                         <p>مشروع التشجير - الرياض</p>
                         <span class="project-status completed">مكتمل</span>
+                    </div>
+                    
+                    <div class="project-item" onclick="focusOnProject('qiddiya')">
+                        <h4>القدية</h4>
+                        <p>وجهة ترفيهية - الرياض</p>
+                        <span class="project-status active">قيد التنفيذ</span>
+                    </div>
+                    
+                    <div class="project-item" onclick="focusOnProject('jeddah')">
+                        <h4>مشروع البحر الأحمر</h4>
+                        <p>وجهة سياحية - جدة</p>
+                        <span class="project-status active">قيد التنفيذ</span>
                     </div>
                 </div>
             </div>
@@ -256,7 +1291,7 @@
                     <div class="vision-number">١</div>
                     <div class="vision-content">
                         <h3>مركز لوجستي عالمي</h3>
-                        <p>توطين موقع المملكة الجغرافي الفريد لتصبح مركزاً لوجستياً عالمياً</p>
+                        <p>توطين موقع المملكة الجغرافي الفريد لتصبح مركزاً لوجستياً عالمياً يربط بين ثلاث قارات</p>
                     </div>
                 </div>
                 
@@ -264,7 +1299,7 @@
                     <div class="vision-number">٢</div>
                     <div class="vision-content">
                         <h3>محور ثقافي</h3>
-                        <p>تحويل المملكة إلى محور ثقافي يجمع بين الأصالة والحداثة</p>
+                        <p>تحويل المملكة إلى محور ثقافي يجمع بين الأصالة والحداثة ويعزز التبادل الثقافي العالمي</p>
                     </div>
                 </div>
                 
@@ -272,7 +1307,7 @@
                     <div class="vision-number">٣</div>
                     <div class="vision-content">
                         <h3>قوة اقتصادية</h3>
-                        <p>تحقيق التنوع الاقتصادي والاستقلال المالي</p>
+                        <p>تحقيق التنوع الاقتصادي والاستقلال المالي من خلال اقتصاد معرفي قائم على الابتكار</p>
                     </div>
                 </div>
             </div>
@@ -285,82 +1320,136 @@
             <div class="quiz-card">
                 <h2>ما مدى معرفتك برؤية ٢٠٣٠؟</h2>
                 <div id="visionQuiz">
-                    <!-- أسئلة الرؤية -->
+                    <!-- سيتم تحميل الأسئلة ديناميكياً -->
                 </div>
-                <button class="btn-primary" onclick="submitVisionQuiz()">اختبر معرفتك</button>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-primary" onclick="submitVisionQuiz()">اختبر معرفتك</button>
+                    <button class="btn-secondary" onclick="resetQuiz()">إعادة تعيين</button>
+                </div>
+                <div class="quiz-results" id="quizResults" style="display: none;"></div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="footer-container">
-            <!-- نفس الفوتر السابق -->
-        </div>
-    </footer>
-
-    <script src="../script.js"></script>
     <script>
-        // كود خاص بركن الرؤية المتجددة
+        // ===== الكود الرئيسي للصفحة =====
+        
         document.addEventListener('DOMContentLoaded', function() {
+            initPage();
+        });
+        
+        function initPage() {
+            initNavigation();
             initProgressCircles();
             initProjectsMap();
             initVisionQuiz();
-            loadProjectsData();
-        });
+        }
         
-        function initProgressCircles() {
-            // تحريك دوائر التقدم
-            const circles = document.querySelectorAll('.progress-circle');
-            circles.forEach(circle => {
-                const percent = circle.dataset.percent;
-                circle.style.background = `
-                    conic-gradient(
-                        var(--secondary-green) 0% ${percent}%,
-                        var(--light-gray) ${percent}% 100%
-                    )
-                `;
+        // ===== 1. إدارة شريط التنقل =====
+        function initNavigation() {
+            window.toggleMenu = function() {
+                const navMenu = document.querySelector('.nav-menu');
+                navMenu.classList.toggle('active');
+            };
+            
+            // إغلاق القائمة عند النقر على رابط
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.querySelector('.nav-menu').classList.remove('active');
+                });
+            });
+            
+            // إضافة تأثير التمرير
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 100) {
+                    navbar.style.backgroundColor = 'rgba(107, 78, 69, 0.95)';
+                    navbar.style.backdropFilter = 'blur(10px)';
+                } else {
+                    navbar.style.backgroundColor = 'var(--primary-dark)';
+                    navbar.style.backdropFilter = 'none';
+                }
             });
         }
         
+        // ===== 2. دوائر التقدم =====
+        function initProgressCircles() {
+            const circles = document.querySelectorAll('.progress-circle');
+            circles.forEach(circle => {
+                const percent = circle.getAttribute('data-percent');
+                circle.style.setProperty('--percent', `${percent}%`);
+                circle.style.background = `conic-gradient(
+                    var(--primary-dark) 0% ${percent}%,
+                    var(--light-gray) ${percent}% 100%
+                )`;
+            });
+        }
+        
+        // ===== 3. خارطة المشاريع =====
         function initProjectsMap() {
-            // تفاعلية خارطة المشاريع
             const projectPoints = document.querySelectorAll('.project-point');
             
             projectPoints.forEach(point => {
-                point.addEventListener('mouseenter', function() {
-                    const tooltip = this.querySelector('.project-tooltip');
-                    tooltip.style.display = 'block';
-                });
-                
-                point.addEventListener('mouseleave', function() {
-                    const tooltip = this.querySelector('.project-tooltip');
-                    tooltip.style.display = 'none';
-                });
-                
                 point.addEventListener('click', function() {
-                    const projectId = this.dataset.project;
+                    const projectId = this.getAttribute('data-project');
                     showProjectDetails(projectId);
                 });
             });
+            
+            // تفاعل مع القائمة
+            document.querySelectorAll('.project-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const projectText = this.querySelector('h4').textContent;
+                    const projectId = getProjectIdFromText(projectText);
+                    focusOnProject(projectId);
+                });
+            });
+        }
+        
+        function getProjectIdFromText(text) {
+            const map = {
+                'نيوم': 'neom',
+                'الرياض الخضراء': 'riadh',
+                'القدية': 'qiddiya',
+                'مشروع البحر الأحمر': 'jeddah'
+            };
+            return map[text] || 'neom';
+        }
+        
+        function focusOnProject(projectId) {
+            const point = document.querySelector(`[data-project="${projectId}"]`);
+            if (point) {
+                // إضافة تأثير النبض
+                point.classList.add('focused');
+                const marker = point.querySelector('.point');
+                marker.style.animation = 'pulse 1s 3';
+                
+                setTimeout(() => {
+                    point.classList.remove('focused');
+                    marker.style.animation = '';
+                }, 3000);
+                
+                showProjectDetails(projectId);
+            }
         }
         
         function showProjectDetails(projectId) {
             const projects = {
                 neom: {
                     title: "نيوم - مدينة المستقبل",
-                    description: "مشروع نيوم هو حجر الزاوية في رؤية السعودية 2030، مدينة ذكية تمتد على مساحة 26,500 كم² في شمال غرب المملكة. تعتمد على الطاقة المتجددة بنسبة 100% وتضم قطاعات متقدمة في التكنولوجيا والرقمنة.",
+                    description: "مشروع نيوم هو حجر الزاوية في رؤية السعودية 2030، مدينة ذكية تمتد على مساحة 26,500 كم² في شمال غرب المملكة. تعتمد على الطاقة المتجددة بنسبة 100% وتضم قطاعات متقدمة في التكنولوجيا والرقمنة. تهدف نيوم إلى أن تكون نموذجاً للمستقبل المستدام الذي يعزز جودة الحياة ويخلق فرصاً اقتصادية جديدة.",
                     facts: [
                         "الاستثمار: 500 مليار دولار",
                         "المساحة: 26,500 كم²",
                         "السكان المستهدفون: مليون نسمة",
                         "الطاقة: 100% متجددة",
-                        "الانتهاء: 2030"
+                        "الانتهاء المستهدف: 2030"
                     ],
-                    image: "../assets/images/neom-details.jpg"
+                    image: "https://sa.sakan.co/blog/wp-content/uploads/2024/05/%D9%85%D8%B4%D8%B1%D9%88%D8%B9-%D9%86%D9%8A%D9%88%D9%85-1.webp"
                 },
                 theline: {
                     title: "ذا لاين - المدينة الخطية",
-                    description: "مدينة ثورية بطول 170 كم، تتكون من مجتمعات مترابطة بدون سيارات. تعمل بالكامل على الطاقة المتجددة وتحافظ على 95% من الطبيعة المحيطة.",
+                    description: "مدينة ثورية بطول 170 كم، تتكون من مجتمعات مترابطة بدون سيارات. تعمل بالكامل على الطاقة المتجددة وتحافظ على 95% من الطبيعة المحيطة. سيعيش فيها 9 ملايين نسمة مع الحفاظ على البيئة الطبيعية، حيث تكون جميع الخدمات الأساسية على بعد 5 دقائق سيراً على الأقدام.",
                     facts: [
                         "الطول: 170 كم",
                         "السكان: 9 مليون نسمة",
@@ -368,19 +1457,43 @@
                         "المرافق: 5 دقائق سيراً",
                         "النقل: قطار فائق السرعة"
                     ],
-                    image: "../assets/images/theline-details.jpg"
+                    image: "https://ipgegypt.com/storage/9357/62fe0e6ddf827_4.png"
+                },
+                qiddiya: {
+                    title: "القدية - وجهة الترفيه",
+                    description: "أكبر مشروع ترفيهي ورياضي وثقافي في المملكة، يمتد على مساحة 334 كم² جنوب غرب الرياض. يهدف إلى تنويع الاقتصاد وتوفير فرص ترفيهية متنوعة للسكان والزوار، بما في ذلك منتزهات ترفيهية ومرافق رياضية ومسارح ومعارض فنية.",
+                    facts: [
+                        "المساحة: 334 كم²",
+                        "المنشآت: 48 منشأة ترفيهية",
+                        "الوظائف: 33,000 وظيفة",
+                        "الزوار المستهدفين: 17 مليون سنوياً",
+                        "الانتهاء: 2024"
+                    ],
+                    image: "https://www.oilnewsagency.com/wp-content/uploads/2023/12/1635350-780x470.jpeg"
                 },
                 riadh: {
                     title: "الرياض الخضراء",
-                    description: "مشروع طموح لزراعة 7.5 مليون شجرة في العاصمة الرياض، لزيادة المساحات الخضراء من 1.5% إلى 9.1%، مما يقلل درجات الحرارة ويحسن جودة الحياة.",
+                    description: "مشروع طموح لزراعة 7.5 مليون شجرة في العاصمة الرياض، لزيادة المساحات الخضراء من 1.5% إلى 9.1%، مما يقلل درجات الحرارة ويحسن جودة الحياة. يتضمن المشروع إنشاء 3,300 كم من المسارات للمشاة والدراجات وزيادة عدد الحدائق العامة.",
                     facts: [
                         "الأشجار: 7.5 مليون",
                         "المساحات الخضراء: من 1.5% إلى 9.1%",
                         "انخفاض الحرارة: 2-3 درجات",
-                        "المسارات: 3,300 كم للمشاة",
+                        "المسارات: 3,300 كم للمشاة والدراجات",
                         "الانتهاء: 2030"
                     ],
-                    image: "../assets/images/riyadh-green.jpg"
+                    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                },
+                jeddah: {
+                    title: "مشروع البحر الأحمر",
+                    description: "وجهة سياحية فاخرة على ساحل البحر الأحمر، تمتد على 90 جزيرة طبيعية. يهدف المشروع إلى تقديم تجربة سياحية فريدة مع الحفاظ على البيئة البحرية والبرية. يعتمد على الطاقة المتجددة بنسبة 100% ويكون محايداً للكربون.",
+                    facts: [
+                        "الجزر: 90 جزيرة طبيعية",
+                        "الطاقة: 100% متجددة",
+                        "السعة: مليون زائر سنوياً",
+                        "الوظائف: 70,000 وظيفة",
+                        "الانبعاثات: محايد للكربون"
+                    ],
+                    image: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                 }
             };
             
@@ -412,45 +1525,14 @@
             }
         }
         
-        function focusOnProject(projectId) {
-            // تركيز الخريطة على مشروع معين
-            const point = document.querySelector(`[data-project="${projectId}"]`);
-            if (point) {
-                point.classList.add('focused');
-                setTimeout(() => {
-                    point.classList.remove('focused');
-                }, 2000);
-                
-                showProjectDetails(projectId);
-            }
-        }
-        
-        function loadProjectsData() {
-            // تحميل بيانات المشاريع من ملف JSON
-            fetch('../data/projects.json')
-                .then(response => response.json())
-                .then(data => {
-                    renderProjectsTimeline(data.projects);
-                })
-                .catch(error => {
-                    console.error('Error loading projects:', error);
-                });
-        }
-        
-        function renderProjectsTimeline(projects) {
-            const timeline = document.querySelector('.projects-timeline');
-            if (timeline && projects) {
-                // عرض المشاريع في الجدول الزمني
-            }
-        }
-        
+        // ===== 4. اختبار الرؤية =====
         function initVisionQuiz() {
             const questions = [
                 {
-                    question: "ما هو الهدف الرئيسي لرؤية ٢٠٣٠؟",
+                    question: "ما هو الهدف الرئيسي لرؤية السعودية ٢٠٣٠؟",
                     options: [
-                        "التنوع الاقتصادي",
-                        "زيادة إنتاج النفط",
+                        "التنوع الاقتصادي وتقليل الاعتماد على النفط",
+                        "زيادة إنتاج النفط فقط",
                         "التوسع العسكري",
                         "الهجرة الخارجية"
                     ],
@@ -467,89 +1549,207 @@
                     ],
                     correct: 0,
                     explanation: "تبلغ مساحة نيوم ٢٦,٥٠٠ كيلومتر مربع"
+                },
+                {
+                    question: "ما هي نسبة مشاركة المرأة في سوق العمل التي حققتها الرؤية؟",
+                    options: [
+                        "من ١٩٪ إلى ٣٦٪",
+                        "من ١٠٪ إلى ٢٠٪",
+                        "من ٣٠٪ إلى ٥٠٪",
+                        "من ٥٪ إلى ١٥٪"
+                    ],
+                    correct: 0,
+                    explanation: "ارتفعت مشاركة المرأة من ١٩٪ إلى ٣٦٪"
+                },
+                {
+                    question: "ما هو طول مشروع 'ذا لاين'؟",
+                    options: [
+                        "١٧٠ كم",
+                        "١٠٠ كم",
+                        "٢٥٠ كم",
+                        "٥٠ كم"
+                    ],
+                    correct: 0,
+                    explanation: "طول 'ذا لاين' هو ١٧٠ كيلومتر"
                 }
             ];
             
-            displayQuiz('visionQuiz', questions);
+            displayQuiz(questions);
+        }
+        
+        function displayQuiz(questions) {
+            const quizContainer = document.getElementById('visionQuiz');
+            let quizHTML = '';
+            
+            questions.forEach((q, index) => {
+                quizHTML += `
+                    <div class="quiz-item" id="q${index}">
+                        <h4>${index + 1}. ${q.question}</h4>
+                        <div class="quiz-options">
+                            ${q.options.map((option, optIndex) => `
+                                <label class="quiz-option">
+                                    <input type="radio" 
+                                           name="visionQ${index}" 
+                                           value="${optIndex}"
+                                           data-correct="${optIndex === q.correct}">
+                                    <span>${option}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            quizContainer.innerHTML = quizHTML;
+            
+            // إضافة أحداث لأزرار الاختبار
+            document.querySelectorAll('#visionQuiz .quiz-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionId = this.closest('.quiz-item').id;
+                    
+                    // إزالة التحديد من جميع خيارات هذا السؤال
+                    document.querySelectorAll(`#${questionId} .quiz-option`).forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // تحديد الخيار الحالي
+                    this.classList.add('selected');
+                });
+            });
         }
         
         function submitVisionQuiz() {
-            // جمع الإجابات
-            const answers = [];
-            const questions = document.querySelectorAll('#visionQuiz .quiz-item');
+            const questions = document.querySelectorAll('.quiz-item');
+            let score = 0;
+            let totalQuestions = questions.length;
+            
+            const quizData = [
+                { correct: 0 },
+                { correct: 0 },
+                { correct: 0 },
+                { correct: 0 }
+            ];
             
             questions.forEach((question, index) => {
-                const selected = question.querySelector('input[type="radio"]:checked');
-                if (selected) {
-                    answers.push({
-                        question: index,
-                        answer: selected.value,
-                        correct: selected.value === selected.dataset.correct
+                const selectedOption = question.querySelector('.quiz-option.selected');
+                if (selectedOption) {
+                    const selectedIndex = parseInt(selectedOption.querySelector('input').value);
+                    const isCorrect = selectedIndex === quizData[index].correct;
+                    
+                    // تلوين جميع الخيارات
+                    question.querySelectorAll('.quiz-option').forEach((opt, optIndex) => {
+                        if (optIndex === quizData[index].correct) {
+                            opt.classList.add('correct');
+                            opt.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
+                            opt.style.borderColor = '#4CAF50';
+                        } else if (optIndex === selectedIndex && !isCorrect) {
+                            opt.classList.add('incorrect');
+                            opt.style.backgroundColor = 'rgba(244, 67, 54, 0.1)';
+                            opt.style.borderColor = '#F44336';
+                        }
                     });
+                    
+                    if (isCorrect) score++;
                 }
             });
             
-            // حساب النتيجة
-            const correctAnswers = answers.filter(a => a.correct).length;
-            const totalQuestions = questions.length;
-            const score = (correctAnswers / totalQuestions) * 100;
+            // عرض النتائج
+            const quizContainer = document.getElementById('visionQuiz');
+            const resultsContainer = document.getElementById('quizResults');
+            const submitButton = document.querySelector('.btn-primary');
+            const resetButton = document.querySelector('.btn-secondary');
             
-            // عرض النتيجة
-            const resultHtml = `
-                <div class="quiz-results">
-                    <h3>نتيجتك: ${Math.round(score)}%</h3>
-                    <p>أجبت بشكل صحيح على ${correctAnswers} من ${totalQuestions} سؤال</p>
-                    <div class="answers-breakdown">
-                        ${answers.map((answer, index) => `
-                            <div class="answer-item ${answer.correct ? 'correct' : 'incorrect'}">
-                                <strong>سؤال ${index + 1}:</strong>
-                                ${answer.correct ? '✓ صحيح' : '✗ خاطئ'}
-                            </div>
-                        `).join('')}
-                    </div>
+            const percentage = (score / totalQuestions) * 100;
+            
+            let message = '';
+            if (percentage >= 80) {
+                message = 'ممتاز! معرفتك برؤية ٢٠٣٠ ممتازة. أنت مواطن واعي ومستعد للمستقبل 🏆';
+            } else if (percentage >= 60) {
+                message = 'جيد جداً! لديك معرفة جيدة برؤية ٢٠٣٠. استمر في التعلم 💪';
+            } else if (percentage >= 40) {
+                message = 'ليس سيئاً! لديك معرفة أساسية. ننصحك بمتابعة أخبار الرؤية لتعزيز معلوماتك 📚';
+            } else {
+                message = 'تحتاج لمعرفة المزيد عن رؤية ٢٠٣٠. ابدأ رحلتك من جديد! 🌟';
+            }
+            
+            const resultHTML = `
+                <h3>نتيجتك: ${score} من ${totalQuestions}</h3>
+                <p>${message}</p>
+                <div class="answers-breakdown">
+                    <p>الإجابات الصحيحة: ${score}</p>
+                    <p>الإجابات الخاطئة: ${totalQuestions - score}</p>
+                    <p>النسبة المئوية: ${Math.round(percentage)}%</p>
                 </div>
             `;
             
-            const resultsContainer = document.getElementById('visionQuiz');
-            if (resultsContainer) {
-                resultsContainer.innerHTML += resultHtml;
-            }
+            resultsContainer.innerHTML = resultHTML;
+            resultsContainer.style.display = 'block';
+            submitButton.style.display = 'none';
+            resetButton.style.display = 'inline-flex';
         }
         
-        function displayQuiz(containerId, questions) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
+        function resetQuiz() {
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                option.style.backgroundColor = '';
+                option.style.borderColor = '';
+            });
             
-            container.innerHTML = questions.map((q, index) => `
-                <div class="quiz-item">
-                    <h4>${index + 1}. ${q.question}</h4>
-                    <div class="quiz-options">
-                        ${q.options.map((option, optIndex) => `
-                            <label class="quiz-option">
-                                <input type="radio" 
-                                       name="visionQ${index}" 
-                                       value="${optIndex}"
-                                       data-correct="${optIndex === q.correct}">
-                                <span>${option}</span>
-                            </label>
-                        `).join('')}
-                    </div>
-                </div>
-            `).join('');
+            document.getElementById('quizResults').style.display = 'none';
+            const submitButton = document.querySelector('.btn-primary');
+            const resetButton = document.querySelector('.btn-secondary');
+            submitButton.style.display = 'inline-flex';
+            resetButton.style.display = 'inline-flex';
         }
         
+        // ===== 5. نافذة المشروع (مودال) =====
         function showModal(title, content) {
+            // إزالة أي مودال سابق
+            const existingModal = document.querySelector('.modal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
             const modal = document.createElement('div');
             modal.className = 'modal';
+            modal.style.display = 'flex';
+            
             modal.innerHTML = `
-                <div class="modal-content modal-lg">
+                <div class="modal-content">
                     <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
                     ${content}
                 </div>
             `;
+            
             document.body.appendChild(modal);
-            modal.style.display = 'flex';
+            
+            // إغلاق النافذة عند النقر خارجها
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+            
+            // إغلاق النافذة بمفتاح ESC
+            document.addEventListener('keydown', function closeOnEscape(e) {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                    document.removeEventListener('keydown', closeOnEscape);
+                }
+            });
         }
+        
+        // ===== 6. تأثيرات إضافية =====
+        // إضافة تأثير النبض
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(107, 78, 69, 0.7); }
+                70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(107, 78, 69, 0); }
+                100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(107, 78, 69, 0); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
