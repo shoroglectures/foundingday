@@ -295,7 +295,7 @@
 
         .craft-image {
             position: relative;
-            height: 250px;
+            height: 280px;
             overflow: hidden;
             background-color: var(--light-beige);
         }
@@ -518,7 +518,7 @@
         }
 
         .costume-image {
-            height: 250px;
+            height: 280px;
             overflow: hidden;
         }
 
@@ -595,7 +595,7 @@
 
         .dish-card img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
         }
 
@@ -716,6 +716,27 @@
             opacity: 0.9;
         }
 
+        /* ===== تحسينات للصور ===== */
+        .image-optimizer {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .image-optimizer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* ===== تحسينات للتجاوب ===== */
+        .responsive-img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
         /* ===== النافذة المنبثقة ===== */
         .modal {
             display: none;
@@ -805,6 +826,18 @@
         }
 
         /* ===== التصميم المتجاوب ===== */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 95%;
+            }
+            
+            .crafts-grid,
+            .fashion-grid,
+            .cuisine-slider {
+                gap: 2rem;
+            }
+        }
+
         @media (max-width: 1024px) {
             .exhibit-title {
                 font-size: 2.8rem;
@@ -812,11 +845,40 @@
             
             .crafts-grid,
             .fashion-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             }
             
             .cuisine-slider {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            
+            .craft-image,
+            .costume-image {
+                height: 250px;
+            }
+            
+            .dish-card img {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .crafts-grid,
+            .fashion-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            
+            .craft-image,
+            .costume-image {
+                height: 220px;
             }
         }
 
@@ -839,6 +901,10 @@
             
             .menu-toggle {
                 display: block;
+            }
+            
+            .exhibit-header {
+                padding: 120px 0 60px;
             }
             
             .exhibit-title {
@@ -870,15 +936,39 @@
             .weaving-loom {
                 height: 120px;
             }
+            
+            .crafts-grid,
+            .fashion-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .cuisine-slider {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .craft-image,
+            .costume-image {
+                height: 250px;
+            }
+            
+            .dish-card img {
+                height: 200px;
+            }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 576px) {
             .exhibit-title {
                 font-size: 1.8rem;
             }
             
             .section-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1rem;
             }
             
             .quiz-options {
@@ -894,11 +984,81 @@
             }
             
             .dish-card img {
-                height: 150px;
+                height: 180px;
             }
             
             .weaving-loom {
                 height: 100px;
+            }
+            
+            .btn-primary,
+            .btn-secondary {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+            
+            .btn-small {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .craft-info,
+            .costume-info {
+                padding: 1.5rem;
+            }
+            
+            .craft-details {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .exhibit-title {
+                font-size: 1.6rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .logo-text {
+                font-size: 1.4rem;
+            }
+            
+            .craft-image,
+            .costume-image {
+                height: 180px;
+            }
+            
+            .dish-card img {
+                height: 150px;
+            }
+            
+            .weaving-loom {
+                height: 80px;
+            }
+            
+            .color-option {
+                width: 25px;
+                height: 25px;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .crafts-grid,
+            .fashion-grid,
+            .cuisine-slider {
+                grid-template-columns: 1fr;
+            }
+            
+            .craft-image,
+            .costume-image {
+                height: 160px;
+            }
+            
+            .dish-card img {
+                height: 140px;
             }
         }
     </style>
@@ -916,7 +1076,7 @@
                 <a href="../index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
                 <a href="memory.html" class="nav-link"><i class="fas fa-landmark"></i> ذاكرة الملحمة</a>
                 <a href="heritage.html" class="nav-link active"><i class="fas fa-archway"></i> إرث الأجداد</a>
-                <a href="sound.html" class="nav-link"><i class="fas fa-music"></i> صوت الوطن</a>
+                <!-- تم حذف رابط صوت الوطن -->
                 <a href="vision.html" class="nav-link"><i class="fas fa-chart-line"></i> الرؤية المتجددة</a>
             </div>
             
@@ -947,7 +1107,7 @@
                 <!-- حرفة 1 -->
                 <div class="craft-card">
                     <div class="craft-image">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Sadu_weaving_in_Saudi_Arabia.jpg/1200px-Sadu_weaving_in_Saudi_Arabia.jpg" alt="السدو">
+                        <img src="https://www.alriyadh.com/media/article/2022/02/18/img/7722172303.jpg" alt="حرفة السدو منطقة نجد">
                         <div class="craft-badge">تراث اليونسكو</div>
                     </div>
                     <div class="craft-info">
@@ -1001,7 +1161,7 @@
                 <!-- حرفة 2 -->
                 <div class="craft-card">
                     <div class="craft-image">
-                        <img src="https://www.saudiarabiaonline.com/sites/default/files/styles/article_top_image/public/field/image/saudi_arabia_online_saudi_pottery_maker.jpg?itok=pxSTc_HJ" alt="الفخار">
+                        <img src="https://blog.bayut.sa/uploads/2020/10/%D8%B5%D9%86%D8%A7%D8%B9%D8%A92-%D8%A7%D9%84%D9%81%D8%AE%D8%A7%D8%B111102020-1024x640.jpg" alt="صناعة الفخار منطقة الاحساء">
                     </div>
                     <div class="craft-info">
                         <h3>صناعة الفخار</h3>
@@ -1028,7 +1188,7 @@
                 <!-- حرفة 3 -->
                 <div class="craft-card">
                     <div class="craft-image">
-                        <img src="https://www.alarabiya.net/sites/default/files/2021/01/14/2305526-1816794028.png" alt="النقش على الخشب">
+                        <img src="https://cdn.salla.sa/QooyD/W32VDT6W6wE39YH82Q2m9mMgEBgD4zqo7VGbiKcW.jpg" alt="النقش على الخشب منطقة الحجاز">
                     </div>
                     <div class="craft-info">
                         <h3>النقش على الخشب</h3>
@@ -1066,7 +1226,7 @@
                 <div class="fashion-grid">
                     <div class="costume-card">
                         <div class="costume-image">
-                            <img src="https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2019/03/28/1474016-809565118.jpg?itok=1WUw4QQO" alt="الثوب النسائي التقليدي">
+                            <img src="https://saudipedia.com/var/site/storage/images/7/6/3/7/1317367-1-ara-SA/7ce6a6f0652c-189923.jpg" alt="الثوب النسائي النجدي">
                         </div>
                         <div class="costume-info">
                             <h4>الثوب النجدي</h4>
@@ -1080,7 +1240,7 @@
                     
                     <div class="costume-card">
                         <div class="costume-image">
-                            <img src="https://www.saudiarabiatourismguide.com/wp-content/uploads/2020/02/saudi-traditional-womens-dress.jpg" alt="العباءة التقليدية">
+                            <img src="https://www.arabicmagazine.net/Images/Articles/202072185334776.jpg" alt="العباءة التقليدية">
                         </div>
                         <div class="costume-info">
                             <h4>العباءة التقليدية</h4>
@@ -1098,11 +1258,11 @@
                 <div class="fashion-grid">
                     <div class="costume-card">
                         <div class="costume-image">
-                            <img src="https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2019/09/22/1564686-345677933.jpg?itok=6jF60D3W" alt="الثوب الرجالي السعودي">
+                            <img src="https://i.pinimg.com/736x/9d/ed/33/9ded33a7f23244f641d58611786b206d.jpg" alt="الثوب الرجالي السعودي">
                         </div>
                         <div class="costume-info">
                             <h4>الثوب السعودي</h4>
-                            <p>ثوب أبيض طويل يلبسه الرجال في المناسبات الرسمية واليومية.</p>
+                            <p>ثوب أبيض طويل يلبسه الرجال في المناسبات الرسمية واليومية، وهو الزي الوطني السعودي.</p>
                             <div class="costume-details">
                                 <span class="region"><i class="fas fa-map-pin"></i> جميع المناطق</span>
                                 <span class="material"><i class="fas fa-tshirt"></i> قطن أو كتان</span>
@@ -1112,11 +1272,11 @@
                     
                     <div class="costume-card">
                         <div class="costume-image">
-                            <img src="https://www.saudiarabiaonline.com/sites/default/files/styles/article_top_image/public/field/image/saudi_arabia_online_saudi_man_traditional_dress.jpg?itok=1bH_cg8E" alt="الزي الرجالي الكامل">
+                            <img src="https://s3-eu-west-1.amazonaws.com/content.argaamnews.com/9ed13413-e5fd-4cbb-af63-ff564aefaad6.jpg" alt="الزي الرجالي الكامل">
                         </div>
                         <div class="costume-info">
                             <h4>الزي الرجالي الكامل</h4>
-                            <p>ثوب مع الشماغ والعقال والبشت، الزي الرسمي في المناسبات.</p>
+                            <p>ثوب مع الشماغ والعقال والبشت، الزي الرسمي في المناسبات والأعياد والاحتفالات.</p>
                             <div class="costume-details">
                                 <span class="region"><i class="fas fa-map-pin"></i> نجد والوسطى</span>
                                 <span class="material"><i class="fas fa-tshirt"></i> قطن وصوف</span>
@@ -1130,11 +1290,11 @@
                 <div class="fashion-grid">
                     <div class="costume-card">
                         <div class="costume-image">
-                            <img src="https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2017/12/06/1213266-1505086839.jpg?itok=c5i8cZ_V" alt="المجوهرات التقليدية السعودية">
+                            <img src="https://cdn.arabsstock.com/uploads/images/215072/traditional-saudi-heritage-authenticity-of-thumbnail-215072.webp" alt="المجوهرات التقليدية السعودية">
                         </div>
                         <div class="costume-info">
                             <h4>الحلي الفضية التقليدية</h4>
-                            <p>مجوهرات تقليدية من الفضة المطعمة بالأحجار الكريمة والعقيق.</p>
+                            <p>مجوهرات تقليدية من الفضة المطعمة بالأحجار الكريمة والعقيق، تمثل إرثاً غنياً في الثقافة السعودية.</p>
                             <div class="costume-details">
                                 <span class="region"><i class="fas fa-map-pin"></i> الجنوبية</span>
                                 <span class="material"><i class="fas fa-gem"></i> فضة وأحجار كريمة</span>
@@ -1144,14 +1304,14 @@
                     
                     <div class="costume-card">
                         <div class="costume-image">
-                            <img src="https://www.saudiarabiatourismguide.com/wp-content/uploads/2020/02/saudi-traditional-jewelry.jpg" alt="الخناجر والمجوهرات">
+                            <img src="https://shabiba.eu-central-1.linodeobjects.com/2019/12/23/1088583.jpg" alt="الخنجر والمجوهرات">
                         </div>
                         <div class="costume-info">
                             <h4>الخنجر والمجوهرات الذهبية</h4>
-                            <p>خنجر تقليدي ومجوهرات ذهبية، جزء من الزي التقليدي في المناسبات.</p>
+                            <p>خنجر تقليدي ومجوهرات ذهبية، جزء من الزي التقليدي في المناسبات الرسمية والحفلات.</p>
                             <div class="costume-details">
                                 <span class="region"><i class="fas fa-map-pin"></i> عسير والباحة</span>
-                                <span class="material"><i class="fas fa-gem"></i> ذهب وفضة</span>
+                                <span class="material"><i class="fas fa-gem"></i> ذهب وفضة ونقوش</span>
                             </div>
                         </div>
                     </div>
@@ -1167,21 +1327,21 @@
             
             <div class="cuisine-slider">
                 <div class="dish-card">
-                    <img src="https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2022/02/23/3070511-2054562484.jpg?itok=PMODB_Ek" alt="الكبسة السعودية">
+                    <img src="https://destinationksa.com/wp-content/uploads/content/d4d1588598965425eae1a4120a787abce90ff0ab-280222203655.jpg" alt="الكبسة السعودية">
                     <h3>الكبسة</h3>
                     <p>الأكلة الوطنية للمملكة، أرز مع لحم ودجاج ومجموعة من البهارات الخاصة.</p>
                     <button class="btn-small" onclick="showRecipe('kabsa')">شاهدي الوصفة</button>
                 </div>
                 
                 <div class="dish-card">
-                    <img src="https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2021/01/21/1981686-1443776622.jpg?itok=u4Rxf7nC" alt="الجريش السعودي">
+                    <img src="https://kitchen.sayidaty.net/uploads/small/69/69356df8cee3ccaa70e33026bc526fc8_w750_h500.jpg" alt="الجريش السعودي">
                     <h3>الجريش</h3>
                     <p>طبق من حبوب القمح المطحون مع اللبن، أكلة شعبية في نجد.</p>
                     <button class="btn-small" onclick="showRecipe('jareesh')">شاهدي الوصفة</button>
                 </div>
                 
                 <div class="dish-card">
-                    <img src="https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2020/06/05/1751831-1747300704.jpg?itok=0jwPP2yA" alt="المطازيز السعودي">
+                    <img src="https://i.ytimg.com/vi/WlZZioPM-uY/maxresdefault.jpg" alt="المطازيز السعودي">
                     <h3>المطازيز</h3>
                     <p>عجينة رقيقة مطبوخة مع مرق اللحم والخضروات، طبق شعبي تقليدي.</p>
                     <button class="btn-small" onclick="showRecipe('mutabbaq')">شاهدي الوصفة</button>
