@@ -4,17 +4,911 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إرث الأجداد | رحلة التأسيس</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="exhibits.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== متغيرات الألوان للهوية الجديدة ===== */
+        :root {
+            --primary-dark: #6B4E45;
+            --primary-light: #DEC9B2;
+            --secondary-light: #F4EADA;
+            --accent-beige: #E8DFD6;
+            --accent-gold: #C6A467;
+            --accent-brown: #231F20;
+            --light-beige: #F8F4EF;
+            --white: #FFFFFF;
+            --black: #231F20;
+            --gray: #666666;
+            --light-gray: #EEEEEE;
+            
+            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-heavy: 0 12px 36px rgba(0, 0, 0, 0.15);
+            
+            --border-radius: 12px;
+            --border-radius-lg: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'El Messiri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-light);
+            color: var(--black);
+            line-height: 1.6;
+            direction: rtl;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== شريط التنقل ===== */
+        .navbar {
+            background-color: var(--primary-dark);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            color: var(--white);
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--primary-light);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== رأس الصفحة ===== */
+        .exhibit-header {
+            background: linear-gradient(rgba(107, 78, 69, 0.9), rgba(107, 78, 69, 0.95)),
+                        url('https://images.unsplash.com/photo-1586771107445-d3ca888129fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 150px 0 80px;
+            margin-top: 80px;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .exhibit-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .exhibit-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .exhibit-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .exhibit-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .exhibit-meta i {
+            color: var(--primary-light);
+        }
+
+        /* ===== أنماط مشتركة ===== */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-light), var(--primary-dark));
+            margin: 15px auto 30px;
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--white);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-dark);
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-dark);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        .btn-small {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-small:hover {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+        }
+
+        /* ===== معرض الحرف اليدوية ===== */
+        .crafts-section {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .crafts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .craft-card {
+            background-color: var(--secondary-light);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--primary-light);
+            transition: all 0.3s ease;
+        }
+
+        .craft-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .craft-image {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            background-color: var(--light-beige);
+        }
+
+        .craft-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .craft-card:hover .craft-image img {
+            transform: scale(1.05);
+        }
+
+        .craft-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .craft-info {
+            padding: 2rem;
+        }
+
+        .craft-info h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .craft-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .craft-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: var(--border-radius);
+            border-right: 3px solid var(--primary-dark);
+        }
+
+        .detail {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-dark);
+            font-weight: 500;
+        }
+
+        .detail i {
+            color: var(--primary-dark);
+            width: 20px;
+        }
+
+        .interactive-element {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-top: 1.5rem;
+            border: 1px solid var(--primary-light);
+        }
+
+        .interactive-element h4 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .weaving-simulator {
+            text-align: center;
+        }
+
+        .weaving-loom {
+            width: 100%;
+            height: 150px;
+            background-color: var(--light-beige);
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            font-style: italic;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .thread {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-dark);
+            transform-origin: 0% 50%;
+        }
+
+        .weave-pattern {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            gap: 2px;
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+        }
+
+        .weave-cell {
+            border: 1px solid rgba(107, 78, 69, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .weave-cell:hover {
+            transform: scale(1.1);
+        }
+
+        .color-palette {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .color-option:hover {
+            transform: scale(1.2);
+        }
+
+        .color-option.active {
+            border-color: var(--black);
+            box-shadow: 0 0 0 3px var(--white);
+        }
+
+        /* ===== معرض الأزياء ===== */
+        .fashion-section {
+            padding: 5rem 0;
+            background-color: var(--secondary-light);
+        }
+
+        .fashion-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .fashion-tab {
+            padding: 12px 24px;
+            background-color: var(--white);
+            border: 2px solid var(--primary-light);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fashion-tab:hover,
+        .fashion-tab.active {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            border-color: var(--primary-dark);
+        }
+
+        .fashion-content {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .fashion-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fashion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .costume-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--primary-light);
+            transition: all 0.3s ease;
+        }
+
+        .costume-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .costume-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .costume-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .costume-card:hover .costume-image img {
+            transform: scale(1.05);
+        }
+
+        .costume-info {
+            padding: 1.5rem;
+        }
+
+        .costume-info h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .costume-info p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .costume-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .region, .material {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--primary-dark);
+            font-size: 0.9rem;
+        }
+
+        /* ===== المطبخ التقليدي ===== */
+        .cuisine-section {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .cuisine-slider {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .dish-card {
+            background-color: var(--secondary-light);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--primary-light);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .dish-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .dish-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .dish-card h3 {
+            color: var(--primary-dark);
+            margin: 1.5rem 0 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .dish-card p {
+            color: var(--gray);
+            padding: 0 1.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .dish-card .btn-small {
+            margin-bottom: 1.5rem;
+        }
+
+        /* ===== اختبار التراث ===== */
+        .heritage-quiz {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--secondary-light) 0%, var(--white) 100%);
+        }
+
+        .quiz-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 4rem;
+            box-shadow: var(--shadow-heavy);
+            border: 1px solid var(--primary-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #heritageQuiz {
+            margin-top: 2rem;
+        }
+
+        .quiz-item {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .quiz-item h4 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            padding: 12px 20px;
+            background-color: var(--secondary-light);
+            border: 2px solid var(--primary-light);
+            border-radius: var(--border-radius);
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quiz-option:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .quiz-option input[type="radio"] {
+            display: none;
+        }
+
+        .quiz-option.selected {
+            background-color: var(--primary-light);
+            border-color: var(--primary-dark);
+        }
+
+        .quiz-results {
+            text-align: center;
+            padding: 2rem 0;
+            display: none;
+        }
+
+        .score-display {
+            margin: 2rem 0;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            color: var(--white);
+        }
+
+        .score-circle span {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .score-circle small {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* ===== النافذة المنبثقة ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 3rem;
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .modal-content h3 {
+            color: var(--primary-dark);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 2rem;
+            color: var(--primary-dark);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            background-color: var(--light-gray);
+        }
+
+        .recipe-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .recipe-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ingredients, .steps {
+            background-color: var(--secondary-light);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--primary-light);
+        }
+
+        .ingredients h4, .steps h4 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .ingredients ul, .steps ol {
+            color: var(--gray);
+            padding-right: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .ingredients li, .steps li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== التصميم المتجاوب ===== */
+        @media (max-width: 1024px) {
+            .exhibit-title {
+                font-size: 2.8rem;
+            }
+            
+            .crafts-grid,
+            .fashion-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cuisine-slider {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                background-color: var(--primary-dark);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow-medium);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .exhibit-title {
+                font-size: 2.2rem;
+            }
+            
+            .exhibit-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .exhibit-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .quiz-card {
+                padding: 2rem;
+            }
+            
+            .fashion-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .modal-content {
+                padding: 2rem 1rem;
+            }
+            
+            .weaving-loom {
+                height: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .exhibit-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .craft-image {
+                height: 200px;
+            }
+            
+            .costume-image {
+                height: 200px;
+            }
+            
+            .dish-card img {
+                height: 150px;
+            }
+            
+            .weaving-loom {
+                height: 100px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- شريط التنقل -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <img src="../assets/images/logo.png" alt="شعار يوم التأسيس" class="logo-img">
+                <img src="https://www.foundingday.sa/-/media/FoundingDay/images/Header/Header-logo.svg" alt="شعار يوم التأسيس" class="logo-img">
                 <span class="logo-text">رحلة التأسيس</span>
             </div>
             
@@ -25,6 +919,10 @@
                 <a href="sound.html" class="nav-link"><i class="fas fa-music"></i> صوت الوطن</a>
                 <a href="vision.html" class="nav-link"><i class="fas fa-chart-line"></i> الرؤية المتجددة</a>
             </div>
+            
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
@@ -34,9 +932,7 @@
             <h1 class="exhibit-title">إرث الأجداد</h1>
             <p class="exhibit-subtitle">رحلة في عمق التراث السعودي الأصيل: حرف يدوية، أزياء تقليدية، ومقتنيات تروي حكاية إرث حضاري عريق</p>
             <div class="exhibit-meta">
-                <span><i class="far fa-clock"></i> الوقت المقدر: ٢٥ دقيقة</span>
-                <span><i class="fas fa-star"></i> ١٢٠ نقطة يمكن ربحها</span>
-                <span><i class="fas fa-users"></i> ٤٥٠+ طالبة استكشفته</span>
+                <!-- تم حذف الوقت المقدر والنقاط وعدد الطالبات -->
             </div>
         </div>
     </header>
@@ -51,7 +947,7 @@
                 <!-- حرفة 1 -->
                 <div class="craft-card">
                     <div class="craft-image">
-                        <img src="../assets/images/sadu.jpg" alt="السدو">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Sadu_weaving_in_Saudi_Arabia.jpg/1200px-Sadu_weaving_in_Saudi_Arabia.jpg" alt="السدو">
                         <div class="craft-badge">تراث اليونسكو</div>
                     </div>
                     <div class="craft-info">
@@ -75,14 +971,28 @@
                         </div>
                         
                         <div class="interactive-element">
-                            <h4>جربي بنفسك!</h4>
+                            <h4>جربي بنفسك: ابدئي النسج</h4>
                             <div class="weaving-simulator">
-                                <div class="weaving-loom" id="weavingLoom">
-                                    <!-- محاكاة نسج السدو -->
+                                <div class="color-palette" id="colorPalette">
+                                    <!-- الألوان ستضاف بالجافا سكريبت -->
                                 </div>
-                                <button class="btn-small" onclick="startWeaving()">
-                                    <i class="fas fa-palette"></i> ابدئي النسج
-                                </button>
+                                <div class="weaving-loom" id="weavingLoom">
+                                    <!-- نمط النسج التفاعلي -->
+                                </div>
+                                <div class="weaving-controls">
+                                    <button class="btn-small" onclick="startWeaving()" id="startWeavingBtn">
+                                        <i class="fas fa-palette"></i> ابدئي النسج
+                                    </button>
+                                    <button class="btn-small" onclick="clearWeaving()" id="clearWeavingBtn" style="display: none;">
+                                        <i class="fas fa-trash-alt"></i> امسحي النمط
+                                    </button>
+                                    <button class="btn-small" onclick="savePattern()" id="savePatternBtn" style="display: none;">
+                                        <i class="fas fa-save"></i> احفظي النمط
+                                    </button>
+                                </div>
+                                <p id="weavingInstructions" style="margin-top: 10px; color: var(--gray); font-size: 0.9rem;">
+                                    اختاري لوناً ثم انقري على المربعات لإنشاء نمط سدو تقليدي
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -91,7 +1001,7 @@
                 <!-- حرفة 2 -->
                 <div class="craft-card">
                     <div class="craft-image">
-                        <img src="../assets/images/pottery.jpg" alt="الفخار">
+                        <img src="https://www.saudiarabiaonline.com/sites/default/files/styles/article_top_image/public/field/image/saudi_arabia_online_saudi_pottery_maker.jpg?itok=pxSTc_HJ" alt="الفخار">
                     </div>
                     <div class="craft-info">
                         <h3>صناعة الفخار</h3>
@@ -118,7 +1028,7 @@
                 <!-- حرفة 3 -->
                 <div class="craft-card">
                     <div class="craft-image">
-                        <img src="../assets/images/woodwork.jpg" alt="النقش على الخشب">
+                        <img src="https://www.alarabiya.net/sites/default/files/2021/01/14/2305526-1816794028.png" alt="النقش على الخشب">
                     </div>
                     <div class="craft-info">
                         <h3>النقش على الخشب</h3>
@@ -156,7 +1066,7 @@
                 <div class="fashion-grid">
                     <div class="costume-card">
                         <div class="costume-image">
-                            <img src="../assets/images/thobe.jpg" alt="الثوب النسائي">
+                            <img src="https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2019/03/28/1474016-809565118.jpg?itok=1WUw4QQO" alt="الثوب النسائي التقليدي">
                         </div>
                         <div class="costume-info">
                             <h4>الثوب النجدي</h4>
@@ -170,7 +1080,7 @@
                     
                     <div class="costume-card">
                         <div class="costume-image">
-                            <img src="../assets/images/abaya.jpg" alt="العباءة">
+                            <img src="https://www.saudiarabiatourismguide.com/wp-content/uploads/2020/02/saudi-traditional-womens-dress.jpg" alt="العباءة التقليدية">
                         </div>
                         <div class="costume-info">
                             <h4>العباءة التقليدية</h4>
@@ -178,6 +1088,70 @@
                             <div class="costume-details">
                                 <span class="region"><i class="fas fa-map-pin"></i> جميع المناطق</span>
                                 <span class="material"><i class="fas fa-tshirt"></i> صوف أو قطن</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="fashion-content" id="men-fashion">
+                <div class="fashion-grid">
+                    <div class="costume-card">
+                        <div class="costume-image">
+                            <img src="https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2019/09/22/1564686-345677933.jpg?itok=6jF60D3W" alt="الثوب الرجالي السعودي">
+                        </div>
+                        <div class="costume-info">
+                            <h4>الثوب السعودي</h4>
+                            <p>ثوب أبيض طويل يلبسه الرجال في المناسبات الرسمية واليومية.</p>
+                            <div class="costume-details">
+                                <span class="region"><i class="fas fa-map-pin"></i> جميع المناطق</span>
+                                <span class="material"><i class="fas fa-tshirt"></i> قطن أو كتان</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="costume-card">
+                        <div class="costume-image">
+                            <img src="https://www.saudiarabiaonline.com/sites/default/files/styles/article_top_image/public/field/image/saudi_arabia_online_saudi_man_traditional_dress.jpg?itok=1bH_cg8E" alt="الزي الرجالي الكامل">
+                        </div>
+                        <div class="costume-info">
+                            <h4>الزي الرجالي الكامل</h4>
+                            <p>ثوب مع الشماغ والعقال والبشت، الزي الرسمي في المناسبات.</p>
+                            <div class="costume-details">
+                                <span class="region"><i class="fas fa-map-pin"></i> نجد والوسطى</span>
+                                <span class="material"><i class="fas fa-tshirt"></i> قطن وصوف</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="fashion-content" id="accessories-fashion">
+                <div class="fashion-grid">
+                    <div class="costume-card">
+                        <div class="costume-image">
+                            <img src="https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2017/12/06/1213266-1505086839.jpg?itok=c5i8cZ_V" alt="المجوهرات التقليدية السعودية">
+                        </div>
+                        <div class="costume-info">
+                            <h4>الحلي الفضية التقليدية</h4>
+                            <p>مجوهرات تقليدية من الفضة المطعمة بالأحجار الكريمة والعقيق.</p>
+                            <div class="costume-details">
+                                <span class="region"><i class="fas fa-map-pin"></i> الجنوبية</span>
+                                <span class="material"><i class="fas fa-gem"></i> فضة وأحجار كريمة</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="costume-card">
+                        <div class="costume-image">
+                            <img src="https://www.saudiarabiatourismguide.com/wp-content/uploads/2020/02/saudi-traditional-jewelry.jpg" alt="الخناجر والمجوهرات">
+                        </div>
+                        <div class="costume-info">
+                            <h4>الخنجر والمجوهرات الذهبية</h4>
+                            <p>خنجر تقليدي ومجوهرات ذهبية، جزء من الزي التقليدي في المناسبات.</p>
+                            <div class="costume-details">
+                                <span class="region"><i class="fas fa-map-pin"></i> عسير والباحة</span>
+                                <span class="material"><i class="fas fa-gem"></i> ذهب وفضة</span>
                             </div>
                         </div>
                     </div>
@@ -193,17 +1167,24 @@
             
             <div class="cuisine-slider">
                 <div class="dish-card">
-                    <img src="../assets/images/kabsa.jpg" alt="الكبسة">
+                    <img src="https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2022/02/23/3070511-2054562484.jpg?itok=PMODB_Ek" alt="الكبسة السعودية">
                     <h3>الكبسة</h3>
                     <p>الأكلة الوطنية للمملكة، أرز مع لحم ودجاج ومجموعة من البهارات الخاصة.</p>
                     <button class="btn-small" onclick="showRecipe('kabsa')">شاهدي الوصفة</button>
                 </div>
                 
                 <div class="dish-card">
-                    <img src="../assets/images/jareesh.jpg" alt="الجريش">
+                    <img src="https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2021/01/21/1981686-1443776622.jpg?itok=u4Rxf7nC" alt="الجريش السعودي">
                     <h3>الجريش</h3>
                     <p>طبق من حبوب القمح المطحون مع اللبن، أكلة شعبية في نجد.</p>
                     <button class="btn-small" onclick="showRecipe('jareesh')">شاهدي الوصفة</button>
+                </div>
+                
+                <div class="dish-card">
+                    <img src="https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2020/06/05/1751831-1747300704.jpg?itok=0jwPP2yA" alt="المطازيز السعودي">
+                    <h3>المطازيز</h3>
+                    <p>عجينة رقيقة مطبوخة مع مرق اللحم والخضروات، طبق شعبي تقليدي.</p>
+                    <button class="btn-small" onclick="showRecipe('mutabbaq')">شاهدي الوصفة</button>
                 </div>
             </div>
         </div>
@@ -213,55 +1194,254 @@
     <section class="heritage-quiz">
         <div class="container">
             <div class="quiz-card">
-                <h2>اختبر معرفتك بالتراث السعودي</h2>
+                <h2 class="section-title">اختبر معرفتك بالتراث السعودي</h2>
+                <p class="section-subtitle">أكملي هذا الاختبار لتربحي ٥٠ نقطة إضافية</p>
+                
                 <div id="heritageQuiz">
-                    <!-- أسئلة التراث -->
+                    <!-- سيتم تحميل الأسئلة ديناميكياً -->
+                </div>
+                
+                <div class="quiz-results" id="quizResults" style="display: none;">
+                    <h3>نتيجتك</h3>
+                    <div class="score-display">
+                        <div class="score-circle">
+                            <span id="finalScore">٠</span>
+                            <small>من ١٠٠</small>
+                        </div>
+                    </div>
+                    <p id="resultMessage"></p>
+                    <button class="btn-primary" onclick="retakeQuiz()">أعد الاختبار</button>
+                    <button class="btn-secondary" onclick="shareResults()">شارك النتيجة</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- الفوتر -->
-    <footer>
-        <div class="footer-container">
-            <!-- نفس الفوتر السابق -->
-        </div>
-    </footer>
-
-    <script src="../script.js"></script>
     <script>
-        // كود خاص بركن إرث الأجداد
+        // ===== الكود الرئيسي للصفحة =====
+        
         document.addEventListener('DOMContentLoaded', function() {
-            initFashionTabs();
-            initCuisineSlider();
-            initHeritageQuiz();
+            initPage();
         });
         
+        function initPage() {
+            initNavigation();
+            initFashionTabs();
+            initHeritageQuiz();
+            initWeavingSimulator();
+        }
+        
+        // ===== 1. إدارة شريط التنقل =====
+        function initNavigation() {
+            window.toggleMenu = function() {
+                const navMenu = document.querySelector('.nav-menu');
+                navMenu.classList.toggle('active');
+            };
+            
+            // إغلاق القائمة عند النقر على رابط
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.querySelector('.nav-menu').classList.remove('active');
+                });
+            });
+            
+            // إضافة تأثير التمرير
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 100) {
+                    navbar.style.backgroundColor = 'rgba(107, 78, 69, 0.95)';
+                    navbar.style.backdropFilter = 'blur(10px)';
+                } else {
+                    navbar.style.backgroundColor = 'var(--primary-dark)';
+                    navbar.style.backdropFilter = 'none';
+                }
+            });
+        }
+        
+        // ===== 2. إدارة ألسنة الأزياء =====
         function initFashionTabs() {
             const tabs = document.querySelectorAll('.fashion-tab');
             const contents = document.querySelectorAll('.fashion-content');
             
             tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
                     
-                    const tabId = tab.dataset.tab;
-                    contents.forEach(content => {
-                        content.classList.remove('active');
-                        if (content.id === `${tabId}-fashion`) {
-                            content.classList.add('active');
-                        }
-                    });
+                    // إزالة النشاط من جميع الألسنة والمحتويات
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(content => content.classList.remove('active'));
+                    
+                    // إضافة النشاط للسان المختار
+                    this.classList.add('active');
+                    
+                    // إظهار المحتوى المناسب
+                    const activeContent = document.getElementById(`${tabId}-fashion`);
+                    if (activeContent) {
+                        activeContent.classList.add('active');
+                    }
                 });
             });
         }
         
-        function startWeaving() {
-            // محاكاة حرفة السدو
-            alert('ابدئي بسحب الخيوط واختيار الألوان لصنع نمط سدو تقليدي!');
+        // ===== 3. محاكاة حرفة السدو التفاعلية =====
+        let currentColor = '#6B4E45';
+        let weavingStarted = false;
+        let pattern = [];
+        
+        function initWeavingSimulator() {
+            const colorPalette = document.getElementById('colorPalette');
+            const colors = [
+                { color: '#6B4E45', name: 'بني' },
+                { color: '#DEC9B2', name: 'بيج' },
+                { color: '#C6A467', name: 'ذهبي' },
+                { color: '#231F20', name: 'أسود' },
+                { color: '#F4EADA', name: 'كريمي' },
+                { color: '#8B4513', name: 'بني غامق' }
+            ];
+            
+            colors.forEach((colorObj, index) => {
+                const colorOption = document.createElement('div');
+                colorOption.className = 'color-option';
+                colorOption.style.backgroundColor = colorObj.color;
+                colorOption.title = colorObj.name;
+                colorOption.dataset.color = colorObj.color;
+                
+                if (index === 0) {
+                    colorOption.classList.add('active');
+                }
+                
+                colorOption.addEventListener('click', function() {
+                    document.querySelectorAll('.color-option').forEach(opt => {
+                        opt.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    currentColor = this.dataset.color;
+                });
+                
+                colorPalette.appendChild(colorOption);
+            });
         }
         
+        function startWeaving() {
+            const loom = document.getElementById('weavingLoom');
+            const startBtn = document.getElementById('startWeavingBtn');
+            const clearBtn = document.getElementById('clearWeavingBtn');
+            const saveBtn = document.getElementById('savePatternBtn');
+            const instructions = document.getElementById('weavingInstructions');
+            
+            if (!weavingStarted) {
+                // إنشاء شبكة النسج
+                loom.innerHTML = '';
+                const weavePattern = document.createElement('div');
+                weavePattern.className = 'weave-pattern';
+                
+                // إنشاء 8 صفوف × 10 أعمدة
+                for (let row = 0; row < 8; row++) {
+                    pattern[row] = [];
+                    for (let col = 0; col < 10; col++) {
+                        const cell = document.createElement('div');
+                        cell.className = 'weave-cell';
+                        cell.dataset.row = row;
+                        cell.dataset.col = col;
+                        cell.style.backgroundColor = '#F8F4EF';
+                        
+                        cell.addEventListener('click', function() {
+                            if (weavingStarted) {
+                                const row = parseInt(this.dataset.row);
+                                const col = parseInt(this.dataset.col);
+                                pattern[row][col] = currentColor;
+                                this.style.backgroundColor = currentColor;
+                                this.style.borderColor = currentColor;
+                            }
+                        });
+                        
+                        cell.addEventListener('mouseover', function() {
+                            if (weavingStarted) {
+                                this.style.transform = 'scale(1.05)';
+                            }
+                        });
+                        
+                        cell.addEventListener('mouseout', function() {
+                            this.style.transform = 'scale(1)';
+                        });
+                        
+                        weavePattern.appendChild(cell);
+                        pattern[row][col] = '#F8F4EF';
+                    }
+                }
+                
+                loom.appendChild(weavePattern);
+                weavingStarted = true;
+                
+                // تحديث الأزرار
+                startBtn.innerHTML = '<i class="fas fa-sync-alt"></i> استمري في النسج';
+                clearBtn.style.display = 'inline-block';
+                saveBtn.style.display = 'inline-block';
+                instructions.textContent = 'انقري على المربعات لملئها باللون المختار';
+                
+                // إضافة بعض الخيوط الأساسية
+                setTimeout(() => {
+                    for (let i = 0; i < 4; i++) {
+                        const thread = document.createElement('div');
+                        thread.className = 'thread';
+                        thread.style.top = `${Math.random() * 100}%`;
+                        thread.style.left = '0';
+                        thread.style.width = '100%';
+                        thread.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
+                        thread.style.backgroundColor = currentColor;
+                        thread.style.opacity = '0.7';
+                        loom.appendChild(thread);
+                    }
+                }, 300);
+            }
+        }
+        
+        function clearWeaving() {
+            const loom = document.getElementById('weavingLoom');
+            const cells = loom.querySelectorAll('.weave-cell');
+            
+            cells.forEach(cell => {
+                cell.style.backgroundColor = '#F8F4EF';
+                cell.style.borderColor = 'rgba(107, 78, 69, 0.1)';
+            });
+            
+            // إعادة تعيين النمط
+            pattern = [];
+        }
+        
+        function savePattern() {
+            if (!weavingStarted) return;
+            
+            // حساب نسبة الإكمال
+            let filledCells = 0;
+            let totalCells = 0;
+            
+            for (let row = 0; row < pattern.length; row++) {
+                for (let col = 0; col < pattern[row].length; col++) {
+                    totalCells++;
+                    if (pattern[row][col] !== '#F8F4EF') {
+                        filledCells++;
+                    }
+                }
+            }
+            
+            const completion = Math.round((filledCells / totalCells) * 100);
+            
+            // عرض رسالة النجاح
+            const instructions = document.getElementById('weavingInstructions');
+            if (completion > 20) {
+                instructions.innerHTML = `<span style="color: #4CAF50; font-weight: bold;">✓ تم حفظ نمط السدو بنجاح!</span><br>إكمال النمط: ${completion}%`;
+                
+                // عرض نمط معاينة مصغر
+                setTimeout(() => {
+                    alert(`مبروك! لقد أنشأتِ نمط سدو تقليدي بإكمال ${completion}%\nيمكنك مشاركته مع أصدقائك.`);
+                }, 500);
+            } else {
+                instructions.innerHTML = '<span style="color: #F44336;">يجب إكمال المزيد من النمط قبل الحفظ</span>';
+            }
+        }
+        
+        // ===== 4. وصفات الطعام =====
         function showRecipe(dishName) {
             const recipes = {
                 kabsa: {
@@ -298,12 +1478,36 @@
                         "اطبخيه على نار هادئة",
                         "أضيفي اللبن قبل التقديم"
                     ]
+                },
+                mutabbaq: {
+                    title: "وصفة المطازيز",
+                    ingredients: [
+                        "٣ أكواب دقيق",
+                        "٥٠٠ غرام لحم مقطع",
+                        "بصل، طماطم، فلفل أخضر",
+                        "بهارات",
+                        "كزبرة وخضار ورقية"
+                    ],
+                    steps: [
+                        "اعجني الدقيق مع الماء والملح",
+                        "اقلي اللحم مع البصل والتوابل",
+                        "أضيفي الخضار واتركيها تنضج",
+                        "افردي العجينة وقطعيها",
+                        "اطبخي العجينة مع المرق"
+                    ]
                 }
             };
             
             const recipe = recipes[dishName];
-            if (recipe) {
-                const modalContent = `
+            if (!recipe) return;
+            
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.style.display = 'flex';
+            
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close" onclick="this.parentElement.parentElement.remove()">×</span>
                     <h3>${recipe.title}</h3>
                     <div class="recipe-container">
                         <div class="ingredients">
@@ -319,20 +1523,25 @@
                             </ol>
                         </div>
                     </div>
-                `;
-                
-                // عرض الوصفة في نافذة منبثقة
-                showModal(recipe.title, modalContent);
-            }
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="btn-primary" onclick="this.closest('.modal').remove()">إغلاق</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // إغلاق النافذة عند النقر خارج المحتوى
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.remove();
+                }
+            });
         }
         
-        function initCuisineSlider() {
-            // تهيئة سلايدر المأكولات
-            // يمكن استخدام مكتبة مثل Swiper.js
-        }
-        
+        // ===== 5. اختبار التراث =====
         function initHeritageQuiz() {
-            const questions = [
+            const quizQuestions = [
                 {
                     question: "أي منطقة تشتهر بحرفة السدو؟",
                     options: ["نجد", "الحجاز", "الجنوب", "الشرقية"],
@@ -344,53 +1553,194 @@
                     options: ["المفطح", "الكبسة", "المندي", "الحنيني"],
                     correct: 1,
                     points: 10
+                },
+                {
+                    question: "أي حرفة يدوية أدرجت في قائمة اليونسكو للتراث العالمي؟",
+                    options: ["الفخار", "السدو", "النجارة", "الحدادة"],
+                    correct: 1,
+                    points: 10
+                },
+                {
+                    question: "ما هي المادة الرئيسية في صناعة الخنجر السعودي التقليدي؟",
+                    options: ["الذهب", "الفضة", "النحاس", "الحديد"],
+                    correct: 1,
+                    points: 10
                 }
             ];
             
-            displayQuiz('heritageQuiz', questions);
+            displayQuiz(quizQuestions);
         }
         
-        function displayQuiz(containerId, questions) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
+        function displayQuiz(questions) {
+            const quizContainer = document.getElementById('heritageQuiz');
+            let quizHTML = '';
             
-            container.innerHTML = questions.map((q, index) => `
-                <div class="quiz-item">
-                    <h4>سؤال ${index + 1}: ${q.question}</h4>
-                    <div class="quiz-options">
-                        ${q.options.map((option, optIndex) => `
-                            <label class="quiz-option">
-                                <input type="radio" name="q${index}" value="${optIndex}">
-                                <span>${option}</span>
-                            </label>
-                        `).join('')}
+            questions.forEach((q, index) => {
+                quizHTML += `
+                    <div class="quiz-item" id="q${index}">
+                        <h4>${index + 1}. ${q.question}</h4>
+                        <div class="quiz-options">
+                            ${q.options.map((option, optIndex) => `
+                                <div class="quiz-option" data-question="${index}" data-option="${optIndex}">
+                                    <span>${option}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="quiz-feedback" id="feedback${index}"></div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            });
             
-            container.innerHTML += `
-                <button class="btn-primary" onclick="submitHeritageQuiz()">تحقق من الإجابات</button>
-                <div id="quizResults"></div>
+            quizHTML += `
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-primary" onclick="submitHeritageQuiz()">تقديم الإجابات</button>
+                    <button class="btn-secondary" onclick="resetHeritageQuiz()">إعادة تعيين</button>
+                </div>
             `;
+            
+            quizContainer.innerHTML = quizHTML;
+            
+            // إضافة أحداث لأزرار الاختبار
+            document.querySelectorAll('#heritageQuiz .quiz-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionId = this.getAttribute('data-question');
+                    
+                    // إزالة التحديد من جميع خيارات هذا السؤال
+                    document.querySelectorAll(`#q${questionId} .quiz-option`).forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // تحديد الخيار الحالي
+                    this.classList.add('selected');
+                });
+            });
         }
         
         function submitHeritageQuiz() {
-            // تصحيح الإجابات
-            alert('تم تصحيح الإجابات!');
+            const questions = document.querySelectorAll('.quiz-item');
+            let score = 0;
+            let totalPoints = 0;
+            
+            const quizData = [
+                { correct: 0, points: 10 },
+                { correct: 1, points: 10 },
+                { correct: 1, points: 10 },
+                { correct: 1, points: 10 }
+            ];
+            
+            questions.forEach((question, index) => {
+                const selectedOption = question.querySelector('.quiz-option.selected');
+                const feedback = document.getElementById(`feedback${index}`);
+                
+                if (selectedOption) {
+                    const selectedIndex = parseInt(selectedOption.getAttribute('data-option'));
+                    const isCorrect = selectedIndex === quizData[index].correct;
+                    const points = isCorrect ? quizData[index].points : 0;
+                    
+                    // تلوين جميع الخيارات
+                    question.querySelectorAll('.quiz-option').forEach((opt, optIndex) => {
+                        if (optIndex === quizData[index].correct) {
+                            opt.classList.add('correct');
+                            opt.style.backgroundColor = '#4CAF50';
+                            opt.style.color = 'white';
+                            opt.style.borderColor = '#4CAF50';
+                        } else if (optIndex === selectedIndex && !isCorrect) {
+                            opt.classList.add('incorrect');
+                            opt.style.backgroundColor = '#F44336';
+                            opt.style.color = 'white';
+                            opt.style.borderColor = '#F44336';
+                        }
+                    });
+                    
+                    feedback.textContent = isCorrect ? 
+                        'إجابة صحيحة! +١٠ نقاط' : 
+                        'إجابة غير صحيحة. الجواب الصحيح هو: ' + question.querySelector(`.quiz-option:nth-child(${quizData[index].correct + 1}) span`).textContent;
+                    feedback.className = `quiz-feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+                    feedback.style.display = 'block';
+                    
+                    if (isCorrect) score += points;
+                    totalPoints += quizData[index].points;
+                }
+            });
+            
+            // عرض النتائج
+            const quizContainer = document.getElementById('heritageQuiz');
+            const resultsContainer = document.getElementById('quizResults');
+            const finalScore = document.getElementById('finalScore');
+            const resultMessage = document.getElementById('resultMessage');
+            
+            finalScore.textContent = score;
+            
+            let message = '';
+            const percentage = (score / totalPoints) * 100;
+            
+            if (percentage >= 80) {
+                message = 'ممتاز! معرفتك بالتراث السعودي رائعة. تستحقين لقب "حارسة التراث" 🏆';
+            } else if (percentage >= 60) {
+                message = 'جيد جداً! لديك معرفة جيدة بالتراث السعودي. استمري في التعلم 💪';
+            } else if (percentage >= 40) {
+                message = 'ليس سيئاً! لديك معرفة أساسية. ننصحك بزيارة معارض التراث لتعزيز معلوماتك 📚';
+            } else {
+                message = 'تحتاجين لمعرفة المزيد عن التراث السعودي. ابدئي رحلتك من جديد! 🌟';
+            }
+            
+            resultMessage.textContent = message;
+            
+            quizContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            
+            // حفظ النتيجة
+            saveScore(score);
         }
         
-        function showModal(title, content) {
-            // إنشاء نافذة منبثقة
-            const modal = document.createElement('div');
-            modal.className = 'modal';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
-                    ${content}
-                </div>
-            `;
-            document.body.appendChild(modal);
-            modal.style.display = 'flex';
+        function resetHeritageQuiz() {
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                option.style.backgroundColor = '';
+                option.style.color = '';
+                option.style.borderColor = '';
+            });
+            
+            document.querySelectorAll('.quiz-feedback').forEach(feedback => {
+                feedback.textContent = '';
+                feedback.style.display = 'none';
+            });
+            
+            document.getElementById('heritageQuiz').style.display = 'block';
+            document.getElementById('quizResults').style.display = 'none';
+        }
+        
+        function retakeQuiz() {
+            resetHeritageQuiz();
+        }
+        
+        function saveScore(score) {
+            // حفظ النتيجة في localStorage
+            const scores = JSON.parse(localStorage.getItem('heritageScores') || '[]');
+            scores.push({
+                score: score,
+                date: new Date().toLocaleDateString('ar-SA'),
+                time: new Date().toLocaleTimeString('ar-SA')
+            });
+            localStorage.setItem('heritageScores', JSON.stringify(scores));
+        }
+        
+        function shareResults() {
+            const score = document.getElementById('finalScore').textContent;
+            const message = `حصلت على ${score} من 100 في اختبار التراث السعودي! 🏆\nجرب الاختبار الآن: ${window.location.href}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'نتيجة اختبار التراث السعودي',
+                    text: message,
+                    url: window.location.href
+                });
+            } else {
+                // نسخ النتيجة إلى الحافظة
+                navigator.clipboard.writeText(message).then(() => {
+                    alert('تم نسخ النتيجة إلى الحافظة! يمكنك مشاركتها الآن 📋');
+                });
+            }
         }
     </script>
 </body>
