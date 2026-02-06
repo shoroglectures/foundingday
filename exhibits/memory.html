@@ -156,24 +156,6 @@
             opacity: 0.9;
         }
 
-        .exhibit-meta {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-
-        .exhibit-meta span {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 8px 16px;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-        }
-
         /* ===== أنماط مشتركة ===== */
         .section-title {
             text-align: center;
@@ -703,12 +685,17 @@
             position: relative;
             height: 250px;
             overflow: hidden;
+            background-color: var(--light-beige);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .character-image img {
-            width: 100%;
+            width: auto;
             height: 100%;
-            object-fit: cover;
+            max-width: 100%;
+            object-fit: contain;
             transition: transform 0.5s ease;
         }
 
@@ -892,14 +879,12 @@
                 font-size: 2rem;
             }
             
-            .exhibit-meta {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-            
             .quiz-options {
                 grid-template-columns: 1fr;
+            }
+            
+            .character-image {
+                height: 200px;
             }
         }
     </style>
@@ -932,11 +917,6 @@
         <div class="header-content">
             <h1 class="exhibit-title">ذاكرة الملحمة</h1>
             <p class="exhibit-subtitle">خط زمني تفاعلي يروي قصة تأسيس المملكة العربية السعودية</p>
-            <div class="exhibit-meta">
-                <span><i class="far fa-clock"></i> الوقت المقدر: ٣٠ دقيقة</span>
-                <span><i class="fas fa-star"></i> ١٥٠ نقطة يمكن ربحها</span>
-                <span><i class="fas fa-users"></i> ٥٠٠+ طالبة استكشفته</span>
-            </div>
         </div>
     </header>
 
@@ -948,7 +928,7 @@
             
             <div class="timeline-container">
                 <div class="timeline-navigation">
-                    <button class="timeline-nav-btn active" data-year="1446">١٤٤٦هـ</button>
+                    <button class="timeline-nav-btn active" data-year="1446">٨٥٠هـ / ١٤٤٦م</button>
                     <button class="timeline-nav-btn" data-year="1727">١١٣٩هـ / ١٧٢٧م</button>
                     <button class="timeline-nav-btn" data-year="1818">١٢٣٣هـ / ١٨١٨م</button>
                     <button class="timeline-nav-btn" data-year="1902">١٣١٩هـ / ١٩٠٢م</button>
@@ -962,7 +942,7 @@
                             <h3>جذور التأسيس: مانع المريدي</h3>
                             <div class="event-date">٨٥٠هـ / ١٤٤٦م</div>
                             <div class="event-media">
-                                <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="مانع المريدي">
+                                <img src="https://www.al-madina.com/uploads/images/2023/02/23/2160993.jpg" alt="مانع المريدي">
                                 <div class="media-caption">مانع بن ربيعة المريدي - الجد المؤسس</div>
                             </div>
                             <div class="event-description">
@@ -1000,7 +980,7 @@
                             <h3>تأسيس الدولة السعودية الأولى</h3>
                             <div class="event-date">١١٣٩هـ / ١٧٢٧م</div>
                             <div class="event-media">
-                                <img src="https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="الدولة السعودية الأولى">
+                                <img src="https://www.alriyadh.com/media/article/2014/09/23/img/147253702161.jpg" alt="الدولة السعودية الأولى">
                                 <div class="media-caption">الإمام محمد بن سعود - مؤسس الدولة السعودية الأولى</div>
                             </div>
                             <div class="event-description">
@@ -1039,7 +1019,7 @@
                             <h3>نهاية الدولة السعودية الأولى</h3>
                             <div class="event-date">١٢٣٣هـ / ١٨١٨م</div>
                             <div class="event-media">
-                                <img src="https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=70" alt="نهاية الدولة الأولى">
+                                <img src="https://static.srpcdigital.com/styles/1037xauto/public/2024-02/545207.jpeg.webp" alt="نهاية الدولة الأولى">
                                 <div class="media-caption">حصار الدرعية عام 1818م</div>
                             </div>
                             <div class="event-description">
@@ -1078,7 +1058,7 @@
                             <h3>استعادة الرياض وتأسيس الدولة السعودية الثالثة</h3>
                             <div class="event-date">١٣١٩هـ / ١٩٠٢م</div>
                             <div class="event-media">
-                                <img src="https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60" alt="استعادة الرياض">
+                                <img src="https://www.alriyadh.com/media/article/2021/06/07/img/8407936592.jpg" alt="استعادة الرياض">
                                 <div class="media-caption">الملك عبدالعزيز يستعيد الرياض</div>
                             </div>
                             <div class="event-description">
@@ -1117,7 +1097,7 @@
                             <h3>توحيد المملكة العربية السعودية</h3>
                             <div class="event-date">١٣٥١هـ / ١٩٣٢م</div>
                             <div class="event-media">
-                                <img src="https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=50" alt="توحيد المملكة">
+                                <img src="https://static.sayidaty.net/2022-09/166584.PNG" alt="توحيد المملكة">
                                 <div class="media-caption">إعلان توحيد المملكة العربية السعودية</div>
                             </div>
                             <div class="event-description">
@@ -1177,7 +1157,7 @@
                 <div class="map-viewer">
                     <div class="map-overlay">
                         <!-- الرياض - وسط المملكة -->
-                        <div class="map-point" style="top: 45%; left: 52%;" data-location="الرياض">
+                        <div class="map-point" style="top: 60%; left: 55%;" data-location="الرياض">
                             <div class="point-marker"></div>
                             <div class="point-info">
                                 <h4>الرياض</h4>
@@ -1187,7 +1167,7 @@
                         </div>
                         
                         <!-- الدرعية - قرب الرياض -->
-                        <div class="map-point" style="top: 46%; left: 50%;" data-location="الدرعية">
+                        <div class="map-point" style="top: 58%; left: 53%;" data-location="الدرعية">
                             <div class="point-marker"></div>
                             <div class="point-info">
                                 <h4>الدرعية</h4>
@@ -1197,7 +1177,7 @@
                         </div>
                         
                         <!-- مكة المكرمة - غرب المملكة -->
-                        <div class="map-point" style="top: 55%; left: 25%;" data-location="مكة المكرمة">
+                        <div class="map-point" style="top: 70%; left: 30%;" data-location="مكة المكرمة">
                             <div class="point-marker"></div>
                             <div class="point-info">
                                 <h4>مكة المكرمة</h4>
@@ -1207,7 +1187,7 @@
                         </div>
                         
                         <!-- المدينة المنورة - شمال مكة -->
-                        <div class="map-point" style="top: 40%; left: 30%;" data-location="المدينة المنورة">
+                        <div class="map-point" style="top: 50%; left: 32%;" data-location="المدينة المنورة">
                             <div class="point-marker"></div>
                             <div class="point-info">
                                 <h4>المدينة المنورة</h4>
@@ -1217,7 +1197,7 @@
                         </div>
                         
                         <!-- نجد - وسط المملكة -->
-                        <div class="map-point" style="top: 50%; left: 55%;" data-location="نجد">
+                        <div class="map-point" style="top: 55%; left: 60%;" data-location="نجد">
                             <div class="point-marker"></div>
                             <div class="point-info">
                                 <h4>نجد</h4>
@@ -1227,7 +1207,7 @@
                         </div>
                         
                         <!-- الأحساء - شرق المملكة -->
-                        <div class="map-point" style="top: 60%; left: 70%;" data-location="الأحساء">
+                        <div class="map-point" style="top: 65%; left: 75%;" data-location="الأحساء">
                             <div class="point-marker"></div>
                             <div class="point-info">
                                 <h4>الأحساء</h4>
@@ -1238,7 +1218,7 @@
                     </div>
                     
                     <!-- خريطة السعودية الحقيقية -->
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Saudi_Arabia_location_map.svg/800px-Saudi_Arabia_location_map.svg.png" alt="خريطة المملكة العربية السعودية" class="map-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Regions_of_Saudi_Arabia_-_Main.svg" alt="خريطة المملكة العربية السعودية" class="map-image">
                 </div>
                 
                 <div class="map-details" id="locationDetails">
@@ -1257,7 +1237,7 @@
             <div class="characters-grid">
                 <div class="character-card">
                     <div class="character-image">
-                        <img src="https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="الإمام محمد بن سعود">
+                        <img src="https://www.alriyadh.com/media/article/2014/09/23/img/147253702161.jpg" alt="الإمام محمد بن سعود">
                         <div class="character-badge">المؤسس</div>
                     </div>
                     <div class="character-info">
@@ -1280,7 +1260,7 @@
                 
                 <div class="character-card">
                     <div class="character-image">
-                        <img src="https://images.unsplash.com/photo-1518834103328-4dbb0d8400de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60" alt="الملك عبدالعزيز">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Ibn_Saud.png/330px-Ibn_Saud.png" alt="الملك عبدالعزيز">
                         <div class="character-badge">المؤسس</div>
                     </div>
                     <div class="character-info">
