@@ -4,17 +4,711 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مسابقة باحثات التأسيس | رحلة التأسيس</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="competition.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== متغيرات الألوان للهوية الجديدة ===== */
+        :root {
+            --primary-dark: #6B4E45;
+            --primary-light: #DEC9B2;
+            --secondary-light: #F4EADA;
+            --accent-beige: #E8DFD6;
+            --accent-gold: #C6A467;
+            --accent-brown: #231F20;
+            --light-beige: #F8F4EF;
+            --white: #FFFFFF;
+            --black: #231F20;
+            --gray: #666666;
+            --light-gray: #EEEEEE;
+            
+            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-heavy: 0 12px 36px rgba(0, 0, 0, 0.15);
+            
+            --border-radius: 12px;
+            --border-radius-lg: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'El Messiri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-light);
+            color: var(--black);
+            line-height: 1.6;
+            direction: rtl;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== شريط التنقل ===== */
+        .navbar {
+            background-color: var(--primary-dark);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            color: var(--white);
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--primary-light);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== أنماط مشتركة ===== */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-light), var(--primary-dark));
+            margin: 15px auto 30px;
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--white);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-dark);
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-dark);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        .btn-small {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-small:hover {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+        }
+
+        /* ===== رأس المسابقة ===== */
+        .competition-header {
+            background: linear-gradient(rgba(107, 78, 69, 0.9), rgba(107, 78, 69, 0.95)),
+                        url('https://images.unsplash.com/photo-1586771107445-d3ca888129fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 150px 0 80px;
+            margin-top: 80px;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .competition-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .competition-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .competition-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .status-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .status-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .status-card i {
+            font-size: 2.5rem;
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+        }
+
+        .status-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-card p {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        /* ===== تصميم المسابقة ===== */
+        .competition-main {
+            padding: 4rem 0;
+        }
+
+        .competition-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 1024px) {
+            .competition-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== الشريط الجانبي ===== */
+        .competition-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .user-profile-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--primary-light);
+            text-align: center;
+        }
+
+        .profile-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-light);
+            margin-bottom: 1rem;
+        }
+
+        .profile-info h3 {
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-level {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        .welcome-message {
+            background-color: var(--secondary-light);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-top: 1rem;
+            border-right: 4px solid var(--primary-dark);
+        }
+
+        .welcome-message h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-message p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .sidebar-nav {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--primary-light);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: var(--black);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        .sidebar-link i {
+            font-size: 1.2rem;
+            width: 24px;
+        }
+
+        /* ===== المحتوى الرئيسي ===== */
+        .competition-content {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--primary-light);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-light);
+        }
+
+        .section-header h2 {
+            color: var(--primary-dark);
+            font-size: 2rem;
+        }
+
+        /* ===== الاختبار اليومي ===== */
+        .quiz-container {
+            background-color: var(--secondary-light);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--primary-light);
+        }
+
+        .quiz-progress {
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary-light), var(--primary-dark));
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        .progress-text {
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-align: center;
+            display: block;
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .question-category {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .question-points {
+            background-color: var(--accent-gold);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            color: var(--black);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .question-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .option-card {
+            background-color: var(--white);
+            border: 2px solid var(--primary-light);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-light);
+            border-color: var(--primary-dark);
+        }
+
+        .option-card.correct {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-color: #4CAF50;
+            color: #2E7D32;
+        }
+
+        .option-card.incorrect {
+            background-color: rgba(244, 67, 54, 0.1);
+            border-color: #F44336;
+            color: #C62828;
+        }
+
+        .option-letter {
+            width: 36px;
+            height: 36px;
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .option-card.correct .option-letter {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .option-card.incorrect .option-letter {
+            background-color: #F44336;
+            color: white;
+        }
+
+        .option-text {
+            font-size: 1.1rem;
+            flex: 1;
+        }
+
+        .quiz-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--secondary-light);
+        }
+
+        .quiz-categories {
+            margin-top: 2rem;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .category-card {
+            background-color: var(--white);
+            border: 2px solid var(--primary-light);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-dark);
+            box-shadow: var(--shadow-light);
+        }
+
+        .category-card i {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .category-card span {
+            display: block;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .questions-left {
+            color: var(--gray) !important;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-weight: 400 !important;
+        }
+
+        /* ===== التصميم المتجاوب ===== */
+        @media (max-width: 1024px) {
+            .competition-title {
+                font-size: 2.8rem;
+            }
+            
+            .competition-status {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .question-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                background-color: var(--primary-dark);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow-medium);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .competition-title {
+                font-size: 2.2rem;
+            }
+            
+            .competition-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .competition-status {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .quiz-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .competition-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .option-card {
+                padding: 1rem;
+            }
+            
+            .question-text {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- شريط التنقل -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <img src="../assets/images/logo.png" alt="شعار يوم التأسيس" class="logo-img">
+                <img src="https://www.foundingday.sa/-/media/FoundingDay/images/Header/Header-logo.svg" alt="شعار يوم التأسيس" class="logo-img">
                 <span class="logo-text">رحلة التأسيس</span>
             </div>
             
@@ -23,12 +717,11 @@
                 <a href="../exhibits/" class="nav-link"><i class="fas fa-landmark"></i> المعارض</a>
                 <a href="index.html" class="nav-link active"><i class="fas fa-trophy"></i> المسابقة</a>
                 <a href="../games/" class="nav-link"><i class="fas fa-gamepad"></i> الألعاب</a>
-                
-                <div class="user-points">
-                    <i class="fas fa-coins"></i>
-                    <span id="userPoints">٠</span> نقطة
-                </div>
             </div>
+            
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
@@ -36,38 +729,38 @@
     <header class="competition-header">
         <div class="header-content">
             <h1 class="competition-title">مسابقة "باحثات التأسيس"</h1>
-            <p class="competition-subtitle">تحدي المعرفة والتراث - اربحي النقاط وتصعدي في لوحة الصدارة</p>
+            <p class="competition-subtitle">اختبار معرفتك بتاريخ تأسيس المملكة العربية السعودية</p>
             
             <div class="competition-status">
                 <div class="status-card">
-                    <i class="fas fa-calendar-alt"></i>
+                    <i class="fas fa-question-circle"></i>
                     <div>
-                        <h4>المرحلة الحالية</h4>
-                        <p>التصفيات النهائية</p>
+                        <h4>أسئلة الاختبار</h4>
+                        <p>١٠ أسئلة</p>
                     </div>
                 </div>
                 
                 <div class="status-card">
                     <i class="fas fa-clock"></i>
                     <div>
-                        <h4>الوقت المتبقي</h4>
-                        <p id="competitionTimer">٠٧:٢٣:١٥</p>
+                        <h4>وقت الاختبار</h4>
+                        <p>غير محدد</p>
                     </div>
                 </div>
                 
                 <div class="status-card">
-                    <i class="fas fa-users"></i>
+                    <i class="fas fa-award"></i>
                     <div>
-                        <h4>المشاركات</h4>
-                        <p id="totalParticipants">١,٣٤٧</p>
+                        <h4>نتيجة فورية</h4>
+                        <p>عرض النتيجة</p>
                     </div>
                 </div>
                 
                 <div class="status-card">
-                    <i class="fas fa-gift"></i>
+                    <i class="fas fa-graduation-cap"></i>
                     <div>
-                        <h4>الجوائز الكلية</h4>
-                        <p>٥٠+ جائزة</p>
+                        <h4>هدف المسابقة</h4>
+                        <p>التعليم فقط</p>
                     </div>
                 </div>
             </div>
@@ -78,56 +771,27 @@
     <main class="competition-main">
         <div class="container">
             <div class="competition-layout">
-                <!-- لوحة التحكم -->
+                <!-- الشريط الجانبي -->
                 <aside class="competition-sidebar">
                     <div class="user-profile-card">
                         <div class="profile-header">
-                            <img src="../assets/images/default-avatar.png" alt="الصورة الشخصية" class="profile-avatar">
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="الصورة الشخصية" class="profile-avatar">
                             <div class="profile-info">
-                                <h3 id="userName">زائر</h3>
-                                <p class="profile-level">المستوى: <span id="userLevel">٠</span></p>
+                                <h3>زائر المسابقة</h3>
+                                <p class="profile-level">مرحباً بك في مسابقة المعرفة</p>
                             </div>
                         </div>
                         
-                        <div class="profile-stats">
-                            <div class="stat">
-                                <i class="fas fa-trophy"></i>
-                                <div>
-                                    <span class="stat-value" id="userRank">--</span>
-                                    <span class="stat-label">الترتيب</span>
-                                </div>
-                            </div>
-                            
-                            <div class="stat">
-                                <i class="fas fa-star"></i>
-                                <div>
-                                    <span class="stat-value" id="userScore">٠</span>
-                                    <span class="stat-label">النقاط</span>
-                                </div>
-                            </div>
-                            
-                            <div class="stat">
-                                <i class="fas fa-check-circle"></i>
-                                <div>
-                                    <span class="stat-value" id="userQuizzes">٠</span>
-                                    <span class="stat-label">اختبار</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="profile-progress">
-                            <h4>التقدم للمستوى التالي</h4>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="levelProgress" style="width: 0%"></div>
-                            </div>
-                            <span class="progress-text" id="progressText">٠/١٠٠ نقطة</span>
+                        <div class="welcome-message">
+                            <h4>معلومات عن المسابقة</h4>
+                            <p>هذه مسابقة تعليمية تهدف إلى اختبار معرفتك بتاريخ تأسيس المملكة العربية السعودية. يمكنك المشاركة دون تسجيل.</p>
                         </div>
                     </div>
                     
                     <nav class="sidebar-nav">
                         <a href="#dailyQuiz" class="sidebar-link active">
                             <i class="fas fa-question-circle"></i>
-                            الاختبار اليومي
+                            الاختبار التعليمي
                         </a>
                         
                         <a href="#categories" class="sidebar-link">
@@ -135,42 +799,11 @@
                             فئات الأسئلة
                         </a>
                         
-                        <a href="#leaderboard" class="sidebar-link">
-                            <i class="fas fa-ranking-star"></i>
-                            لوحة الصدارة
-                        </a>
-                        
-                        <a href="#achievements" class="sidebar-link">
-                            <i class="fas fa-medal"></i>
-                            الإنجازات
-                        </a>
-                        
-                        <a href="#prizes" class="sidebar-link">
-                            <i class="fas fa-gift"></i>
-                            الجوائز
-                        </a>
-                        
-                        <a href="#rules" class="sidebar-link">
-                            <i class="fas fa-scroll"></i>
-                            القواعد
+                        <a href="#about" class="sidebar-link">
+                            <i class="fas fa-info-circle"></i>
+                            معلومات عن المسابقة
                         </a>
                     </nav>
-                    
-                    <div class="quick-stats">
-                        <h4>إحصائيات سريعة</h4>
-                        <div class="quick-stat">
-                            <span>متوسط النقاط اليوم:</span>
-                            <span class="stat-value">٤٨٥</span>
-                        </div>
-                        <div class="quick-stat">
-                            <span>أسئلة اليوم:</span>
-                            <span class="stat-value">١٥</span>
-                        </div>
-                        <div class="quick-stat">
-                            <span>الفائزون اليوم:</span>
-                            <span class="stat-value">٥</span>
-                        </div>
-                    </div>
                 </aside>
                 
                 <!-- المحتوى الرئيسي -->
@@ -178,10 +811,9 @@
                     <!-- الاختبار اليومي -->
                     <section id="dailyQuiz" class="content-section active">
                         <div class="section-header">
-                            <h2>الاختبار اليومي</h2>
+                            <h2>الاختبار التعليمي</h2>
                             <div class="quiz-timer">
-                                <i class="fas fa-clock"></i>
-                                <span id="quizTimer">٠٢:٠٠</span>
+                                <span>اختر الإجابة الصحيحة</span>
                             </div>
                         </div>
                         
@@ -209,21 +841,21 @@
                         </div>
                         
                         <div class="quiz-categories">
-                            <h3>فئات الأسئلة المتبقية</h3>
+                            <h3>فئات الأسئلة</h3>
                             <div class="categories-grid">
-                                <div class="category-card" data-category="history">
+                                <div class="category-card">
                                     <i class="fas fa-landmark"></i>
                                     <span>التاريخ</span>
                                     <span class="questions-left">٥ أسئلة</span>
                                 </div>
                                 
-                                <div class="category-card" data-category="heritage">
+                                <div class="category-card">
                                     <i class="fas fa-archway"></i>
                                     <span>التراث</span>
                                     <span class="questions-left">٣ أسئلة</span>
                                 </div>
                                 
-                                <div class="category-card" data-category="geography">
+                                <div class="category-card">
                                     <i class="fas fa-map"></i>
                                     <span>الجغرافيا</span>
                                     <span class="questions-left">٢ أسئلة</span>
@@ -232,104 +864,56 @@
                         </div>
                     </section>
                     
-                    <!-- لوحة الصدارة -->
-                    <section id="leaderboard" class="content-section">
+                    <!-- فئات الأسئلة -->
+                    <section id="categories" class="content-section">
                         <div class="section-header">
-                            <h2>لوحة الصدارة</h2>
-                            <div class="leaderboard-filters">
-                                <select id="timeFilter" onchange="updateLeaderboard()">
-                                    <option value="daily">اليومي</option>
-                                    <option value="weekly">الأسبوعي</option>
-                                    <option value="monthly">الشهري</option>
-                                    <option value="all">الكلي</option>
-                                </select>
-                                
-                                <select id="categoryFilter" onchange="updateLeaderboard()">
-                                    <option value="all">جميع الفئات</option>
-                                    <option value="history">التاريخ</option>
-                                    <option value="heritage">التراث</option>
-                                    <option value="geography">الجغرافيا</option>
-                                </select>
-                            </div>
+                            <h2>فئات الأسئلة</h2>
                         </div>
                         
-                        <div class="leaderboard-container">
-                            <div class="leaderboard-header">
-                                <div class="rank-col">الترتيب</div>
-                                <div class="name-col">المشارك</div>
-                                <div class="score-col">النقاط</div>
-                                <div class="level-col">المستوى</div>
-                                <div class="accuracy-col">الدقة</div>
+                        <div class="categories-grid">
+                            <div class="category-card">
+                                <i class="fas fa-landmark"></i>
+                                <span>التاريخ</span>
+                                <p>أسئلة حول الأحداث التاريخية لتأسيس المملكة</p>
                             </div>
                             
-                            <div class="leaderboard-body" id="leaderboardBody">
-                                <!-- سيتم تعبئته ديناميكياً -->
+                            <div class="category-card">
+                                <i class="fas fa-archway"></i>
+                                <span>التراث</span>
+                                <p>أسئلة حول التراث الثقافي والحضاري</p>
                             </div>
                             
-                            <!-- ترتيب المستخدم الحالي -->
-                            <div class="user-rank-card">
-                                <div class="user-rank-info">
-                                    <span class="rank-badge" id="userRankBadge">--</span>
-                                    <img src="../assets/images/default-avatar.png" alt="الصورة الشخصية" class="rank-avatar">
-                                    <div class="rank-details">
-                                        <h4 id="userRankName">زائر</h4>
-                                        <p>النقاط: <span id="userRankScore">٠</span></p>
-                                    </div>
-                                </div>
-                                
-                                <div class="rank-stats">
-                                    <div class="stat">
-                                        <span class="stat-label">الدقة</span>
-                                        <span class="stat-value" id="userAccuracy">٠٪</span>
-                                    </div>
-                                    
-                                    <div class="stat">
-                                        <span class="stat-label">الاختبارات</span>
-                                        <span class="stat-value" id="userQuizzesCount">٠</span>
-                                    </div>
-                                    
-                                    <div class="stat">
-                                        <span class="stat-label">المستوى</span>
-                                        <span class="stat-value" id="userLevelRank">٠</span>
-                                    </div>
-                                </div>
+                            <div class="category-card">
+                                <i class="fas fa-map"></i>
+                                <span>الجغرافيا</span>
+                                <p>أسئلة حول المواقع الجغرافية المهمة</p>
+                            </div>
+                            
+                            <div class="category-card">
+                                <i class="fas fa-users"></i>
+                                <span>الشخصيات</span>
+                                <p>أسئلة حول الشخصيات المؤثرة في التأسيس</p>
                             </div>
                         </div>
                     </section>
                     
-                    <!-- الإنجازات -->
-                    <section id="achievements" class="content-section">
+                    <!-- معلومات عن المسابقة -->
+                    <section id="about" class="content-section">
                         <div class="section-header">
-                            <h2>الإنجازات والأوسمة</h2>
-                            <div class="achievement-summary">
-                                <div class="summary-card">
-                                    <i class="fas fa-trophy"></i>
-                                    <div>
-                                        <h4>الأوسمة</h4>
-                                        <p><span id="achievementsCount">٠</span> / ٢٥</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="summary-card">
-                                    <i class="fas fa-star"></i>
-                                    <div>
-                                        <h4>نقاط الإنجاز</h4>
-                                        <p id="achievementPoints">٠</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="summary-card">
-                                    <i class="fas fa-crown"></i>
-                                    <div>
-                                        <h4>الألقاب</h4>
-                                        <p id="titlesCount">٠</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <h2>معلومات عن المسابقة</h2>
                         </div>
                         
-                        <div class="achievements-grid" id="achievementsGrid">
-                            <!-- سيتم تعبئته ديناميكياً -->
+                        <div class="welcome-message" style="margin-bottom: 2rem;">
+                            <h4>هدف المسابقة</h4>
+                            <p>تهدف هذه المسابقة إلى نشر المعرفة بتاريخ تأسيس المملكة العربية السعودية بطريقة تفاعلية وتعليمية. يمكن للجميع المشاركة دون الحاجة إلى تسجيل أو الحصول على نقاط.</p>
+                        </div>
+                        
+                        <div class="welcome-message">
+                            <h4>كيفية المشاركة</h4>
+                            <p>١. اختر الإجابة الصحيحة لكل سؤال<br>
+                               ٢. انتقل للسؤال التالي بعد الإجابة<br>
+                               ٣. شاهد النتيجة النهائية في نهاية الاختبار<br>
+                               ٤. يمكنك إعادة الاختبار متى شئت</p>
                         </div>
                     </section>
                 </div>
@@ -337,140 +921,73 @@
         </div>
     </main>
 
-    <!-- الفوتر -->
-    <footer>
-        <div class="footer-container">
-            <!-- نفس الفوتر السابق -->
-        </div>
-    </footer>
-
     <!-- نافذة نتائج الاختبار -->
-    <div id="quizResultsModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeQuizResults()">&times;</span>
+    <div id="quizResultsModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center;">
+        <div class="modal-content" style="background-color: var(--white); border-radius: var(--border-radius-lg); width: 90%; max-width: 500px; padding: 2rem; position: relative; box-shadow: var(--shadow-heavy);">
+            <span class="close" onclick="closeQuizResults()" style="position: absolute; top: 1rem; left: 1rem; font-size: 2rem; cursor: pointer; color: var(--gray);">&times;</span>
             
             <div class="results-content">
-                <div class="results-header">
-                    <h2>🎉 أحسنت! 🎉</h2>
-                    <p>لقد أكملت الاختبار اليومي بنجاح</p>
+                <div class="results-header" style="text-align: center; margin-bottom: 2rem;">
+                    <h2 style="color: var(--primary-dark); margin-bottom: 1rem;">🎉 انتهى الاختبار! 🎉</h2>
+                    <p style="color: var(--gray);">شكراً لمشاركتك في اختبار المعرفة</p>
                 </div>
                 
-                <div class="results-stats">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>النقاط</h3>
-                            <p class="stat-value" id="resultsPoints">٠</p>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
+                <div class="results-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div class="stat-card" style="text-align: center; padding: 1.5rem; background-color: var(--secondary-light); border-radius: var(--border-radius);">
+                        <div class="stat-icon" style="font-size: 2rem; color: var(--primary-dark); margin-bottom: 1rem;">
                             <i class="fas fa-check-circle"></i>
                         </div>
                         <div class="stat-info">
-                            <h3>الدقة</h3>
-                            <p class="stat-value" id="resultsAccuracy">٠٪</p>
+                            <h3 style="color: var(--gray); font-size: 1rem; margin-bottom: 0.5rem;">الإجابات الصحيحة</h3>
+                            <p class="stat-value" id="resultsCorrect" style="font-size: 2rem; font-weight: 700; color: var(--primary-dark);">٠</p>
                         </div>
                     </div>
                     
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-clock"></i>
+                    <div class="stat-card" style="text-align: center; padding: 1.5rem; background-color: var(--secondary-light); border-radius: var(--border-radius);">
+                        <div class="stat-icon" style="font-size: 2rem; color: var(--primary-dark); margin-bottom: 1rem;">
+                            <i class="fas fa-percentage"></i>
                         </div>
                         <div class="stat-info">
-                            <h3>الوقت</h3>
-                            <p class="stat-value" id="resultsTime">٠٠:٠٠</p>
+                            <h3 style="color: var(--gray); font-size: 1rem; margin-bottom: 0.5rem;">النسبة المئوية</h3>
+                            <p class="stat-value" id="resultsPercentage" style="font-size: 2rem; font-weight: 700; color: var(--primary-dark);">٠٪</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="results-breakdown">
-                    <h3>تفصيل النتائج</h3>
-                    <div class="breakdown-list" id="categoryBreakdown">
-                        <!-- سيتم تعبئته ديناميكياً -->
-                    </div>
-                </div>
-                
-                <div class="results-actions">
-                    <button class="btn-primary" onclick="shareResults()">
-                        <i class="fas fa-share"></i> شارك النتيجة
+                <div class="results-actions" style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                    <button class="btn-primary" onclick="restartQuiz()" style="padding: 12px 24px;">
+                        <i class="fas fa-redo"></i> إعادة الاختبار
                     </button>
                     
-                    <button class="btn-secondary" onclick="retakeQuiz()">
-                        <i class="fas fa-redo"></i> حاول مرة أخرى
-                    </button>
-                    
-                    <button class="btn-secondary" onclick="continueToLeaderboard()">
-                        <i class="fas fa-ranking-star"></i> لوحة الصدارة
+                    <button class="btn-secondary" onclick="closeQuizResults()" style="padding: 12px 24px;">
+                        <i class="fas fa-times"></i> إغلاق
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script src="competition.js"></script>
     <script>
-        // كود خاص بالمسابقة
-        class Competition {
+        // ===== إدارة المسابقة بدون تسجيل =====
+        class SimpleQuiz {
             constructor() {
-                this.user = null;
                 this.questions = [];
                 this.currentQuestion = 0;
                 this.score = 0;
-                this.timer = null;
-                this.timeLeft = 120; // 2 دقيقة
-                this.quizStarted = false;
+                this.selectedAnswer = null;
+                this.quizCompleted = false;
                 
                 this.init();
             }
             
-            async init() {
-                this.loadUserData();
+            init() {
                 this.loadQuestions();
                 this.setupEventListeners();
-                this.startCompetitionTimer();
-                this.updateLeaderboard();
-                this.loadAchievements();
+                this.displayCurrentQuestion();
             }
             
-            loadUserData() {
-                const savedUser = localStorage.getItem('user');
-                if (savedUser) {
-                    this.user = JSON.parse(savedUser);
-                    this.updateUserUI();
-                } else {
-                    // إذا لم يكن مسجلاً، توجيه لتسجيل الدخول
-                    setTimeout(() => {
-                        if (!this.user) {
-                            alert('يجب تسجيل الدخول للمشاركة في المسابقة');
-                            window.location.href = '../index.html';
-                        }
-                    }, 1000);
-                }
-            }
-            
-            updateUserUI() {
-                if (!this.user) return;
-                
-                document.getElementById('userName').textContent = this.user.name;
-                document.getElementById('userPoints').textContent = this.user.points.toLocaleString('ar-SA');
-                document.getElementById('userLevel').textContent = this.user.level;
-                document.getElementById('userScore').textContent = this.user.points.toLocaleString('ar-SA');
-                
-                // حساب التقدم للمستوى التالي
-                const nextLevelPoints = this.user.level * 1000;
-                const progress = (this.user.points % 1000) / 10;
-                document.getElementById('levelProgress').style.width = `${progress}%`;
-                document.getElementById('progressText').textContent = 
-                    `${this.user.points % 1000}/١٠٠٠ نقطة`;
-            }
-            
-            async loadQuestions() {
-                // محاكاة تحميل الأسئلة من API
+            loadQuestions() {
+                // أسئلة ثابتة عن تاريخ التأسيس
                 this.questions = [
                     {
                         id: 1,
@@ -478,40 +995,81 @@
                         options: ["١٧٢٧م", "١٧٤٤م", "١٨١٨م", "١٩٠٢م"],
                         correct: 0,
                         category: "history",
-                        points: 10,
                         explanation: "تأسست الدولة السعودية الأولى عام ١٧٢٧م على يد الإمام محمد بن سعود."
                     },
-                    // المزيد من الأسئلة...
-                ];
-                
-                // إذا كان هناك اختبار يومي مخزن، تحميله
-                const savedQuiz = localStorage.getItem('dailyQuiz');
-                if (savedQuiz) {
-                    const quizData = JSON.parse(savedQuiz);
-                    const today = new Date().toDateString();
-                    
-                    if (quizData.date === today && quizData.completed) {
-                        this.showQuizCompleted();
-                    } else if (quizData.date === today) {
-                        this.questions = quizData.questions;
-                        this.currentQuestion = quizData.currentQuestion;
-                        this.score = quizData.score;
-                        this.timeLeft = quizData.timeLeft;
-                        this.quizStarted = true;
-                        this.startQuiz();
+                    {
+                        id: 2,
+                        question: "من هو مؤسس الدولة السعودية الثالثة؟",
+                        options: ["الملك فيصل", "الملك عبدالعزيز", "الملك سعود", "الملك فهد"],
+                        correct: 1,
+                        category: "history",
+                        explanation: "الملك عبدالعزيز آل سعود هو مؤسس الدولة السعودية الثالثة."
+                    },
+                    {
+                        id: 3,
+                        question: "ما هي عاصمة الدولة السعودية الأولى؟",
+                        options: ["الرياض", "الدرعية", "مكة المكرمة", "جدة"],
+                        correct: 1,
+                        category: "geography",
+                        explanation: "الدرعية كانت عاصمة الدولة السعودية الأولى."
+                    },
+                    {
+                        id: 4,
+                        question: "في أي عام تم توحيد المملكة العربية السعودية؟",
+                        options: ["١٩٠٢م", "١٩٢٦م", "١٩٣٢م", "١٩٣٨م"],
+                        correct: 2,
+                        category: "history",
+                        explanation: "تم توحيد المملكة العربية السعودية عام ١٩٣٢م."
+                    },
+                    {
+                        id: 5,
+                        question: "من الذي استعاد الرياض عام ١٩٠٢م؟",
+                        options: ["الملك سعود", "الملك عبدالعزيز", "الإمام تركي", "الملك فيصل"],
+                        correct: 1,
+                        category: "history",
+                        explanation: "الملك عبدالعزيز استعاد الرياض عام ١٩٠٢م."
+                    },
+                    {
+                        id: 6,
+                        question: "أي من هذه المدن تقع في منطقة نجد؟",
+                        options: ["جدة", "الدمام", "الرياض", "أبها"],
+                        correct: 2,
+                        category: "geography",
+                        explanation: "الرياض تقع في منطقة نجد."
+                    },
+                    {
+                        id: 7,
+                        question: "ما هو التراث المعتمد في الهوية السعودية؟",
+                        options: ["التراث البدوي فقط", "التراث الحضري فقط", "مزيج من التراث البدوي والحضري", "لا يوجد تراث محدد"],
+                        correct: 2,
+                        category: "heritage",
+                        explanation: "الهوية السعودية تجمع بين التراث البدوي والحضري."
+                    },
+                    {
+                        id: 8,
+                        question: "متى تم اكتشاف النفط في السعودية؟",
+                        options: ["١٩٣٠م", "١٩٣٨م", "١٩٤٥م", "١٩٥٠م"],
+                        correct: 1,
+                        category: "history",
+                        explanation: "تم اكتشاف النفط في السعودية عام ١٩٣٨م."
+                    },
+                    {
+                        id: 9,
+                        question: "ما هو العلم السعودي؟",
+                        options: ["أخضر بهلال أبيض", "أخضر بسيفين ونخلة", "أخضر بكلمة التوحيد وسيف", "أحمر بمربع أخضر"],
+                        correct: 2,
+                        category: "heritage",
+                        explanation: "العلم السعودي أخضر ويتوسطه كلمة التوحيد وسيف."
+                    },
+                    {
+                        id: 10,
+                        question: "من هو أول ملك للسعودية؟",
+                        options: ["الملك سعود", "الملك فيصل", "الملك عبدالعزيز", "الملك خالد"],
+                        correct: 2,
+                        category: "history",
+                        explanation: "الملك عبدالعزيز هو أول ملك للسعودية."
                     }
-                }
-            }
-            
-            startQuiz() {
-                if (!this.quizStarted) {
-                    this.quizStarted = true;
-                    this.saveQuizProgress();
-                    this.startTimer();
-                }
-                
-                this.displayCurrentQuestion();
-                this.updateQuizProgress();
+                ];
             }
             
             displayCurrentQuestion() {
@@ -529,7 +1087,7 @@
                             <i class="fas fa-${this.getCategoryIcon(question.category)}"></i>
                             ${this.getCategoryName(question.category)}
                         </span>
-                        <span class="question-points">${question.points} نقاط</span>
+                        <span class="question-points">سؤال ${this.currentQuestion + 1}</span>
                     </div>
                     
                     <h3 class="question-text">${question.question}</h3>
@@ -544,6 +1102,9 @@
                     </div>
                 `;
                 
+                document.getElementById('currentQuestion').textContent = this.currentQuestion + 1;
+                this.updateQuizProgress();
+                
                 // إضافة مستمعات الأحداث للخيارات
                 document.querySelectorAll('.option-card').forEach(card => {
                     card.addEventListener('click', (e) => {
@@ -551,18 +1112,21 @@
                     });
                 });
                 
-                document.getElementById('currentQuestion').textContent = this.currentQuestion + 1;
-                this.updateQuizProgress();
+                document.getElementById('nextBtn').disabled = true;
+                this.selectedAnswer = null;
             }
             
             selectOption(selectedIndex) {
+                if (this.selectedAnswer !== null) return;
+                
+                this.selectedAnswer = selectedIndex;
                 const question = this.questions[this.currentQuestion];
                 const options = document.querySelectorAll('.option-card');
                 
                 // إلغاء تفعيل جميع الخيارات
                 options.forEach(opt => opt.style.pointerEvents = 'none');
                 
-                // عرض الإجابة الصحيحة والخاطئة
+                // تلوين الإجابات
                 options.forEach((opt, index) => {
                     if (index === question.correct) {
                         opt.classList.add('correct');
@@ -571,65 +1135,23 @@
                     }
                 });
                 
-                // تحديث النقاط
+                // تحديث النتيجة إذا كانت الإجابة صحيحة
                 if (selectedIndex === question.correct) {
-                    this.score += question.points;
-                    this.showFeedback('صحيح! 👍', 'success');
-                } else {
-                    this.showFeedback('إجابة خاطئة', 'error');
+                    this.score++;
                 }
                 
                 // تمكين زر التالي
                 document.getElementById('nextBtn').disabled = false;
-                
-                // حفظ التقدم
-                this.saveQuizProgress();
             }
             
             nextQuestion() {
                 this.currentQuestion++;
-                
-                if (this.currentQuestion >= this.questions.length) {
-                    this.completeQuiz();
-                } else {
-                    this.displayCurrentQuestion();
-                    document.getElementById('nextBtn').disabled = true;
-                }
+                this.displayCurrentQuestion();
             }
             
             skipQuestion() {
                 this.currentQuestion++;
-                this.saveQuizProgress();
-                
-                if (this.currentQuestion >= this.questions.length) {
-                    this.completeQuiz();
-                } else {
-                    this.displayCurrentQuestion();
-                }
-            }
-            
-            startTimer() {
-                clearInterval(this.timer);
-                
-                this.timer = setInterval(() => {
-                    this.timeLeft--;
-                    this.updateQuizTimer();
-                    
-                    if (this.timeLeft <= 0) {
-                        clearInterval(this.timer);
-                        this.completeQuiz();
-                    }
-                    
-                    this.saveQuizProgress();
-                }, 1000);
-            }
-            
-            updateQuizTimer() {
-                const minutes = Math.floor(this.timeLeft / 60);
-                const seconds = this.timeLeft % 60;
-                
-                document.getElementById('quizTimer').textContent = 
-                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                this.displayCurrentQuestion();
             }
             
             updateQuizProgress() {
@@ -637,210 +1159,27 @@
                 document.getElementById('quizProgress').style.width = `${progress}%`;
             }
             
-            async completeQuiz() {
-                clearInterval(this.timer);
-                
-                // تحديث نقاط المستخدم
-                this.user.points += this.score;
-                localStorage.setItem('user', JSON.stringify(this.user));
-                
-                // حفظ سجل الاختبار
-                const quizResult = {
-                    date: new Date().toISOString(),
-                    score: this.score,
-                    totalQuestions: this.questions.length,
-                    timeSpent: 120 - this.timeLeft,
-                    accuracy: Math.round((this.score / (this.questions.length * 10)) * 100)
-                };
-                
-                this.saveQuizHistory(quizResult);
-                
-                // عرض النتائج
-                this.showQuizResults(quizResult);
-                
-                // إعادة تعيين المتغيرات
-                this.quizStarted = false;
-                localStorage.removeItem('dailyQuiz');
+            completeQuiz() {
+                this.quizCompleted = true;
+                this.showQuizResults();
             }
             
-            showQuizResults(result) {
-                document.getElementById('resultsPoints').textContent = result.score;
-                document.getElementById('resultsAccuracy').textContent = `${result.accuracy}٪`;
-                document.getElementById('resultsTime').textContent = 
-                    `${Math.floor(result.timeSpent / 60)}:${(result.timeSpent % 60).toString().padStart(2, '0')}`;
+            showQuizResults() {
+                const correctAnswers = this.score;
+                const totalQuestions = this.questions.length;
+                const percentage = Math.round((correctAnswers / totalQuestions) * 100);
                 
-                // عرض نتائج الفئات
-                this.displayCategoryBreakdown();
+                document.getElementById('resultsCorrect').textContent = `${correctAnswers}/${totalQuestions}`;
+                document.getElementById('resultsPercentage').textContent = `${percentage}%`;
                 
-                // عرض النافذة المنبثقة
                 document.getElementById('quizResultsModal').style.display = 'flex';
-            }
-            
-            displayCategoryBreakdown() {
-                // حساب النتائج حسب الفئة
-                const breakdown = {};
-                
-                this.questions.forEach((q, index) => {
-                    if (!breakdown[q.category]) {
-                        breakdown[q.category] = {
-                            correct: 0,
-                            total: 0,
-                            points: 0
-                        };
-                    }
-                    
-                    breakdown[q.category].total++;
-                    // هنا يمكن إضافة منطق للتحقق من الإجابات الصحيحة
-                });
-                
-                const breakdownDiv = document.getElementById('categoryBreakdown');
-                breakdownDiv.innerHTML = Object.entries(breakdown).map(([category, data]) => `
-                    <div class="breakdown-item">
-                        <div class="breakdown-header">
-                            <i class="fas fa-${this.getCategoryIcon(category)}"></i>
-                            <span>${this.getCategoryName(category)}</span>
-                        </div>
-                        <div class="breakdown-stats">
-                            <span>${data.correct}/${data.total}</span>
-                            <span>${data.points} نقطة</span>
-                        </div>
-                    </div>
-                `).join('');
-            }
-            
-            saveQuizProgress() {
-                const quizData = {
-                    date: new Date().toDateString(),
-                    questions: this.questions,
-                    currentQuestion: this.currentQuestion,
-                    score: this.score,
-                    timeLeft: this.timeLeft,
-                    completed: false
-                };
-                
-                localStorage.setItem('dailyQuiz', JSON.stringify(quizData));
-            }
-            
-            saveQuizHistory(result) {
-                let history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
-                history.push(result);
-                localStorage.setItem('quizHistory', JSON.stringify(history));
-            }
-            
-            showQuizCompleted() {
-                const quizDiv = document.getElementById('quizQuestion');
-                quizDiv.innerHTML = `
-                    <div class="quiz-completed">
-                        <i class="fas fa-check-circle"></i>
-                        <h3>لقد أكملت الاختبار اليومي بالفعل!</h3>
-                        <p>عد غداً لاختبار جديد ومزيد من النقاط.</p>
-                        <button class="btn-primary" onclick="viewPreviousResults()">
-                            عرض النتائج السابقة
-                        </button>
-                    </div>
-                `;
-                
-                document.getElementById('nextBtn').style.display = 'none';
-                document.getElementById('skipBtn').style.display = 'none';
-            }
-            
-            startCompetitionTimer() {
-                // عد تنازلي للمسابقة العامة
-                setInterval(() => {
-                    const now = new Date();
-                    const endOfDay = new Date();
-                    endOfDay.setHours(23, 59, 59, 999);
-                    
-                    const timeLeft = endOfDay - now;
-                    const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-                    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                    
-                    document.getElementById('competitionTimer').textContent = 
-                        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                }, 1000);
-            }
-            
-            async updateLeaderboard() {
-                // محاكاة بيانات لوحة الصدارة
-                const leaderboardData = [
-                    { name: "نورة أحمد", points: 985, level: 5, accuracy: 92, quizzes: 47 },
-                    { name: "سارة الخالدي", points: 972, level: 5, accuracy: 89, quizzes: 45 },
-                    { name: "فاطمة العتيبي", points: 965, level: 4, accuracy: 88, quizzes: 42 },
-                    // المزيد من البيانات...
-                ];
-                
-                const leaderboardBody = document.getElementById('leaderboardBody');
-                leaderboardBody.innerHTML = leaderboardData.map((user, index) => `
-                    <div class="leaderboard-row ${index < 3 ? 'top-three' : ''}">
-                        <div class="rank-col">
-                            <span class="rank-number">${index + 1}</span>
-                            ${index < 3 ? '<i class="fas fa-crown"></i>' : ''}
-                        </div>
-                        <div class="name-col">
-                            <img src="../assets/images/avatar-${index + 1}.png" alt="${user.name}" class="user-avatar">
-                            <span>${user.name}</span>
-                        </div>
-                        <div class="score-col">
-                            <span class="score-value">${user.points}</span>
-                        </div>
-                        <div class="level-col">
-                            <span class="level-badge">المستوى ${user.level}</span>
-                        </div>
-                        <div class="accuracy-col">
-                            <div class="accuracy-bar">
-                                <div class="accuracy-fill" style="width: ${user.accuracy}%"></div>
-                            </div>
-                            <span class="accuracy-value">${user.accuracy}%</span>
-                        </div>
-                    </div>
-                `).join('');
-            }
-            
-            async loadAchievements() {
-                // محاكاة بيانات الإنجازات
-                const achievements = [
-                    { id: 1, name: "الباحث المبتدئ", description: "أكمل أول اختبار", icon: "fas fa-graduation-cap", earned: true, points: 50 },
-                    { id: 2, name: "بطل التاريخ", description: "أجب على 10 أسئلة تاريخية بشكل صحيح", icon: "fas fa-landmark", earned: true, points: 100 },
-                    { id: 3, name: "سيد التراث", description: "أكمل جميع أسئلة التراث", icon: "fas fa-archway", earned: false, points: 150 },
-                    // المزيد من الإنجازات...
-                ];
-                
-                const earnedCount = achievements.filter(a => a.earned).length;
-                const totalPoints = achievements.filter(a => a.earned).reduce((sum, a) => sum + a.points, 0);
-                
-                document.getElementById('achievementsCount').textContent = earnedCount;
-                document.getElementById('achievementPoints').textContent = totalPoints;
-                
-                const achievementsGrid = document.getElementById('achievementsGrid');
-                achievementsGrid.innerHTML = achievements.map(achievement => `
-                    <div class="achievement-card ${achievement.earned ? 'earned' : 'locked'}">
-                        <div class="achievement-icon">
-                            <i class="${achievement.icon}"></i>
-                            ${achievement.earned ? '' : '<i class="fas fa-lock lock-icon"></i>'}
-                        </div>
-                        <div class="achievement-info">
-                            <h4>${achievement.name}</h4>
-                            <p>${achievement.description}</p>
-                            <span class="achievement-points">${achievement.points} نقطة</span>
-                        </div>
-                        <div class="achievement-status">
-                            ${achievement.earned ? 
-                                '<i class="fas fa-check-circle"></i>' : 
-                                '<i class="far fa-clock"></i>'
-                            }
-                        </div>
-                    </div>
-                `).join('');
             }
             
             getCategoryIcon(category) {
                 const icons = {
                     history: 'landmark',
                     heritage: 'archway',
-                    geography: 'map',
-                    culture: 'music',
-                    vision: 'chart-line'
+                    geography: 'map'
                 };
                 return icons[category] || 'question-circle';
             }
@@ -849,36 +1188,9 @@
                 const names = {
                     history: 'التاريخ',
                     heritage: 'التراث',
-                    geography: 'الجغرافيا',
-                    culture: 'الثقافة',
-                    vision: 'الرؤية'
+                    geography: 'الجغرافيا'
                 };
                 return names[category] || 'عام';
-            }
-            
-            showFeedback(message, type) {
-                const feedback = document.createElement('div');
-                feedback.className = `feedback feedback-${type}`;
-                feedback.textContent = message;
-                feedback.style.cssText = `
-                    position: fixed;
-                    top: 100px;
-                    right: 20px;
-                    padding: 15px 25px;
-                    background-color: ${type === 'success' ? '#4CAF50' : '#F44336'};
-                    color: white;
-                    border-radius: 8px;
-                    z-index: 3000;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                    animation: slideInRight 0.3s ease-out;
-                `;
-                
-                document.body.appendChild(feedback);
-                
-                setTimeout(() => {
-                    feedback.style.animation = 'slideOutRight 0.3s ease-out';
-                    setTimeout(() => feedback.remove(), 300);
-                }, 2000);
             }
             
             setupEventListeners() {
@@ -895,13 +1207,6 @@
                         link.classList.add('active');
                     });
                 });
-                
-                // بدء الاختبار
-                if (!this.quizStarted && document.getElementById('startQuizBtn')) {
-                    document.getElementById('startQuizBtn').addEventListener('click', () => {
-                        this.startQuiz();
-                    });
-                }
             }
             
             showSection(sectionId) {
@@ -913,48 +1218,45 @@
             }
         }
         
-        // تهيئة المسابقة
-        let competition;
-        document.addEventListener('DOMContentLoaded', () => {
-            competition = new Competition();
-        });
-        
-        // وظائف عامة
+        // ===== وظائف عامة =====
         function closeQuizResults() {
             document.getElementById('quizResultsModal').style.display = 'none';
         }
         
-        function shareResults() {
-            const score = document.getElementById('resultsPoints').textContent;
-            const accuracy = document.getElementById('resultsAccuracy').textContent;
-            
-            const shareText = `🎯 حصلت على ${score} نقطة بدقة ${accuracy} في مسابقة "باحثات التأسيس"!\n\nانضم إلى المسابقة على: ${window.location.origin}`;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'نتيجتي في مسابقة باحثات التأسيس',
-                    text: shareText,
-                    url: window.location.href
-                });
-            } else {
-                navigator.clipboard.writeText(shareText).then(() => {
-                    alert('تم نسخ النتيجة إلى الحافظة! يمكنك مشاركتها الآن.');
-                });
-            }
-        }
-        
-        function retakeQuiz() {
-            location.reload();
-        }
-        
-        function continueToLeaderboard() {
+        function restartQuiz() {
+            quiz = new SimpleQuiz();
             closeQuizResults();
-            competition.showSection('leaderboard');
         }
         
-        function viewPreviousResults() {
-            competition.showSection('achievements');
+        function toggleMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.toggle('active');
         }
+        
+        // إغلاق القائمة عند النقر على رابط
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-menu').classList.remove('active');
+            });
+        });
+        
+        // تهيئة المسابقة
+        let quiz;
+        document.addEventListener('DOMContentLoaded', () => {
+            quiz = new SimpleQuiz();
+            
+            // إضافة تأثير التمرير لشريط التنقل
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 100) {
+                    navbar.style.backgroundColor = 'rgba(107, 78, 69, 0.95)';
+                    navbar.style.backdropFilter = 'blur(10px)';
+                } else {
+                    navbar.style.backgroundColor = 'var(--primary-dark)';
+                    navbar.style.backdropFilter = 'none';
+                }
+            });
+        });
     </script>
 </body>
 </html>
