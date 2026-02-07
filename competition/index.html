@@ -67,6 +67,7 @@
             width: 100%;
             z-index: 1000;
             box-shadow: var(--shadow-medium);
+            transition: all 0.3s ease;
         }
 
         .nav-container {
@@ -677,6 +678,138 @@
             font-weight: 400 !important;
         }
 
+        /* ===== نافذة النتائج المحسنة للجوال ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            padding: 2rem;
+            position: relative;
+            box-shadow: var(--shadow-heavy);
+            overflow-y: auto;
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--gray);
+            z-index: 10;
+        }
+
+        .results-content {
+            padding: 0.5rem;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .results-header h2 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .results-header p {
+            color: var(--gray);
+        }
+
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--secondary-light);
+            border-radius: var(--border-radius);
+            min-width: 0;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .stat-info h3 {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .category-breakdown {
+            background-color: var(--secondary-light);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+        }
+
+        .category-breakdown h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .category-breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .category-breakdown-item {
+            background-color: var(--white);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            min-width: 0;
+        }
+
+        .results-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .results-actions .btn-primary,
+        .results-actions .btn-secondary {
+            padding: 12px 20px;
+            min-width: 160px;
+            flex: 1;
+            justify-content: center;
+        }
+
         /* ===== استمارة النتائج للطباعة ===== */
         #certificateTemplate {
             display: none;
@@ -694,11 +827,13 @@
         .certificate-content {
             max-width: 800px;
             margin: 0 auto;
-            padding: 3rem;
+            padding: 40px;
             background-color: var(--light-beige);
             border: 20px solid var(--primary-dark);
             position: relative;
             text-align: center;
+            min-height: 1056px; /* ارتفاع A4 */
+            box-sizing: border-box;
         }
 
         .certificate-header {
@@ -709,6 +844,7 @@
             color: var(--primary-dark);
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            line-height: 1.3;
         }
 
         .certificate-body {
@@ -749,14 +885,6 @@
             color: var(--black);
         }
 
-        .certificate-results {
-            background-color: var(--white);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            margin: 2rem 0;
-            border: 2px solid var(--primary-light);
-        }
-
         .certificate-footer {
             margin-top: 3rem;
             padding-top: 2rem;
@@ -765,113 +893,15 @@
 
         .certificate-actions {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             gap: 1rem;
             margin-top: 2rem;
         }
 
-        /* ===== التصميم المتجاوب ===== */
-        @media (max-width: 1024px) {
-            .competition-title {
-                font-size: 2.8rem;
-            }
-            
-            .competition-status {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .question-options {
-                grid-template-columns: 1fr;
-            }
-            
-            .certificate-content {
-                padding: 2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                width: 100%;
-                background-color: var(--primary-dark);
-                flex-direction: column;
-                padding: 1rem;
-                box-shadow: var(--shadow-medium);
-            }
-            
-            .nav-menu.active {
-                display: flex;
-            }
-            
-            .menu-toggle {
-                display: block;
-            }
-            
-            .competition-title {
-                font-size: 2.2rem;
-            }
-            
-            .competition-subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .competition-status {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-header {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-            
-            .quiz-actions {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .certificate-content {
-                padding: 1rem;
-                border: 10px solid var(--primary-dark);
-            }
-            
-            .certificate-header h2 {
-                font-size: 1.8rem;
-            }
-            
-            .certificate-body h3 {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .competition-title {
-                font-size: 1.8rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .categories-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .option-card {
-                padding: 1rem;
-            }
-            
-            .question-text {
-                font-size: 1.2rem;
-            }
-            
-            .certificate-content {
-                padding: 1rem;
-                border: 5px solid var(--primary-dark);
-            }
+        .certificate-actions button {
+            padding: 12px 24px;
+            min-width: 160px;
         }
 
         /* ===== إحصائيات الأسئلة ===== */
@@ -914,6 +944,184 @@
         .stat-item.geography { border-right: 4px solid #FF9800; }
         .stat-item.culture { border-right: 4px solid #9C27B0; }
         .stat-item.figures { border-right: 4px solid #F44336; }
+
+        /* ===== التصميم المتجاوب ===== */
+        @media (max-width: 1024px) {
+            .competition-title {
+                font-size: 2.8rem;
+            }
+            
+            .competition-status {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .question-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .certificate-content {
+                padding: 2rem;
+                border-width: 15px;
+            }
+            
+            .results-actions {
+                flex-direction: column;
+            }
+            
+            .results-actions .btn-primary,
+            .results-actions .btn-secondary {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                background-color: var(--primary-dark);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow-medium);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .competition-title {
+                font-size: 2.2rem;
+            }
+            
+            .competition-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .competition-status {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .quiz-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .certificate-content {
+                padding: 1.5rem;
+                border-width: 10px;
+                min-height: auto;
+            }
+            
+            .certificate-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .certificate-body h3 {
+                font-size: 1.5rem;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+                margin: 10px;
+            }
+            
+            .results-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-breakdown-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .certificate-actions {
+                flex-direction: column;
+            }
+            
+            .certificate-actions button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .competition-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .option-card {
+                padding: 1rem;
+            }
+            
+            .question-text {
+                font-size: 1.2rem;
+            }
+            
+            .certificate-content {
+                padding: 1rem;
+                border-width: 8px;
+            }
+            
+            .certificate-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .certificate-body h3 {
+                font-size: 1.3rem;
+            }
+            
+            .modal-content {
+                padding: 1rem;
+            }
+            
+            .stat-value {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ===== أنماط الطباعة ===== */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            
+            #certificateTemplate,
+            #certificateTemplate * {
+                visibility: visible;
+            }
+            
+            #certificateTemplate {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                padding: 0;
+                background: white;
+            }
+            
+            .certificate-actions {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1204,66 +1412,66 @@
         </div>
     </main>
 
-    <!-- نافذة نتائج الاختبار -->
-    <div id="quizResultsModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center;">
-        <div class="modal-content" style="background-color: var(--white); border-radius: var(--border-radius-lg); width: 90%; max-width: 600px; padding: 2rem; position: relative; box-shadow: var(--shadow-heavy);">
-            <span class="close" onclick="closeQuizResults()" style="position: absolute; top: 1rem; left: 1rem; font-size: 2rem; cursor: pointer; color: var(--gray);">&times;</span>
+    <!-- نافذة نتائج الاختبار - محسنة للجوال -->
+    <div id="quizResultsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeQuizResults()">&times;</span>
             
             <div class="results-content">
-                <div class="results-header" style="text-align: center; margin-bottom: 2rem;">
-                    <h2 style="color: var(--primary-dark); margin-bottom: 1rem;">🎉 انتهى الاختبار! 🎉</h2>
-                    <p style="color: var(--gray);">شكراً لمشاركتك في اختبار المعرفة</p>
+                <div class="results-header">
+                    <h2>🎉 انتهى الاختبار! 🎉</h2>
+                    <p>شكراً لمشاركتك في اختبار المعرفة</p>
                 </div>
                 
-                <div class="results-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-                    <div class="stat-card" style="text-align: center; padding: 1.5rem; background-color: var(--secondary-light); border-radius: var(--border-radius);">
-                        <div class="stat-icon" style="font-size: 2rem; color: var(--primary-dark); margin-bottom: 1rem;">
+                <div class="results-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
                             <i class="fas fa-check-circle"></i>
                         </div>
                         <div class="stat-info">
-                            <h3 style="color: var(--gray); font-size: 1rem; margin-bottom: 0.5rem;">الإجابات الصحيحة</h3>
-                            <p class="stat-value" id="resultsCorrect" style="font-size: 2rem; font-weight: 700; color: var(--primary-dark);">٠</p>
+                            <h3>الإجابات الصحيحة</h3>
+                            <p class="stat-value" id="resultsCorrect">٠</p>
                         </div>
                     </div>
                     
-                    <div class="stat-card" style="text-align: center; padding: 1.5rem; background-color: var(--secondary-light); border-radius: var(--border-radius);">
-                        <div class="stat-icon" style="font-size: 2rem; color: var(--primary-dark); margin-bottom: 1rem;">
+                    <div class="stat-card">
+                        <div class="stat-icon">
                             <i class="fas fa-percentage"></i>
                         </div>
                         <div class="stat-info">
-                            <h3 style="color: var(--gray); font-size: 1rem; margin-bottom: 0.5rem;">النسبة المئوية</h3>
-                            <p class="stat-value" id="resultsPercentage" style="font-size: 2rem; font-weight: 700; color: var(--primary-dark);">٠٪</p>
+                            <h3>النسبة المئوية</h3>
+                            <p class="stat-value" id="resultsPercentage">٠٪</p>
                         </div>
                     </div>
                     
-                    <div class="stat-card" style="text-align: center; padding: 1.5rem; background-color: var(--secondary-light); border-radius: var(--border-radius);">
-                        <div class="stat-icon" style="font-size: 2rem; color: var(--primary-dark); margin-bottom: 1rem;">
+                    <div class="stat-card">
+                        <div class="stat-icon">
                             <i class="fas fa-star"></i>
                         </div>
                         <div class="stat-info">
-                            <h3 style="color: var(--gray); font-size: 1rem; margin-bottom: 0.5rem;">التقييم</h3>
-                            <p class="stat-value" id="resultsRating" style="font-size: 2rem; font-weight: 700; color: var(--primary-dark);">--</p>
+                            <h3>التقييم</h3>
+                            <p class="stat-value" id="resultsRating">--</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="category-breakdown" style="background-color: var(--secondary-light); padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 2rem;">
-                    <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">تفصيل النتائج حسب الفئة</h3>
-                    <div id="categoryBreakdown" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <div class="category-breakdown">
+                    <h3>تفصيل النتائج حسب الفئة</h3>
+                    <div class="category-breakdown-grid" id="categoryBreakdown">
                         <!-- سيتم تعبئته ديناميكياً -->
                     </div>
                 </div>
                 
-                <div class="results-actions" style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2rem;">
-                    <button class="btn-primary" onclick="showCertificate()" style="padding: 12px 24px;">
+                <div class="results-actions">
+                    <button class="btn-primary" onclick="showCertificate()">
                         <i class="fas fa-certificate"></i> عرض الشهادة
                     </button>
                     
-                    <button class="btn-primary" onclick="restartQuiz()" style="padding: 12px 24px;">
+                    <button class="btn-primary" onclick="restartQuiz()">
                         <i class="fas fa-redo"></i> إعادة الاختبار
                     </button>
                     
-                    <button class="btn-secondary" onclick="closeQuizResults()" style="padding: 12px 24px;">
+                    <button class="btn-secondary" onclick="closeQuizResults()">
                         <i class="fas fa-times"></i> إغلاق
                     </button>
                 </div>
@@ -1271,12 +1479,13 @@
         </div>
     </div>
 
-    <!-- قالب الشهادة للطباعة -->
+    <!-- قالب الشهادة للطباعة - بدون قسم النتائج -->
     <div id="certificateTemplate">
         <div class="certificate-content">
             <div class="certificate-header">
                 <img src="https://www.foundingday.sa/-/media/FoundingDay/images/Header/Header-logo.svg" alt="شعار يوم التأسيس" style="height: 80px; margin-bottom: 1rem;">
-                <h2>شهادة مشاركة في مسابقة "باحثات التأسيس"</h2>
+                <h2>شهادة مشاركة في مسابقة"</h2>
+                <h2>"باحثات التأسيس"</h2>
                 <p>برعاية برنامج رحلة التأسيس</p>
             </div>
             
@@ -1304,26 +1513,6 @@
                 </div>
             </div>
             
-            <div class="certificate-results">
-                <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">النتيجة</h3>
-                <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 3rem; font-weight: 700; color: var(--primary-dark);" id="certificateScore">٠</div>
-                        <div style="color: var(--gray);">الإجابات الصحيحة</div>
-                    </div>
-                    
-                    <div style="text-align: center;">
-                        <div style="font-size: 3rem; font-weight: 700; color: var(--primary-dark);" id="certificatePercentage">٠٪</div>
-                        <div style="color: var(--gray);">النسبة المئوية</div>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--primary-light);">
-                    <h4 style="color: var(--primary-dark); margin-bottom: 1rem;">التقييم: <span id="certificateRating">--</span></h4>
-                    <p id="certificateMessage" style="color: var(--gray);">رسالة التقييم</p>
-                </div>
-            </div>
-            
             <div class="certificate-footer">
                 <p style="color: var(--gray); margin-bottom: 1rem;">تم إصدار هذه الشهادة إلكترونياً وتعتبر وثيقة رسمية للمشاركة</p>
                 <div style="display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--primary-light);">
@@ -1340,10 +1529,6 @@
             </div>
             
             <div class="certificate-actions">
-                <button class="btn-primary" onclick="printCertificate()" style="padding: 12px 24px;">
-                    <i class="fas fa-print"></i> طباعة الشهادة
-                </button>
-                
                 <button class="btn-primary" onclick="downloadCertificatePDF()" style="padding: 12px 24px;">
                     <i class="fas fa-download"></i> حفظ كـ PDF
                 </button>
@@ -1931,6 +2116,7 @@
                 
                 // عرض النافذة
                 document.getElementById('quizResultsModal').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
             }
             
             updateCategoryBreakdown() {
@@ -1941,7 +2127,7 @@
                     if (stats.total > 0) {
                         const catPercentage = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
                         html += `
-                            <div style="background-color: var(--white); padding: 1rem; border-radius: var(--border-radius);">
+                            <div class="category-breakdown-item">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
                                     <span style="font-weight: 600; color: var(--primary-dark);">${this.getCategoryName(category)}</span>
                                     <span style="color: var(--primary-dark);">${stats.correct}/${stats.total}</span>
@@ -1966,35 +2152,11 @@
                     return false;
                 }
                 
-                const correctAnswers = this.score;
-                const totalQuestions = this.questions.length;
-                const percentage = Math.round((correctAnswers / totalQuestions) * 100);
-                
-                // تحديد التقييم والرسالة
-                let rating, message;
-                if (percentage >= 90) {
-                    rating = "ممتاز";
-                    message = "مستوى رائع! معرفتك بتاريخ المملكة متميزة جداً وتستحق الإشادة.";
-                } else if (percentage >= 70) {
-                    rating = "جيد جداً";
-                    message = "أحسنت! لديك معرفة جيدة بتاريخ المملكة يمكنك البناء عليها.";
-                } else if (percentage >= 50) {
-                    rating = "جيد";
-                    message = "معرفتك مقبولة، ننصحك بزيارة المعارض التاريخية لتعزيز معلوماتك.";
-                } else {
-                    rating = "مقبول";
-                    message = "تحتاج لمزيد من التعلم عن تاريخ المملكة، ابدأ رحلتك التعليمية الآن.";
-                }
-                
-                // تحديث بيانات الشهادة
+                // تحديث بيانات الشهادة (بدون النتائج)
                 document.getElementById('certificateName').textContent = this.userData.name;
                 document.getElementById('certificateId').textContent = this.userData.trainingNumber;
                 document.getElementById('certificateDate').textContent = new Date().toLocaleDateString('ar-SA');
-                document.getElementById('certificateQuestions').textContent = totalQuestions;
-                document.getElementById('certificateScore').textContent = `${correctAnswers}/${totalQuestions}`;
-                document.getElementById('certificatePercentage').textContent = `${percentage}%`;
-                document.getElementById('certificateRating').textContent = rating;
-                document.getElementById('certificateMessage').textContent = message;
+                document.getElementById('certificateQuestions').textContent = this.questions.length;
                 
                 // إنشاء رمز شهادة فريد
                 const certificateCode = 'CERT-' + Date.now().toString().slice(-8) + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
@@ -2044,6 +2206,13 @@
                         }
                     });
                 });
+                
+                // إغلاق النافذة عند النقر خارجها
+                document.getElementById('quizResultsModal').addEventListener('click', (e) => {
+                    if (e.target === document.getElementById('quizResultsModal')) {
+                        closeQuizResults();
+                    }
+                });
             }
             
             showSection(sectionId) {
@@ -2064,59 +2233,86 @@
         
         function closeQuizResults() {
             document.getElementById('quizResultsModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
         
         function showCertificate() {
             if (quiz && quiz.prepareCertificate()) {
                 document.getElementById('certificateTemplate').style.display = 'block';
-                document.getElementById('quizResultsModal').style.display = 'none';
+                closeQuizResults();
+                document.body.style.overflow = 'hidden';
             }
         }
         
         function closeCertificate() {
             document.getElementById('certificateTemplate').style.display = 'none';
-        }
-        
-        function printCertificate() {
-            window.print();
+            document.body.style.overflow = 'auto';
         }
         
         async function downloadCertificatePDF() {
             const certificateElement = document.querySelector('.certificate-content');
             
             try {
-                // استخدام html2canvas لالتقاط الشهادة كصورة
+                // عرض مؤشر التحميل
+                const originalText = document.querySelector('.certificate-actions .btn-primary').innerHTML;
+                document.querySelector('.certificate-actions .btn-primary').innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحضير...';
+                document.querySelector('.certificate-actions .btn-primary').disabled = true;
+                
+                // استخدام html2canvas لالتقاط الشهادة كصورة مع جميع المحتويات
                 const canvas = await html2canvas(certificateElement, {
-                    scale: 2,
+                    scale: 3, // زيادة الدقة
                     backgroundColor: '#F8F4EF',
                     useCORS: true,
-                    allowTaint: true
+                    logging: false,
+                    allowTaint: true,
+                    onclone: function(clonedDoc) {
+                        // التأكد من أن جميع المحتويات مرئية في النسخة المستنسخة
+                        const clonedCert = clonedDoc.querySelector('.certificate-content');
+                        clonedCert.style.width = '794px'; // عرض A4 بالبكسل (210mm * 3.78)
+                        clonedCert.style.height = '1123px'; // ارتفاع A4 بالبكسل (297mm * 3.78)
+                        clonedCert.style.padding = '40px';
+                        clonedCert.style.border = '20px solid #6B4E45';
+                    }
                 });
                 
-                const imgData = canvas.toDataURL('image/png');
+                const imgData = canvas.toDataURL('image/jpeg', 1.0);
                 
-                // إنشاء ملف PDF
+                // إنشاء ملف PDF بمقاس A4
                 const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF('p', 'mm', 'a4');
+                const pdf = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+                
                 const pdfWidth = pdf.internal.pageSize.getWidth();
                 const pdfHeight = pdf.internal.pageSize.getHeight();
                 
-                // حساب أبعاد الصورة لتناسب الصفحة
+                // حساب أبعاد الصورة لتناسب الصفحة مع الاحتفاظ بالنسب
                 const imgWidth = pdfWidth - 20; // هامش 10 مم من كل جانب
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
                 
+                // حساب المركز العمودي
+                const yPosition = (pdfHeight - imgHeight) / 2;
+                
                 // إضافة الصورة إلى PDF
-                pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+                pdf.addImage(imgData, 'JPEG', 10, yPosition, imgWidth, imgHeight);
                 
                 // حفظ الملف
-                const fileName = `شهادة_مشاركة_${quiz.userData.name}_${Date.now()}.pdf`;
+                const fileName = `شهادة_مشاركة_${quiz.userData.name.replace(/\s+/g, '_')}_${Date.now()}.pdf`;
                 pdf.save(fileName);
                 
-                // عرض رسالة نجاح
-                alert('تم حفظ الشهادة كملف PDF بنجاح!');
+                // استعادة الزر إلى حالته الأصلية
+                document.querySelector('.certificate-actions .btn-primary').innerHTML = originalText;
+                document.querySelector('.certificate-actions .btn-primary').disabled = false;
+                
             } catch (error) {
                 console.error('Error generating PDF:', error);
                 alert('حدث خطأ أثناء حفظ الملف. يرجى المحاولة مرة أخرى.');
+                
+                // استعادة الزر في حالة الخطأ
+                document.querySelector('.certificate-actions .btn-primary').innerHTML = '<i class="fas fa-download"></i> حفظ كـ PDF';
+                document.querySelector('.certificate-actions .btn-primary').disabled = false;
             }
         }
         
@@ -2125,6 +2321,22 @@
                 quiz = new EnhancedQuiz();
                 closeQuizResults();
                 closeCertificate();
+                
+                // إعادة تعيين المتغيرات
+                quiz.currentQuestion = 0;
+                quiz.score = 0;
+                quiz.selectedAnswer = null;
+                quiz.quizCompleted = false;
+                quiz.categoryStats = {
+                    history: { correct: 0, total: 0 },
+                    heritage: { correct: 0, total: 0 },
+                    geography: { correct: 0, total: 0 },
+                    culture: { correct: 0, total: 0 },
+                    figures: { correct: 0, total: 0 }
+                };
+                
+                // إعادة تحميل السؤال الأول
+                quiz.displayCurrentQuestion();
             }
         }
         
@@ -2154,6 +2366,14 @@
                 } else {
                     navbar.style.backgroundColor = 'var(--primary-dark)';
                     navbar.style.backdropFilter = 'none';
+                }
+            });
+            
+            // إغلاق النوافذ عند الضغط على زر الهروب
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeQuizResults();
+                    closeCertificate();
                 }
             });
         });
