@@ -6,6 +6,8 @@
     <title>مسابقة باحثات التأسيس | رحلة التأسيس</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <style>
         /* ===== متغيرات الألوان للهوية الجديدة ===== */
@@ -337,7 +339,8 @@
             font-size: 1rem;
         }
 
-        .welcome-message {
+        /* ===== نموذج إدخال البيانات ===== */
+        .user-data-form {
             background-color: var(--secondary-light);
             padding: 1.5rem;
             border-radius: var(--border-radius);
@@ -345,17 +348,71 @@
             border-right: 4px solid var(--primary-dark);
         }
 
-        .welcome-message h4 {
+        .user-data-form h4 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            text-align: right;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
             color: var(--primary-dark);
             margin-bottom: 0.5rem;
+            font-weight: 600;
         }
 
-        .welcome-message p {
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--primary-light);
+            border-radius: var(--border-radius);
+            font-family: 'El Messiri', sans-serif;
+            font-size: 1rem;
+            background-color: var(--white);
+            color: var(--black);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-dark);
+        }
+
+        .form-note {
             color: var(--gray);
             font-size: 0.9rem;
-            line-height: 1.6;
+            margin-top: 1rem;
+            text-align: right;
+            font-style: italic;
         }
 
+        /* ===== رسائل التنبيه ===== */
+        .alert-message {
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            display: none;
+            text-align: right;
+        }
+
+        .alert-message.success {
+            background-color: rgba(76, 175, 80, 0.1);
+            border: 1px solid #4CAF50;
+            color: #2E7D32;
+        }
+
+        .alert-message.error {
+            background-color: rgba(244, 67, 54, 0.1);
+            border: 1px solid #F44336;
+            color: #C62828;
+        }
+
+        /* ===== الشريط الجانبي ===== */
         .sidebar-nav {
             background-color: var(--white);
             border-radius: var(--border-radius-lg);
@@ -620,6 +677,99 @@
             font-weight: 400 !important;
         }
 
+        /* ===== استمارة النتائج للطباعة ===== */
+        #certificateTemplate {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 3000;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .certificate-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem;
+            background-color: var(--light-beige);
+            border: 20px solid var(--primary-dark);
+            position: relative;
+            text-align: center;
+        }
+
+        .certificate-header {
+            margin-bottom: 2rem;
+        }
+
+        .certificate-header h2 {
+            color: var(--primary-dark);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .certificate-body {
+            margin: 3rem 0;
+        }
+
+        .certificate-body h3 {
+            color: var(--primary-dark);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .certificate-info {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+        }
+
+        .certificate-info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--primary-light);
+        }
+
+        .certificate-info-item:last-child {
+            border-bottom: none;
+        }
+
+        .certificate-info-label {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .certificate-info-value {
+            color: var(--black);
+        }
+
+        .certificate-results {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+            border: 2px solid var(--primary-light);
+        }
+
+        .certificate-footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--primary-light);
+        }
+
+        .certificate-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
         /* ===== التصميم المتجاوب ===== */
         @media (max-width: 1024px) {
             .competition-title {
@@ -632,6 +782,10 @@
             
             .question-options {
                 grid-template-columns: 1fr;
+            }
+            
+            .certificate-content {
+                padding: 2rem;
             }
         }
 
@@ -678,6 +832,19 @@
                 flex-direction: column;
                 gap: 1rem;
             }
+            
+            .certificate-content {
+                padding: 1rem;
+                border: 10px solid var(--primary-dark);
+            }
+            
+            .certificate-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .certificate-body h3 {
+                font-size: 1.5rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -700,7 +867,53 @@
             .question-text {
                 font-size: 1.2rem;
             }
+            
+            .certificate-content {
+                padding: 1rem;
+                border: 5px solid var(--primary-dark);
+            }
         }
+
+        /* ===== إحصائيات الأسئلة ===== */
+        .question-stats {
+            background-color: var(--secondary-light);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-top: 2rem;
+            border: 1px solid var(--primary-light);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+        }
+
+        .stat-item .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            display: block;
+        }
+
+        .stat-item .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .stat-item.history { border-right: 4px solid #4CAF50; }
+        .stat-item.heritage { border-right: 4px solid #2196F3; }
+        .stat-item.geography { border-right: 4px solid #FF9800; }
+        .stat-item.culture { border-right: 4px solid #9C27B0; }
+        .stat-item.figures { border-right: 4px solid #F44336; }
     </style>
 </head>
 <body>
@@ -735,8 +948,8 @@
                 <div class="status-card">
                     <i class="fas fa-question-circle"></i>
                     <div>
-                        <h4>أسئلة الاختبار</h4>
-                        <p>١٠ أسئلة</p>
+                        <h4>عدد الأسئلة</h4>
+                        <p>٤٠ سؤالاً</p>
                     </div>
                 </div>
                 
@@ -752,15 +965,15 @@
                     <i class="fas fa-award"></i>
                     <div>
                         <h4>نتيجة فورية</h4>
-                        <p>عرض النتيجة</p>
+                        <p>مع شهادة مشاركة</p>
                     </div>
                 </div>
                 
                 <div class="status-card">
                     <i class="fas fa-graduation-cap"></i>
                     <div>
-                        <h4>هدف المسابقة</h4>
-                        <p>التعليم فقط</p>
+                        <h4>فئات متنوعة</h4>
+                        <p>٥ فئات مختلفة</p>
                     </div>
                 </div>
             </div>
@@ -777,15 +990,35 @@
                         <div class="profile-header">
                             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="الصورة الشخصية" class="profile-avatar">
                             <div class="profile-info">
-                                <h3>زائر المسابقة</h3>
-                                <p class="profile-level">مرحباً بك في مسابقة المعرفة</p>
+                                <h3 id="userDisplayName">زائر المسابقة</h3>
+                                <p class="profile-level" id="userDisplayId">أدخل بياناتك للبدء</p>
                             </div>
                         </div>
                         
-                        <div class="welcome-message">
-                            <h4>معلومات عن المسابقة</h4>
-                            <p>هذه مسابقة تعليمية تهدف إلى اختبار معرفتك بتاريخ تأسيس المملكة العربية السعودية. يمكنك المشاركة دون تسجيل.</p>
+                        <div class="user-data-form">
+                            <h4>بيانات المتسابقة</h4>
+                            <div class="form-group">
+                                <label for="userName">الاسم الكامل:</label>
+                                <input type="text" id="userName" placeholder="أدخل اسمك الكامل">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="userTrainingNumber">الرقم التدريبي:</label>
+                                <input type="text" id="userTrainingNumber" placeholder="أدخل رقمك التدريبي">
+                            </div>
+                            
+                            <div class="form-group">
+                                <button class="btn-primary" onclick="saveUserData()" style="width: 100%;">
+                                    <i class="fas fa-save"></i> حفظ البيانات
+                                </button>
+                            </div>
+                            
+                            <div class="form-note">
+                                * سيظهر اسمك ورقمك على شهادة المشاركة
+                            </div>
                         </div>
+                        
+                        <div class="alert-message" id="dataAlert"></div>
                     </div>
                     
                     <nav class="sidebar-nav">
@@ -804,11 +1037,38 @@
                             معلومات عن المسابقة
                         </a>
                     </nav>
+                    
+                    <!-- إحصائيات الأسئلة -->
+                    <div class="question-stats">
+                        <h4>إحصائيات الأسئلة</h4>
+                        <div class="stats-grid">
+                            <div class="stat-item history">
+                                <span class="stat-number" id="historyCount">٨</span>
+                                <span class="stat-label">التاريخ</span>
+                            </div>
+                            <div class="stat-item heritage">
+                                <span class="stat-number" id="heritageCount">٨</span>
+                                <span class="stat-label">التراث</span>
+                            </div>
+                            <div class="stat-item geography">
+                                <span class="stat-number" id="geographyCount">٨</span>
+                                <span class="stat-label">الجغرافيا</span>
+                            </div>
+                            <div class="stat-item culture">
+                                <span class="stat-number" id="cultureCount">٨</span>
+                                <span class="stat-label">الثقافة</span>
+                            </div>
+                            <div class="stat-item figures">
+                                <span class="stat-number" id="figuresCount">٨</span>
+                                <span class="stat-label">الشخصيات</span>
+                            </div>
+                        </div>
+                    </div>
                 </aside>
                 
                 <!-- المحتوى الرئيسي -->
                 <div class="competition-content">
-                    <!-- الاختبار اليومي -->
+                    <!-- الاختبار التعليمي -->
                     <section id="dailyQuiz" class="content-section active">
                         <div class="section-header">
                             <h2>الاختبار التعليمي</h2>
@@ -822,7 +1082,7 @@
                                 <div class="progress-bar">
                                     <div class="progress-fill" id="quizProgress" style="width: 0%"></div>
                                 </div>
-                                <span class="progress-text">السؤال <span id="currentQuestion">١</span> من ١٠</span>
+                                <span class="progress-text">السؤال <span id="currentQuestion">١</span> من ٤٠</span>
                             </div>
                             
                             <div class="quiz-question" id="quizQuestion">
@@ -846,19 +1106,31 @@
                                 <div class="category-card">
                                     <i class="fas fa-landmark"></i>
                                     <span>التاريخ</span>
-                                    <span class="questions-left">٥ أسئلة</span>
+                                    <span class="questions-left">٨ أسئلة</span>
                                 </div>
                                 
                                 <div class="category-card">
                                     <i class="fas fa-archway"></i>
                                     <span>التراث</span>
-                                    <span class="questions-left">٣ أسئلة</span>
+                                    <span class="questions-left">٨ أسئلة</span>
                                 </div>
                                 
                                 <div class="category-card">
                                     <i class="fas fa-map"></i>
                                     <span>الجغرافيا</span>
-                                    <span class="questions-left">٢ أسئلة</span>
+                                    <span class="questions-left">٨ أسئلة</span>
+                                </div>
+                                
+                                <div class="category-card">
+                                    <i class="fas fa-music"></i>
+                                    <span>الثقافة</span>
+                                    <span class="questions-left">٨ أسئلة</span>
+                                </div>
+                                
+                                <div class="category-card">
+                                    <i class="fas fa-users"></i>
+                                    <span>الشخصيات</span>
+                                    <span class="questions-left">٨ أسئلة</span>
                                 </div>
                             </div>
                         </div>
@@ -874,25 +1146,31 @@
                             <div class="category-card">
                                 <i class="fas fa-landmark"></i>
                                 <span>التاريخ</span>
-                                <p>أسئلة حول الأحداث التاريخية لتأسيس المملكة</p>
+                                <p>أسئلة حول الأحداث التاريخية لتأسيس المملكة عبر العصور</p>
                             </div>
                             
                             <div class="category-card">
                                 <i class="fas fa-archway"></i>
                                 <span>التراث</span>
-                                <p>أسئلة حول التراث الثقافي والحضاري</p>
+                                <p>أسئلة حول التراث الثقافي والحضاري السعودي</p>
                             </div>
                             
                             <div class="category-card">
                                 <i class="fas fa-map"></i>
                                 <span>الجغرافيا</span>
-                                <p>أسئلة حول المواقع الجغرافية المهمة</p>
+                                <p>أسئلة حول المواقع الجغرافية والمناطق المهمة</p>
+                            </div>
+                            
+                            <div class="category-card">
+                                <i class="fas fa-music"></i>
+                                <span>الثقافة</span>
+                                <p>أسئلة حول الفنون والعادات والتقاليد السعودية</p>
                             </div>
                             
                             <div class="category-card">
                                 <i class="fas fa-users"></i>
                                 <span>الشخصيات</span>
-                                <p>أسئلة حول الشخصيات المؤثرة في التأسيس</p>
+                                <p>أسئلة حول الشخصيات المؤثرة في تاريخ المملكة</p>
                             </div>
                         </div>
                     </section>
@@ -903,17 +1181,22 @@
                             <h2>معلومات عن المسابقة</h2>
                         </div>
                         
-                        <div class="welcome-message" style="margin-bottom: 2rem;">
-                            <h4>هدف المسابقة</h4>
-                            <p>تهدف هذه المسابقة إلى نشر المعرفة بتاريخ تأسيس المملكة العربية السعودية بطريقة تفاعلية وتعليمية. يمكن للجميع المشاركة دون الحاجة إلى تسجيل أو الحصول على نقاط.</p>
+                        <div class="user-data-form" style="margin-bottom: 2rem;">
+                            <h4>مميزات المسابقة</h4>
+                            <p>١. ٤٠ سؤالاً متنوعاً في ٥ فئات مختلفة</p>
+                            <p>٢. تغطية شاملة لتاريخ المملكة منذ التأسيس</p>
+                            <p>٣. نتيجة فورية مع تحليل للأجوبة</p>
+                            <p>٤. شهادة مشاركة قابلة للطباعة</p>
+                            <p>٥. لا تحتاج إلى تسجيل أو حفظ بيانات</p>
                         </div>
                         
-                        <div class="welcome-message">
+                        <div class="user-data-form">
                             <h4>كيفية المشاركة</h4>
-                            <p>١. اختر الإجابة الصحيحة لكل سؤال<br>
-                               ٢. انتقل للسؤال التالي بعد الإجابة<br>
-                               ٣. شاهد النتيجة النهائية في نهاية الاختبار<br>
-                               ٤. يمكنك إعادة الاختبار متى شئت</p>
+                            <p>١. أدخل اسمك ورقمك التدريبي في الشريط الجانبي</p>
+                            <p>٢. اضغط على "حفظ البيانات"</p>
+                            <p>٣. ابدأ بالإجابة على الأسئلة</p>
+                            <p>٤. بعد الانتهاء، اضغط على "طباعة الشهادة"</p>
+                            <p>٥. احفظ الشهادة كملف PDF لمشاركتها</p>
                         </div>
                     </section>
                 </div>
@@ -923,7 +1206,7 @@
 
     <!-- نافذة نتائج الاختبار -->
     <div id="quizResultsModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center;">
-        <div class="modal-content" style="background-color: var(--white); border-radius: var(--border-radius-lg); width: 90%; max-width: 500px; padding: 2rem; position: relative; box-shadow: var(--shadow-heavy);">
+        <div class="modal-content" style="background-color: var(--white); border-radius: var(--border-radius-lg); width: 90%; max-width: 600px; padding: 2rem; position: relative; box-shadow: var(--shadow-heavy);">
             <span class="close" onclick="closeQuizResults()" style="position: absolute; top: 1rem; left: 1rem; font-size: 2rem; cursor: pointer; color: var(--gray);">&times;</span>
             
             <div class="results-content">
@@ -952,9 +1235,30 @@
                             <p class="stat-value" id="resultsPercentage" style="font-size: 2rem; font-weight: 700; color: var(--primary-dark);">٠٪</p>
                         </div>
                     </div>
+                    
+                    <div class="stat-card" style="text-align: center; padding: 1.5rem; background-color: var(--secondary-light); border-radius: var(--border-radius);">
+                        <div class="stat-icon" style="font-size: 2rem; color: var(--primary-dark); margin-bottom: 1rem;">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 style="color: var(--gray); font-size: 1rem; margin-bottom: 0.5rem;">التقييم</h3>
+                            <p class="stat-value" id="resultsRating" style="font-size: 2rem; font-weight: 700; color: var(--primary-dark);">--</p>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="results-actions" style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                <div class="category-breakdown" style="background-color: var(--secondary-light); padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 2rem;">
+                    <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">تفصيل النتائج حسب الفئة</h3>
+                    <div id="categoryBreakdown" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <!-- سيتم تعبئته ديناميكياً -->
+                    </div>
+                </div>
+                
+                <div class="results-actions" style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                    <button class="btn-primary" onclick="showCertificate()" style="padding: 12px 24px;">
+                        <i class="fas fa-certificate"></i> عرض الشهادة
+                    </button>
+                    
                     <button class="btn-primary" onclick="restartQuiz()" style="padding: 12px 24px;">
                         <i class="fas fa-redo"></i> إعادة الاختبار
                     </button>
@@ -967,28 +1271,180 @@
         </div>
     </div>
 
+    <!-- قالب الشهادة للطباعة -->
+    <div id="certificateTemplate">
+        <div class="certificate-content">
+            <div class="certificate-header">
+                <img src="https://www.foundingday.sa/-/media/FoundingDay/images/Header/Header-logo.svg" alt="شعار يوم التأسيس" style="height: 80px; margin-bottom: 1rem;">
+                <h2>شهادة مشاركة في مسابقة "باحثات التأسيس"</h2>
+                <p>برعاية برنامج رحلة التأسيس</p>
+            </div>
+            
+            <div class="certificate-body">
+                <h3>تهانينا!</h3>
+                <p>تسلم هذه الشهادة إلى</p>
+                <h2 id="certificateName" style="color: var(--primary-dark); margin: 1rem 0; padding: 1rem; background-color: rgba(222, 201, 178, 0.3); border-radius: var(--border-radius);">الاسم الكامل</h2>
+                <p>لمشاركتها في اختبار المعرفة بتاريخ تأسيس المملكة العربية السعودية</p>
+            </div>
+            
+            <div class="certificate-info">
+                <div class="certificate-info-item">
+                    <span class="certificate-info-label">الرقم التدريبي:</span>
+                    <span class="certificate-info-value" id="certificateId">---</span>
+                </div>
+                
+                <div class="certificate-info-item">
+                    <span class="certificate-info-label">تاريخ المشاركة:</span>
+                    <span class="certificate-info-value" id="certificateDate">---</span>
+                </div>
+                
+                <div class="certificate-info-item">
+                    <span class="certificate-info-label">عدد الأسئلة:</span>
+                    <span class="certificate-info-value" id="certificateQuestions">٠</span>
+                </div>
+            </div>
+            
+            <div class="certificate-results">
+                <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">النتيجة</h3>
+                <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; font-weight: 700; color: var(--primary-dark);" id="certificateScore">٠</div>
+                        <div style="color: var(--gray);">الإجابات الصحيحة</div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; font-weight: 700; color: var(--primary-dark);" id="certificatePercentage">٠٪</div>
+                        <div style="color: var(--gray);">النسبة المئوية</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--primary-light);">
+                    <h4 style="color: var(--primary-dark); margin-bottom: 1rem;">التقييم: <span id="certificateRating">--</span></h4>
+                    <p id="certificateMessage" style="color: var(--gray);">رسالة التقييم</p>
+                </div>
+            </div>
+            
+            <div class="certificate-footer">
+                <p style="color: var(--gray); margin-bottom: 1rem;">تم إصدار هذه الشهادة إلكترونياً وتعتبر وثيقة رسمية للمشاركة</p>
+                <div style="display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--primary-light);">
+                    <div style="text-align: center;">
+                        <div style="font-weight: 600; color: var(--primary-dark);">مدير المسابقة</div>
+                        <div style="color: var(--gray); font-size: 0.9rem;">برنامج رحلة التأسيس</div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="font-weight: 600; color: var(--primary-dark);">رمز الشهادة</div>
+                        <div style="color: var(--gray); font-size: 0.9rem;" id="certificateCode">---</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="certificate-actions">
+                <button class="btn-primary" onclick="printCertificate()" style="padding: 12px 24px;">
+                    <i class="fas fa-print"></i> طباعة الشهادة
+                </button>
+                
+                <button class="btn-primary" onclick="downloadCertificatePDF()" style="padding: 12px 24px;">
+                    <i class="fas fa-download"></i> حفظ كـ PDF
+                </button>
+                
+                <button class="btn-secondary" onclick="closeCertificate()" style="padding: 12px 24px;">
+                    <i class="fas fa-times"></i> إغلاق
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // ===== إدارة المسابقة بدون تسجيل =====
-        class SimpleQuiz {
+        // ===== إدارة المسابقة مع بيانات المستخدم =====
+        class EnhancedQuiz {
             constructor() {
                 this.questions = [];
                 this.currentQuestion = 0;
                 this.score = 0;
                 this.selectedAnswer = null;
                 this.quizCompleted = false;
+                this.userData = {
+                    name: '',
+                    trainingNumber: '',
+                    saved: false
+                };
+                this.categoryStats = {
+                    history: { correct: 0, total: 0 },
+                    heritage: { correct: 0, total: 0 },
+                    geography: { correct: 0, total: 0 },
+                    culture: { correct: 0, total: 0 },
+                    figures: { correct: 0, total: 0 }
+                };
                 
                 this.init();
             }
             
             init() {
                 this.loadQuestions();
+                this.loadUserData();
                 this.setupEventListeners();
-                this.displayCurrentQuestion();
+                this.updateCategoryCounts();
+                
+                // تحميل الأسئلة عند الضغط على الاختبار
+                if (document.getElementById('dailyQuiz').classList.contains('active')) {
+                    this.displayCurrentQuestion();
+                }
+            }
+            
+            loadUserData() {
+                const savedData = localStorage.getItem('quizUserData');
+                if (savedData) {
+                    this.userData = JSON.parse(savedData);
+                    this.updateUserDisplay();
+                }
+            }
+            
+            saveUserData() {
+                const name = document.getElementById('userName').value.trim();
+                const trainingNumber = document.getElementById('userTrainingNumber').value.trim();
+                
+                if (!name || !trainingNumber) {
+                    this.showAlert('يرجى إدخال الاسم والرقم التدريبي', 'error');
+                    return false;
+                }
+                
+                this.userData = {
+                    name: name,
+                    trainingNumber: trainingNumber,
+                    saved: true
+                };
+                
+                localStorage.setItem('quizUserData', JSON.stringify(this.userData));
+                this.updateUserDisplay();
+                this.showAlert('تم حفظ البيانات بنجاح! يمكنك الآن بدء الاختبار', 'success');
+                return true;
+            }
+            
+            updateUserDisplay() {
+                if (this.userData.saved) {
+                    document.getElementById('userDisplayName').textContent = this.userData.name;
+                    document.getElementById('userDisplayId').textContent = `الرقم: ${this.userData.trainingNumber}`;
+                    document.getElementById('userName').value = this.userData.name;
+                    document.getElementById('userTrainingNumber').value = this.userData.trainingNumber;
+                }
+            }
+            
+            showAlert(message, type) {
+                const alertDiv = document.getElementById('dataAlert');
+                alertDiv.textContent = message;
+                alertDiv.className = `alert-message ${type}`;
+                alertDiv.style.display = 'block';
+                
+                setTimeout(() => {
+                    alertDiv.style.display = 'none';
+                }, 5000);
             }
             
             loadQuestions() {
-                // أسئلة ثابتة عن تاريخ التأسيس
+                // 40 سؤالاً متنوعاً في 5 فئات
                 this.questions = [
+                    // فئة التاريخ (8 أسئلة)
                     {
                         id: 1,
                         question: "في أي عام تأسست الدولة السعودية الأولى؟",
@@ -1007,14 +1463,6 @@
                     },
                     {
                         id: 3,
-                        question: "ما هي عاصمة الدولة السعودية الأولى؟",
-                        options: ["الرياض", "الدرعية", "مكة المكرمة", "جدة"],
-                        correct: 1,
-                        category: "geography",
-                        explanation: "الدرعية كانت عاصمة الدولة السعودية الأولى."
-                    },
-                    {
-                        id: 4,
                         question: "في أي عام تم توحيد المملكة العربية السعودية؟",
                         options: ["١٩٠٢م", "١٩٢٦م", "١٩٣٢م", "١٩٣٨م"],
                         correct: 2,
@@ -1022,54 +1470,332 @@
                         explanation: "تم توحيد المملكة العربية السعودية عام ١٩٣٢م."
                     },
                     {
-                        id: 5,
-                        question: "من الذي استعاد الرياض عام ١٩٠٢م؟",
-                        options: ["الملك سعود", "الملك عبدالعزيز", "الإمام تركي", "الملك فيصل"],
-                        correct: 1,
+                        id: 4,
+                        question: "متى انتهت الدولة السعودية الأولى؟",
+                        options: ["١٨١٨م", "١٨٢٤م", "١٨٣٤م", "١٨٤٠م"],
+                        correct: 0,
                         category: "history",
-                        explanation: "الملك عبدالعزيز استعاد الرياض عام ١٩٠٢م."
+                        explanation: "انتهت الدولة السعودية الأولى عام ١٨١٨م بعد سقوط الدرعية."
+                    },
+                    {
+                        id: 5,
+                        question: "كم دامت الدولة السعودية الثانية؟",
+                        options: ["٤٥ سنة", "٥٨ سنة", "٦٧ سنة", "٧٢ سنة"],
+                        correct: 3,
+                        category: "history",
+                        explanation: "دامت الدولة السعودية الثانية من ١٨٢٤م إلى ١٨٩١م (حوالي ٦٧ سنة)."
                     },
                     {
                         id: 6,
-                        question: "أي من هذه المدن تقع في منطقة نجد؟",
-                        options: ["جدة", "الدمام", "الرياض", "أبها"],
-                        correct: 2,
-                        category: "geography",
-                        explanation: "الرياض تقع في منطقة نجد."
+                        question: "متى تم اكتشاف النفط في السعودية تجارياً؟",
+                        options: ["١٩٣٣م", "١٩٣٨م", "١٩٤٥م", "١٩٥٠م"],
+                        correct: 1,
+                        category: "history",
+                        explanation: "تم اكتشاف النفط تجارياً في السعودية عام ١٩٣٨م في بئر الدمام رقم ٧."
                     },
                     {
                         id: 7,
-                        question: "ما هو التراث المعتمد في الهوية السعودية؟",
-                        options: ["التراث البدوي فقط", "التراث الحضري فقط", "مزيج من التراث البدوي والحضري", "لا يوجد تراث محدد"],
-                        correct: 2,
-                        category: "heritage",
-                        explanation: "الهوية السعودية تجمع بين التراث البدوي والحضري."
+                        question: "في أي عام تم تأسيس مجلس الشورى؟",
+                        options: ["١٩٢٧م", "١٩٣٢م", "١٩٥٣م", "١٩٩٢م"],
+                        correct: 0,
+                        category: "history",
+                        explanation: "تم تأسيس مجلس الشورى عام ١٩٢٧م في عهد الملك عبدالعزيز."
                     },
                     {
                         id: 8,
-                        question: "متى تم اكتشاف النفط في السعودية؟",
-                        options: ["١٩٣٠م", "١٩٣٨م", "١٩٤٥م", "١٩٥٠م"],
+                        question: "متى صدر النظام الأساسي للحكم؟",
+                        options: ["١٩٩٠م", "١٩٩٢م", "٢٠٠٠م", "٢٠٠٥م"],
                         correct: 1,
                         category: "history",
-                        explanation: "تم اكتشاف النفط في السعودية عام ١٩٣٨م."
+                        explanation: "صدر النظام الأساسي للحكم عام ١٩٩٢م في عهد الملك فهد."
                     },
+                    
+                    // فئة التراث (8 أسئلة)
                     {
                         id: 9,
-                        question: "ما هو العلم السعودي؟",
-                        options: ["أخضر بهلال أبيض", "أخضر بسيفين ونخلة", "أخضر بكلمة التوحيد وسيف", "أحمر بمربع أخضر"],
-                        correct: 2,
+                        question: "ما هو أبرز فن معماري في منطقة نجد؟",
+                        options: ["الطين والمدر", "الحجر المنحوت", "الخشب المنقوش", "الطوب الأحمر"],
+                        correct: 0,
                         category: "heritage",
-                        explanation: "العلم السعودي أخضر ويتوسطه كلمة التوحيد وسيف."
+                        explanation: "الطين والمدر هو الأسلوب المعماري السائد في منطقة نجد."
                     },
                     {
                         id: 10,
-                        question: "من هو أول ملك للسعودية؟",
+                        question: "ما هو أشهر أنواع الفنون الشعبية في المنطقة الجنوبية؟",
+                        options: ["العرضة", "المجالس", "الخطوة", "الرقصة الجنوبية"],
+                        correct: 3,
+                        category: "heritage",
+                        explanation: "الرقصة الجنوبية (المزمار) هي أشهر فن شعبي في المنطقة الجنوبية."
+                    },
+                    {
+                        id: 11,
+                        question: "ما هو الزي التقليدي للرجال في السعودية؟",
+                        options: ["الدشداشة", "الثوب السعودي", "العباءة", "الشماغ والثوب"],
+                        correct: 3,
+                        category: "heritage",
+                        explanation: "الزي التقليدي للرجال هو الثوب مع الشماغ أو الغترة والعقال."
+                    },
+                    {
+                        id: 12,
+                        question: "أي من هذه الأكلات تعتبر من التراث السعودي؟",
+                        options: ["الكبسة", "المنسف", "المقلوبة", "الفتة"],
+                        correct: 0,
+                        category: "heritage",
+                        explanation: "الكبسة هي الطبق الوطني السعودي وتعتبر من التراث الغذائي."
+                    },
+                    {
+                        id: 13,
+                        question: "ما هو أشهر سوق تراثي في الرياض؟",
+                        options: ["سوق العثيم", "سوق الزل", "سوق الحب", "سوق الديرة"],
+                        correct: 1,
+                        category: "heritage",
+                        explanation: "سوق الزل هو أشهر الأسواق التراثية في الرياض."
+                    },
+                    {
+                        id: 14,
+                        question: "أي من هذه الحرف اليدوية تشتهر بها منطقة الأحساء؟",
+                        options: ["صناعة الفخار", "صناعة الخوص", "صناعة السدو", "صناعة الحلي"],
+                        correct: 1,
+                        category: "heritage",
+                        explanation: "صناعة الخوص (من سعف النخيل) تشتهر بها منطقة الأحساء."
+                    },
+                    {
+                        id: 15,
+                        question: "ما هو أسلوب بناء القصور القديمة في الدرعية؟",
+                        options: ["النظام الدفاعي", "النظام المائي", "النظام البيئي", "النظام الاجتماعي"],
+                        correct: 0,
+                        category: "heritage",
+                        explanation: "بنيت قصور الدرعية بنظام دفاعي متكامل لحماية المدينة."
+                    },
+                    {
+                        id: 16,
+                        question: "أي من هذه المهرجانات تراثي بحت؟",
+                        options: ["مهرجان الجنادرية", "مهرجان الرياض", "مهرجان جدة", "مهرجان الدمام"],
+                        correct: 0,
+                        category: "heritage",
+                        explanation: "مهرجان الجنادرية هو المهرجان الوطني للتراث والثقافة."
+                    },
+                    
+                    // فئة الجغرافيا (8 أسئلة)
+                    {
+                        id: 17,
+                        question: "ما هي أكبر منطقة في السعودية من حيث المساحة؟",
+                        options: ["الرياض", "الشرقية", "مكة المكرمة", "الحدود الشمالية"],
+                        correct: 1,
+                        category: "geography",
+                        explanation: "المنطقة الشرقية هي الأكبر مساحة في السعودية."
+                    },
+                    {
+                        id: 18,
+                        question: "أي من هذه الجزر تابعة للسعودية؟",
+                        options: ["فرسان", "البحرين", "قشم", "سقطرى"],
+                        correct: 0,
+                        category: "geography",
+                        explanation: "جزر فرسان تابعة للمملكة وتقع في البحر الأحمر."
+                    },
+                    {
+                        id: 19,
+                        question: "ما هو أعلى جبل في السعودية؟",
+                        options: ["جبل السودة", "جبل اللوز", "جبل فرواع", "جبل شدا"],
+                        correct: 0,
+                        category: "geography",
+                        explanation: "جبل السودة في عسير هو أعلى قمة في السعودية بارتفاع ٣٠٠٠م."
+                    },
+                    {
+                        id: 20,
+                        question: "أين تقع محمية الملك سلمان؟",
+                        options: ["الربع الخالي", "الرياض", "تبوك", "حائل"],
+                        correct: 0,
+                        category: "geography",
+                        explanation: "محمية الملك سلمان تقع في الربع الخالي."
+                    },
+                    {
+                        id: 21,
+                        question: "ما هو أطول وادي في السعودية؟",
+                        options: ["وادي حنيفة", "وادي الدواسر", "وادي الرمة", "وادي بيشة"],
+                        correct: 2,
+                        category: "geography",
+                        explanation: "وادي الرمة هو أطول وادي في السعودية بطول ٦٠٠ كم."
+                    },
+                    {
+                        id: 22,
+                        question: "أين تقع أقدم بئر نفط في السعودية؟",
+                        options: ["الظهران", "بقيق", "حرض", "خفجي"],
+                        correct: 0,
+                        category: "geography",
+                        explanation: "أقدم بئر نفط هو بئر الدمام رقم ٧ في الظهران."
+                    },
+                    {
+                        id: 23,
+                        question: "ما هو البحر الذي يحد السعودية من الغرب؟",
+                        options: ["الخليج العربي", "البحر الأحمر", "بحر العرب", "البحر الأبيض المتوسط"],
+                        correct: 1,
+                        category: "geography",
+                        explanation: "البحر الأحمر يحد السعودية من الغرب."
+                    },
+                    {
+                        id: 24,
+                        question: "أين تقع مدينة الجبيل الصناعية؟",
+                        options: ["المنطقة الشرقية", "الرياض", "مكة المكرمة", "المدينة المنورة"],
+                        correct: 0,
+                        category: "geography",
+                        explanation: "الجبيل الصناعية تقع في المنطقة الشرقية."
+                    },
+                    
+                    // فئة الثقافة (8 أسئلة)
+                    {
+                        id: 25,
+                        question: "ما هو الفن الشعبي الذي تم إدراجه في اليونسكو؟",
+                        options: ["العرضة النجدية", "المزمار", "الخط العربي", "القهوة العربية"],
+                        correct: 0,
+                        category: "culture",
+                        explanation: "العرضة النجدية أدرجت في قائمة التراث الثقافي غير المادي لليونسكو."
+                    },
+                    {
+                        id: 26,
+                        question: "ما هو أكثر أنواع التمر شيوعاً في السعودية؟",
+                        options: ["الخلاص", "الصفري", "الروثانة", "النبوت سيف"],
+                        correct: 0,
+                        category: "culture",
+                        explanation: "تمر الخلاص هو الأكثر شيوعاً وطلباً في السعودية."
+                    },
+                    {
+                        id: 27,
+                        question: "ما هو الهدف من برنامج جودة الحياة؟",
+                        options: ["تحسين الخدمات", "تعزيز السياحة", "تحسين نمط حياة المواطنين", "كل ما سبق"],
+                        correct: 3,
+                        category: "culture",
+                        explanation: "برنامج جودة الحياة يهدف لتحسين نمط حياة المواطنين وتعزيز السياحة والخدمات."
+                    },
+                    {
+                        id: 28,
+                        question: "ما هي رؤية السعودية 2030؟",
+                        options: ["برنامج تنموي", "رؤية اقتصادية", "خطة مستقبلية شاملة", "جميع ما سبق"],
+                        correct: 3,
+                        category: "culture",
+                        explanation: "رؤية 2030 هي خطة مستقبلية شاملة لتطوير جميع جوانب الحياة في السعودية."
+                    },
+                    {
+                        id: 29,
+                        question: "ما هو برنامج التحول الوطني؟",
+                        options: ["برنامج اقتصادي", "برنامج تنموي", "برنامج إصلاحي", "جميع ما سبق"],
+                        correct: 3,
+                        category: "culture",
+                        explanation: "برنامج التحول الوطني يهدف للإصلاح الاقتصادي والتنموي."
+                    },
+                    {
+                        id: 30,
+                        question: "ما هو مشروع نيوم؟",
+                        options: ["مدينة صناعية", "مدينة ذكية", "منطقة اقتصادية خاصة", "جميع ما سبق"],
+                        correct: 3,
+                        category: "culture",
+                        explanation: "نيوم هي مدينة ذكية ومنطقة اقتصادية خاصة."
+                    },
+                    {
+                        id: 31,
+                        question: "ما هو أسلوب تقديم القهوة العربية التقليدي؟",
+                        options: ["من اليمين لليسار", "من اليسار لليمين", "من الكبير للصغير", "من المضيف للضيف أولاً"],
+                        correct: 0,
+                        category: "culture",
+                        explanation: "تقدم القهوة العربية تقليدياً بدءاً من اليمين إلى اليسار."
+                    },
+                    {
+                        id: 32,
+                        question: "ما هو موسم الحصاد في منطقة عسير؟",
+                        options: ["موسم القيظ", "موسم الوسم", "موسم الصيف", "موسم الخريف"],
+                        correct: 1,
+                        category: "culture",
+                        explanation: "موسم الوسم هو موسم الحصاد في منطقة عسير."
+                    },
+                    
+                    // فئة الشخصيات (8 أسئلة)
+                    {
+                        id: 33,
+                        question: "من هو مؤسس الدولة السعودية الأولى؟",
+                        options: ["الإمام محمد بن سعود", "الإمام تركي بن عبدالله", "الملك عبدالعزيز", "الإمام فيصل بن تركي"],
+                        correct: 0,
+                        category: "figures",
+                        explanation: "الإمام محمد بن سعود هو مؤسس الدولة السعودية الأولى عام ١٧٢٧م."
+                    },
+                    {
+                        id: 34,
+                        question: "من هو موحد المملكة العربية السعودية؟",
                         options: ["الملك سعود", "الملك فيصل", "الملك عبدالعزيز", "الملك خالد"],
                         correct: 2,
-                        category: "history",
-                        explanation: "الملك عبدالعزيز هو أول ملك للسعودية."
+                        category: "figures",
+                        explanation: "الملك عبدالعزيز بن عبدالرحمن آل سعود هو موحد المملكة."
+                    },
+                    {
+                        id: 35,
+                        question: "من هو الملك الذي أمر ببناء سكك حديد الحجاز؟",
+                        options: ["الملك عبدالعزيز", "السلطان عبدالحميد", "الملك فيصل", "الملك سعود"],
+                        correct: 1,
+                        category: "figures",
+                        explanation: "السلطان العثماني عبدالحميد الثاني أمر ببناء سكك حديد الحجاز."
+                    },
+                    {
+                        id: 36,
+                        question: "من هو مؤسس الدولة السعودية الثانية؟",
+                        options: ["الإمام تركي بن عبدالله", "الإمام فيصل بن تركي", "الإمام عبدالله بن فيصل", "الإمام سعود بن فيصل"],
+                        correct: 0,
+                        category: "figures",
+                        explanation: "الإمام تركي بن عبدالله هو مؤسس الدولة السعودية الثانية عام ١٨٢٤م."
+                    },
+                    {
+                        id: 37,
+                        question: "من هو الملك الذي افتتح جامعة الملك سعود؟",
+                        options: ["الملك سعود", "الملك فيصل", "الملك خالد", "الملك فهد"],
+                        correct: 0,
+                        category: "figures",
+                        explanation: "الملك سعود بن عبدالعزيز افتتح جامعة الملك سعود عام ١٩٥٧م."
+                    },
+                    {
+                        id: 38,
+                        question: "من هو القائد الذي استعاد الرياض عام ١٩٠٢م؟",
+                        options: ["الملك سعود", "الملك عبدالعزيز", "الإمام تركي", "الأمير محمد بن سعود"],
+                        correct: 1,
+                        category: "figures",
+                        explanation: "الملك عبدالعزيز استعاد الرياض عام ١٩٠٢م بمعركة تاريخية."
+                    },
+                    {
+                        id: 39,
+                        question: "من هو أول وزير للدفاع في السعودية؟",
+                        options: ["الأمير سلطان بن عبدالعزيز", "الأمير مشعل بن عبدالعزيز", "الأمير منصور بن عبدالعزيز", "الأمير عبدالله بن عبدالعزيز"],
+                        correct: 0,
+                        category: "figures",
+                        explanation: "الأمير سلطان بن عبدالعزيز كان أول وزير للدفاع في السعودية."
+                    },
+                    {
+                        id: 40,
+                        question: "من هو الملك الذي أمر ببناء مطار الملك خالد الدولي؟",
+                        options: ["الملك فيصل", "الملك خالد", "الملك فهد", "الملك عبدالله"],
+                        correct: 1,
+                        category: "figures",
+                        explanation: "الملك خالد بن عبدالعزيز أمر ببناء مطار الملك خالد الدولي في الرياض."
                     }
                 ];
+            }
+            
+            updateCategoryCounts() {
+                // حساب عدد الأسئلة في كل فئة
+                const counts = {
+                    history: 0,
+                    heritage: 0,
+                    geography: 0,
+                    culture: 0,
+                    figures: 0
+                };
+                
+                this.questions.forEach(q => {
+                    counts[q.category]++;
+                });
+                
+                // تحديث العرض
+                document.getElementById('historyCount').textContent = counts.history;
+                document.getElementById('heritageCount').textContent = counts.heritage;
+                document.getElementById('geographyCount').textContent = counts.geography;
+                document.getElementById('cultureCount').textContent = counts.culture;
+                document.getElementById('figuresCount').textContent = counts.figures;
             }
             
             displayCurrentQuestion() {
@@ -1126,6 +1852,12 @@
                 // إلغاء تفعيل جميع الخيارات
                 options.forEach(opt => opt.style.pointerEvents = 'none');
                 
+                // تحديث إحصاءات الفئة
+                this.categoryStats[question.category].total++;
+                if (selectedIndex === question.correct) {
+                    this.categoryStats[question.category].correct++;
+                }
+                
                 // تلوين الإجابات
                 options.forEach((opt, index) => {
                     if (index === question.correct) {
@@ -1150,6 +1882,10 @@
             }
             
             skipQuestion() {
+                // تحديث إحصاءات الفئة للأسئلة المتخطاة
+                const question = this.questions[this.currentQuestion];
+                this.categoryStats[question.category].total++;
+                
                 this.currentQuestion++;
                 this.displayCurrentQuestion();
             }
@@ -1169,17 +1905,111 @@
                 const totalQuestions = this.questions.length;
                 const percentage = Math.round((correctAnswers / totalQuestions) * 100);
                 
+                // تحديد التقييم
+                let rating, message;
+                if (percentage >= 90) {
+                    rating = "ممتاز";
+                    message = "مستوى رائع! معرفتك بتاريخ المملكة متميزة جداً.";
+                } else if (percentage >= 70) {
+                    rating = "جيد جداً";
+                    message = "أحسنت! لديك معرفة جيدة بتاريخ المملكة.";
+                } else if (percentage >= 50) {
+                    rating = "جيد";
+                    message = "معرفتك مقبولة، يمكنك الاطلاع أكثر على تاريخ المملكة.";
+                } else {
+                    rating = "مقبول";
+                    message = "تحتاج لمزيد من التعلم عن تاريخ المملكة.";
+                }
+                
+                // تحديث النتائج
                 document.getElementById('resultsCorrect').textContent = `${correctAnswers}/${totalQuestions}`;
                 document.getElementById('resultsPercentage').textContent = `${percentage}%`;
+                document.getElementById('resultsRating').textContent = rating;
                 
+                // تحديث تفصيل الفئات
+                this.updateCategoryBreakdown();
+                
+                // عرض النافذة
                 document.getElementById('quizResultsModal').style.display = 'flex';
+            }
+            
+            updateCategoryBreakdown() {
+                const breakdownDiv = document.getElementById('categoryBreakdown');
+                let html = '';
+                
+                for (const [category, stats] of Object.entries(this.categoryStats)) {
+                    if (stats.total > 0) {
+                        const catPercentage = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
+                        html += `
+                            <div style="background-color: var(--white); padding: 1rem; border-radius: var(--border-radius);">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="font-weight: 600; color: var(--primary-dark);">${this.getCategoryName(category)}</span>
+                                    <span style="color: var(--primary-dark);">${stats.correct}/${stats.total}</span>
+                                </div>
+                                <div style="background-color: var(--light-gray); height: 8px; border-radius: 4px; overflow: hidden;">
+                                    <div style="width: ${catPercentage}%; height: 100%; background: linear-gradient(to right, var(--primary-light), var(--primary-dark)); border-radius: 4px;"></div>
+                                </div>
+                                <div style="text-align: left; margin-top: 0.5rem; color: var(--gray); font-size: 0.9rem;">
+                                    ${catPercentage}%
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+                
+                breakdownDiv.innerHTML = html;
+            }
+            
+            prepareCertificate() {
+                if (!this.userData.saved) {
+                    this.showAlert('يرجى إدخال بياناتك أولاً', 'error');
+                    return false;
+                }
+                
+                const correctAnswers = this.score;
+                const totalQuestions = this.questions.length;
+                const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+                
+                // تحديد التقييم والرسالة
+                let rating, message;
+                if (percentage >= 90) {
+                    rating = "ممتاز";
+                    message = "مستوى رائع! معرفتك بتاريخ المملكة متميزة جداً وتستحق الإشادة.";
+                } else if (percentage >= 70) {
+                    rating = "جيد جداً";
+                    message = "أحسنت! لديك معرفة جيدة بتاريخ المملكة يمكنك البناء عليها.";
+                } else if (percentage >= 50) {
+                    rating = "جيد";
+                    message = "معرفتك مقبولة، ننصحك بزيارة المعارض التاريخية لتعزيز معلوماتك.";
+                } else {
+                    rating = "مقبول";
+                    message = "تحتاج لمزيد من التعلم عن تاريخ المملكة، ابدأ رحلتك التعليمية الآن.";
+                }
+                
+                // تحديث بيانات الشهادة
+                document.getElementById('certificateName').textContent = this.userData.name;
+                document.getElementById('certificateId').textContent = this.userData.trainingNumber;
+                document.getElementById('certificateDate').textContent = new Date().toLocaleDateString('ar-SA');
+                document.getElementById('certificateQuestions').textContent = totalQuestions;
+                document.getElementById('certificateScore').textContent = `${correctAnswers}/${totalQuestions}`;
+                document.getElementById('certificatePercentage').textContent = `${percentage}%`;
+                document.getElementById('certificateRating').textContent = rating;
+                document.getElementById('certificateMessage').textContent = message;
+                
+                // إنشاء رمز شهادة فريد
+                const certificateCode = 'CERT-' + Date.now().toString().slice(-8) + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
+                document.getElementById('certificateCode').textContent = certificateCode;
+                
+                return true;
             }
             
             getCategoryIcon(category) {
                 const icons = {
                     history: 'landmark',
                     heritage: 'archway',
-                    geography: 'map'
+                    geography: 'map',
+                    culture: 'music',
+                    figures: 'users'
                 };
                 return icons[category] || 'question-circle';
             }
@@ -1188,7 +2018,9 @@
                 const names = {
                     history: 'التاريخ',
                     heritage: 'التراث',
-                    geography: 'الجغرافيا'
+                    geography: 'الجغرافيا',
+                    culture: 'الثقافة',
+                    figures: 'الشخصيات'
                 };
                 return names[category] || 'عام';
             }
@@ -1205,6 +2037,11 @@
                         // تحديث الروابط النشطة
                         document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
                         link.classList.add('active');
+                        
+                        // إذا كان القسم هو الاختبار، تأكد من تحميل السؤال
+                        if (targetId === 'dailyQuiz' && !this.quizCompleted) {
+                            this.displayCurrentQuestion();
+                        }
                     });
                 });
             }
@@ -1219,13 +2056,76 @@
         }
         
         // ===== وظائف عامة =====
+        function saveUserData() {
+            if (quiz) {
+                quiz.saveUserData();
+            }
+        }
+        
         function closeQuizResults() {
             document.getElementById('quizResultsModal').style.display = 'none';
         }
         
+        function showCertificate() {
+            if (quiz && quiz.prepareCertificate()) {
+                document.getElementById('certificateTemplate').style.display = 'block';
+                document.getElementById('quizResultsModal').style.display = 'none';
+            }
+        }
+        
+        function closeCertificate() {
+            document.getElementById('certificateTemplate').style.display = 'none';
+        }
+        
+        function printCertificate() {
+            window.print();
+        }
+        
+        async function downloadCertificatePDF() {
+            const certificateElement = document.querySelector('.certificate-content');
+            
+            try {
+                // استخدام html2canvas لالتقاط الشهادة كصورة
+                const canvas = await html2canvas(certificateElement, {
+                    scale: 2,
+                    backgroundColor: '#F8F4EF',
+                    useCORS: true,
+                    allowTaint: true
+                });
+                
+                const imgData = canvas.toDataURL('image/png');
+                
+                // إنشاء ملف PDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                
+                // حساب أبعاد الصورة لتناسب الصفحة
+                const imgWidth = pdfWidth - 20; // هامش 10 مم من كل جانب
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                // إضافة الصورة إلى PDF
+                pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+                
+                // حفظ الملف
+                const fileName = `شهادة_مشاركة_${quiz.userData.name}_${Date.now()}.pdf`;
+                pdf.save(fileName);
+                
+                // عرض رسالة نجاح
+                alert('تم حفظ الشهادة كملف PDF بنجاح!');
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('حدث خطأ أثناء حفظ الملف. يرجى المحاولة مرة أخرى.');
+            }
+        }
+        
         function restartQuiz() {
-            quiz = new SimpleQuiz();
-            closeQuizResults();
+            if (quiz) {
+                quiz = new EnhancedQuiz();
+                closeQuizResults();
+                closeCertificate();
+            }
         }
         
         function toggleMenu() {
@@ -1243,7 +2143,7 @@
         // تهيئة المسابقة
         let quiz;
         document.addEventListener('DOMContentLoaded', () => {
-            quiz = new SimpleQuiz();
+            quiz = new EnhancedQuiz();
             
             // إضافة تأثير التمرير لشريط التنقل
             window.addEventListener('scroll', () => {
@@ -1257,6 +2157,15 @@
                 }
             });
         });
+        
+        // وظائف الأسئلة (مكشوفة للاستخدام من الأزرار)
+        function skipQuestion() {
+            if (quiz) quiz.skipQuestion();
+        }
+        
+        function nextQuestion() {
+            if (quiz) quiz.nextQuestion();
+        }
     </script>
 </body>
 </html>
