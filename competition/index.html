@@ -1485,7 +1485,7 @@
         <div class="certificate-content">
             <div class="certificate-header">
                 <!-- شعار يوم التأسيس من ملف محلي -->
-                <img src="found.png" alt="شعار برنامج رحلة التأسيس" style="height: 320px; margin-bottom: 1rem; display: block; margin-left: auto; margin-right: auto;">
+                <img src="found.png" alt="شعار برنامج رحلة التأسيس" style="height: 240px; width: auto; margin-bottom: 1rem; display: block; margin-left: auto; margin-right: auto;">
                 <h2>شهادة مشاركة في مسابقة "باحثات التأسيس"</h2>
                 <p>برعاية برنامج رحلة التأسيس</p>
             </div>
@@ -2279,6 +2279,13 @@
                         if (logoImg) {
                             // إعادة تعيين مصدر الصورة للتأكد من تحميلها
                             logoImg.src = 'found.png';
+                             // تكبير الشعار 3 أضعاف
+        logoImg.style.height = '240px';
+        logoImg.style.width = 'auto';
+        logoImg.style.marginBottom = '1rem';
+        logoImg.style.display = 'block';
+        logoImg.style.marginLeft = 'auto';
+        logoImg.style.marginRight = 'auto';
                         }
                     }
                 });
