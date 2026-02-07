@@ -1387,14 +1387,14 @@
             pieceImages: {} // لتخزين صور القطع المقسمة
         };
 
-        // ===== البيانات الكاملة للألغاز مع الصور =====
+        // ===== البيانات الكاملة للألغاز مع الصور المناسبة - تم تحديث الروابط =====
         const puzzlesData = {
             historical: [
                 {
                     id: 1,
                     title: "قصر المصمك",
                     description: "قلعة تاريخية في الرياض، شهدت معركة استعادة الرياض عام ١٩٠٢م على يد الملك عبدالعزيز آل سعود.",
-                    image: "https://www.alriyadh.com/media/article/2021/05/02/img/7134989199.jpg",
+                    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Masmak_castle.jpg/500px-Masmak_castle.jpg",
                     year: "١٩٠٢م",
                     pieces: 9,
                     points: 500,
@@ -1424,18 +1424,18 @@
             cultural: [
                 {
                     id: 1,
-                    title: "السوق القديم",
-                    description: "سوق تقليدي يعكس التراث التجاري والتقليدي للمملكة.",
-                    image: "https://saudipedia.com/var/site/storage/images/3/2/4/1/2311423-1-ara-SA/7adf50810eb7-105213.jpg",
-                    year: "تقليدي",
+                    title: "سوق الرياض القديم",
+                    description: "سوق تاريخي تقليدي في الرياض بالأبيض والأسود، يعكس الحياة التجارية والتراثية القديمة.",
+                    image: "https://upload.wikimedia.org/wikipedia/commons/4/41/Souq_Ushaiger_Old_Riyadh_1965.jpg",
+                    year: "التاريخي",
                     pieces: 9,
                     points: 500,
-                    fact: "كانت الأسواق التقليدية مركزاً للتبادل التجاري والثقافي."
+                    fact: "كان سوق الرياض القديم المركز التجاري الرئيسي للمدينة قبل التطور العمراني الحديث."
                 },
                 {
                     id: 2,
                     title: "الفنون الشعبية",
-                    description: "عروض الفنون الشعبية السعودية التي تعكس التنوع الثقافي.",
+                    description: "عروض الفنون الشعبية السعودية التي تعكس التنوع الثقافي والتراثي.",
                     image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                     year: "تراثي",
                     pieces: 12,
@@ -1578,7 +1578,7 @@
             
             return new Promise((resolve) => {
                 const img = new Image();
-                img.crossOrigin = "anonymous";
+                img.crossOrigin = "Anonymous"; // مهم للسماح بتحميل الصور عبر CORS
                 img.src = gameState.currentPuzzle.image;
                 
                 img.onload = function() {
@@ -1618,12 +1618,68 @@
                 };
                 
                 img.onerror = function() {
-                    // إذا فشل تحميل الصورة، استخدام صورة بديلة
                     console.warn('فشل تحميل الصورة، استخدام صورة بديلة');
-                    for (let i = 0; i < gameState.totalPieces; i++) {
-                        gameState.pieceImages[i] = 'https://via.placeholder.com/100/6B4E45/DEC9B2?text=' + (i+1);
-                    }
-                    resolve();
+                    // استخدام صورة بديلة من موقع يسمح بالوصول عبر CORS
+                    const fallbackImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Al_Masmak.jpg/800px-Al_Masmak.jpg";
+                    
+                    const fallbackImg = new Image();
+                    fallbackImg.crossOrigin = "Anonymous";
+                    fallbackImg.src = fallbackImage;
+                    
+                    fallbackImg.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        const gridSize = sizeMap[gameState.difficulty];
+                        const pieceWidth = fallbackImg.width / gridSize;
+                        const pieceHeight = fallbackImg.height / gridSize;
+                        
+                        for (let row = 0; row < gridSize; row++) {
+                            for (let col = 0; col < gridSize; col++) {
+                                const pieceIndex = row * gridSize + col;
+                                canvas.width = pieceWidth;
+                                canvas.height = pieceHeight;
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                ctx.drawImage(
+                                    fallbackImg,
+                                    col * pieceWidth,
+                                    row * pieceHeight,
+                                    pieceWidth,
+                                    pieceHeight,
+                                    0,
+                                    0,
+                                    pieceWidth,
+                                    pieceHeight
+                                );
+                                gameState.pieceImages[pieceIndex] = canvas.toDataURL('image/jpeg');
+                            }
+                        }
+                        resolve();
+                    };
+                    
+                    fallbackImg.onerror = function() {
+                        // إذا فشلت الصورة البديلة، إنشاء قطع ملونة
+                        for (let i = 0; i < gameState.totalPieces; i++) {
+                            const canvas = document.createElement('canvas');
+                            canvas.width = 100;
+                            canvas.height = 100;
+                            const ctx = canvas.getContext('2d');
+                            
+                            // إنشاء لون عشوائي
+                            const hue = (i * 30) % 360;
+                            ctx.fillStyle = `hsl(${hue}, 70%, 70%)`;
+                            ctx.fillRect(0, 0, 100, 100);
+                            
+                            // إضافة رقم القطعة
+                            ctx.fillStyle = 'white';
+                            ctx.font = '20px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText((i + 1).toString(), 50, 50);
+                            
+                            gameState.pieceImages[i] = canvas.toDataURL('image/jpeg');
+                        }
+                        resolve();
+                    };
                 };
             });
         }
@@ -1717,7 +1773,10 @@
 
         // ===== 6. إدارة السحب والإفلات =====
         function handleDragStart(e) {
-            const pieceId = parseInt(e.target.closest('.puzzle-piece').dataset.id);
+            const pieceElement = e.target.closest('.puzzle-piece');
+            if (!pieceElement) return;
+            
+            const pieceId = parseInt(pieceElement.dataset.id);
             const piece = gameState.pieces.find(p => p.id === pieceId);
             
             if (!piece || piece.isPlaced) {
@@ -1726,7 +1785,7 @@
             }
             
             gameState.draggedPiece = piece;
-            e.target.closest('.puzzle-piece').classList.add('dragging');
+            pieceElement.classList.add('dragging');
             e.dataTransfer.setData('text/plain', pieceId.toString());
             e.dataTransfer.effectAllowed = 'move';
             
@@ -1762,11 +1821,14 @@
 
         function handleDrop(e) {
             e.preventDefault();
-            e.target.classList.remove('hover');
+            const cell = e.target.closest('.puzzle-cell');
+            if (!cell) return;
+            
+            cell.classList.remove('hover');
             
             if (!gameState.draggedPiece) return;
             
-            const cellIndex = parseInt(e.target.dataset.index);
+            const cellIndex = parseInt(cell.dataset.index);
             
             if (gameState.board[cellIndex] !== null) {
                 showFeedback('هذه الخلية مشغولة بالفعل!', 'warning');
