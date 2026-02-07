@@ -1129,7 +1129,8 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <img src="https://www.foundingday.sa/-/media/FoundingDay/images/Header/Header-logo.svg" alt="شعار يوم التأسيس" class="logo-img">
+                <!-- شعار المسابقة - استبدل found.png بشعارك الفعلي -->
+                <img src="found.png" alt="شعار برنامج رحلة التأسيس" class="logo-img">
                 <span class="logo-text">رحلة التأسيس</span>
             </div>
             
@@ -1483,9 +1484,9 @@
     <div id="certificateTemplate">
         <div class="certificate-content">
             <div class="certificate-header">
-                <img src="https://www.foundingday.sa/-/media/FoundingDay/images/Header/Header-logo.svg" alt="شعار يوم التأسيس" style="height: 80px; margin-bottom: 1rem;">
-                <h2>شهادة مشاركة في مسابقة</h2>
-                <h2>"باحثات التأسيس"</h2>
+                <!-- شعار يوم التأسيس من ملف محلي -->
+                <img src="found.png" alt="شعار برنامج رحلة التأسيس" style="height: 80px; margin-bottom: 1rem; display: block; margin-left: auto; margin-right: auto;">
+                <h2>شهادة مشاركة في مسابقة "باحثات التأسيس"</h2>
                 <p>برعاية برنامج رحلة التأسيس</p>
             </div>
             
@@ -2258,11 +2259,11 @@
                 document.querySelector('.certificate-actions .btn-primary').innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحضير...';
                 document.querySelector('.certificate-actions .btn-primary').disabled = true;
                 
-                // استخدام html2canvas لالتقاط الشهادة كصورة مع جميع المحتويات
+                // استخدام html2canvas لالتقاط الشهادة كصورة
                 const canvas = await html2canvas(certificateElement, {
                     scale: 3, // زيادة الدقة
                     backgroundColor: '#F8F4EF',
-                    useCORS: true,
+                    useCORS: true, // السماح بتحميل الصور من نفس المصدر
                     logging: false,
                     allowTaint: true,
                     onclone: function(clonedDoc) {
@@ -2272,6 +2273,13 @@
                         clonedCert.style.height = '1123px'; // ارتفاع A4 بالبكسل (297mm * 3.78)
                         clonedCert.style.padding = '40px';
                         clonedCert.style.border = '20px solid #6B4E45';
+                        
+                        // التأكد من تحميل الصورة في العنصر المستنسخ
+                        const logoImg = clonedCert.querySelector('img');
+                        if (logoImg) {
+                            // إعادة تعيين مصدر الصورة للتأكد من تحميلها
+                            logoImg.src = 'found.png';
+                        }
                     }
                 });
                 
