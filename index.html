@@ -976,12 +976,7 @@
                     </div>
                 </div>
                 <a href="competition/index.html" class="nav-link"><i class="fas fa-trophy"></i> المسابقة</a>
-                <div class="dropdown">
-                    <a href="#" class="nav-link"><i class="fas fa-gamepad"></i> الألعاب</a>
-                    <div class="dropdown-content">
-                        <a href="games/puzzle.html">البازل الزمني</a>
-                    </div>
-                </div>
+                <a href="#games" class="nav-link"><i class="fas fa-gamepad"></i> الألعاب</a>
             </div>
             
             <button class="menu-toggle" onclick="toggleMenu()" aria-label="قائمة التنقل">
@@ -1186,15 +1181,11 @@
     </footer>
 
     <script>
-        // تطبيق رحلة التأسيس - JavaScript الرئيسي
-
         document.addEventListener('DOMContentLoaded', function() {
-            // تهيئة جميع المكونات
             initCountdown();
             initNavigation();
             initTabs();
             
-            // إغلاق القائمة عند النقر خارجها
             document.addEventListener('click', function(event) {
                 const navMenu = document.querySelector('.nav-menu');
                 const menuToggle = document.querySelector('.menu-toggle');
@@ -1206,7 +1197,6 @@
                 }
             });
             
-            // إضافة تأثير للموقع عند التمرير
             window.addEventListener('scroll', () => {
                 const navbar = document.querySelector('.navbar');
                 if (window.scrollY > 100) {
@@ -1218,15 +1208,12 @@
                 }
             });
             
-            // تحسين تجربة الهواتف
             if ('ontouchstart' in window || navigator.maxTouchPoints) {
                 document.body.classList.add('touch-device');
             }
         });
 
-        // 1. العد التنازلي ليوم التأسيس
         function initCountdown() {
-            // تاريخ يوم التأسيس 22 فبراير 2026
             const foundingDay = new Date('February 22, 2026 00:00:00').getTime();
             
             function updateCountdown() {
@@ -1239,7 +1226,6 @@
                     const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
                     const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
                     
-                    // تنسيق الأرقام العربية
                     document.getElementById('days').textContent = days.toLocaleString('ar-SA');
                     document.getElementById('hours').textContent = hours.toLocaleString('ar-SA', {minimumIntegerDigits: 2});
                     document.getElementById('minutes').textContent = minutes.toLocaleString('ar-SA', {minimumIntegerDigits: 2});
@@ -1256,7 +1242,6 @@
             setInterval(updateCountdown, 1000);
         }
 
-        // 2. تبويبات المعارض (لعرض المعارض في الصفحة الرئيسية)
         function initTabs() {
             const tabBtns = document.querySelectorAll('.exhibits-tabs .tab-btn');
             const tabContents = document.querySelectorAll('.tab-content');
@@ -1265,18 +1250,14 @@
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
                     
-                    // إزالة النشاط من جميع الأزرار
                     tabBtns.forEach(b => b.classList.remove('active'));
-                    // إضافة النشاط للزر المختار
                     this.classList.add('active');
                     
-                    // إخفاء جميع المحتويات
                     tabContents.forEach(content => {
                         content.style.display = 'none';
                         content.classList.remove('active');
                     });
                     
-                    // إظهار المحتوى المحدد
                     const tabId = this.getAttribute('href').split('/').pop().replace('.html', '');
                     const activeContent = document.getElementById(`${tabId}-tab`);
                     if (activeContent) {
@@ -1286,7 +1267,6 @@
                         }, 10);
                     }
                     
-                    // إغلاق القائمة المتنقلة على الهواتف
                     if (window.innerWidth <= 768) {
                         document.querySelector('.nav-menu').classList.remove('active');
                     }
@@ -1294,25 +1274,20 @@
             });
         }
 
-        // 3. التنقل
         function initNavigation() {
-            // تبديل القائمة المتنقلة
             window.toggleMenu = function() {
                 const navMenu = document.querySelector('.nav-menu');
                 navMenu.classList.toggle('active');
             };
             
-            // التنقل السلس للروابط الداخلية
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     const targetId = this.getAttribute('href');
                     if (targetId === '#') return;
                     
-                    // إذا كان الرابط يبدأ بـ #، فهو رابط داخلي
                     if (targetId.startsWith('#')) {
                         const targetElement = document.querySelector(targetId);
                         if (targetElement) {
-                            // إغلاق القائمة المتنقلة إذا كانت مفتوحة
                             document.querySelector('.nav-menu').classList.remove('active');
                             
                             window.scrollTo({
@@ -1326,7 +1301,6 @@
                 });
             });
             
-            // إغلاق القائمة عند النقر على رابط
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', () => {
                     if (window.innerWidth <= 768) {
@@ -1336,7 +1310,6 @@
             });
         }
 
-        // 4. عرض الإشعارات
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
             notification.className = `notification notification-${type}`;
@@ -1366,9 +1339,7 @@
             }, 3000);
         }
 
-        // 5. تحسينات للهواتف
         function initMobileOptimizations() {
-            // منع التكبير المزدوج على الهواتف
             let lastTouchEnd = 0;
             document.addEventListener('touchend', function(event) {
                 const now = (new Date()).getTime();
@@ -1378,7 +1349,6 @@
                 lastTouchEnd = now;
             }, false);
             
-            // إضافة touch events للأزرار
             document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
                 btn.addEventListener('touchstart', function() {
                     this.style.transform = 'scale(0.98)';
@@ -1390,10 +1360,8 @@
             });
         }
 
-        // تهيئة تحسينات الهواتف
         initMobileOptimizations();
 
-        // إضافة أنماط للرسوم المتحركة للإشعارات
         const style = document.createElement('style');
         style.textContent = `
             @keyframes slideInRight {
